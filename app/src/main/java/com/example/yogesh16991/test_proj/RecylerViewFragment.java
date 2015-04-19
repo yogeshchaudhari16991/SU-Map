@@ -26,7 +26,7 @@ import org.json.JSONException;
  */
 public class RecylerViewFragment extends Fragment {
     private static final String ARG_MOVIE = "movie";
-    MovieDataJson movieData;
+
         RecyclerView recyclerView;
     OnFragmentInteractionListener mListener = null;
 
@@ -48,13 +48,7 @@ public class RecylerViewFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //setHasOptionsMenu(true);
         setRetainInstance(true);
-        try {
-            movieData = new MovieDataJson(getActivity());
-        }
-        catch(JSONException e)
-        {
-            e.printStackTrace();
-        }
+
     }
 
     @Override
@@ -72,7 +66,7 @@ public class RecylerViewFragment extends Fragment {
                 rootView = inflater.inflate(R.layout.fragment_recycler_view, container, false);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.listview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(), movieData.getMoviesList(),0);
+                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity());
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
                 break;
@@ -80,7 +74,7 @@ public class RecylerViewFragment extends Fragment {
                 rootView = inflater.inflate(R.layout.fragment_recycler_view, container, false);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.listview);
                 recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),4));
-                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(), movieData.getMoviesList(),1);
+                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity());
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
                 break;
@@ -88,7 +82,7 @@ public class RecylerViewFragment extends Fragment {
                 rootView = inflater.inflate(R.layout.fragment_recycler_view, container, false);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.listview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(), movieData.getMoviesList(),0);
+                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity());
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
                 break;

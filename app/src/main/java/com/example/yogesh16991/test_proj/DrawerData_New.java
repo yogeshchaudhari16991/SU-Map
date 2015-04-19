@@ -28,12 +28,11 @@ public class DrawerData_New {
     public DrawerData_New() {
         List = new ArrayList<Map<String,?>>();
 
-        List.add(createList("Dialog",R.drawable.abc_btn_radio_material,1));
-        List.add(createList("MovieList LinearLayout",R.drawable.abc_btn_radio_material,1));
-        List.add(createList("MovieList GridLayout",R.drawable.abc_btn_radio_material,1));
+        List.add(createList("Favourite List",R.drawable.abc_btn_radio_material,1));
+        List.add(createList("Event List",R.drawable.abc_btn_radio_material,1));
+        List.add(createList("Add Event",R.drawable.abc_btn_radio_material,1));
         List.add(createList(null,R.drawable.abc_btn_radio_material,2));
-        List.add(createList("About Me",0,3));
-        List.add(createList("Hello World",0,3));
+        List.add(createList("About Us",0,3));
         List.add(createList("Exit",0,3));
 
     }
