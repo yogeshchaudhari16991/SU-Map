@@ -13,7 +13,8 @@ android:elevation="7dp"
     android:id="@+id/linear">
 
     <include android:id="@+id/toolbar"
-        layout = "@layout/toolbar">
+        layout = "@layout/toolbar"
+        >
     </include>
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
