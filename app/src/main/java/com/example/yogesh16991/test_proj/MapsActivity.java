@@ -1,5 +1,6 @@
 package com.example.yogesh16991.test_proj;
 
+import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -13,16 +14,30 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends ActionBarActivity {
+import java.util.Date;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class MapsActivity extends ActionBarActivity implements MyDialogFragment.OnFragmentInteractionListener {
 
 
 
@@ -33,12 +48,14 @@ public class MapsActivity extends ActionBarActivity {
     RecyclerView mDrawerlist;
     MyDrawerRecyclerViewAdapter myDrawerRecyclerViewAdapter;
     RelativeLayout mDrawer;
+    LinearLayout activity;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private ActionBarDrawerToggle actionBarDrawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        activity = (LinearLayout) findViewById(R.id.linear);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
 
@@ -159,7 +176,93 @@ public class MapsActivity extends ActionBarActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(43.039, -76.135)).title("Syracuse University"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.039,-76.135), 17));
+        try {
+            readItems();
+        } catch (JSONException e) {
+            Toast.makeText(this, "Problem reading list of markers.", Toast.LENGTH_LONG).show();
+        }
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+        {
+
+            @Override
+            public boolean onMarkerClick(Marker arg0) {
+                /*
+                if(arg0.getTitle().equals("Syracuse University")) // if marker source is clicked
+                    Toast.makeText(MapsActivity.this, arg0.getTitle(), Toast.LENGTH_SHORT).show();// display toast
+                */
+                /*
+                Date date=new Date(System.currentTimeMillis());
+                MyDialogFragment dialog= MyDialogFragment.newInstance(date);
+                dialog.setTargetFragment(DialogFragment.newInstance(), 0);
+                dialog.show(getSupportFragmentManager(),"Datepicker Dialog");
+                */
+                final Marker arg01 = arg0;
+
+                ImageView imageView = (ImageView)activity.findViewById(R.id.tool_btn1);
+                imageView.setVisibility(View.VISIBLE);
+                imageView.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), arg01.getTitle(), Toast.LENGTH_SHORT).show();
+                        Date date=new Date(System.currentTimeMillis());
+                        MyDialogFragment dialog= MyDialogFragment.newInstance(date,arg01);
+                        dialog.show(getSupportFragmentManager(),"Datepicker Dialog");
+                    }
+                });
+                ImageView imageView2 = (ImageView)activity.findViewById(R.id.tool_btn2);
+                imageView2.setVisibility(View.VISIBLE);
+                imageView2.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(),"'list' icon selected", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                ImageView imageView3 = (ImageView)activity.findViewById(R.id.tool_btn3);
+                imageView3.setVisibility(View.VISIBLE);
+                imageView3.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(),"'plus' icon selected", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                
+                return true;
+            }
+
+        });
     }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //nothing
+    }
+
+    private void readItems()
+            throws JSONException {
+        InputStream inputStream = getResources().openRawResource(R.raw.radar_search);
+        read(inputStream);
+       // List<JsonReader.MyItem> items = new JsonReader().read(inputStream);
+
+    }
+
+
+    private static final String REGEX_INPUT_BOUNDARY_BEGINNING = "\\A";
+
+    public void read(InputStream inputStream) throws JSONException {
+        String json = new Scanner(inputStream).useDelimiter(REGEX_INPUT_BOUNDARY_BEGINNING).next();
+        JSONArray array = new JSONArray(json);
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject object = array.getJSONObject(i);
+            double lat = object.getDouble("lat");
+            double lng = object.getDouble("lng");
+            String Pname = object.getString("title");
+            mMap.addMarker(new MarkerOptions().position(new LatLng(lat,lng)).title(Pname));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng), 17));
+        }
+    }
+
+
 }

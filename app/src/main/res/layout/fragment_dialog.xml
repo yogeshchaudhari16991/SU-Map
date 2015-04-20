@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=""
+    android:background="#92fb5400">
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contact Dialog Box"
+        android:id="@+id/btn_contact"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="1dp"
+        android:layout_centerHorizontal="true"
+        android:background="#92fb5400" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity Dialog Box"
+        android:layout_margin="1dp"
+        android:id="@+id/btn_activity"
+        android:layout_above="@+id/btn_contact"
+        android:layout_centerHorizontal="true"
+        android:background="#92fb5400" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Simple Dialog Box"
+        android:id="@+id/btn_dialog"
+        android:layout_margin="1dp"
+        android:layout_above="@+id/btn_activity"
+        android:layout_centerHorizontal="true"
+        android:background="#92fb5400" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Result 1:"
+        android:id="@+id/textView2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/result"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Result 3:"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/result"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/result2"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Result 2:"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/result2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/result3"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

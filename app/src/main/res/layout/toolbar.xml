@@ -4,10 +4,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar"
-       android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:background="@color/background_material_dark">
-
-
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center_horizontal"
+        android:background="#00FFFFFF">
 
     </android.support.v7.widget.Toolbar>
