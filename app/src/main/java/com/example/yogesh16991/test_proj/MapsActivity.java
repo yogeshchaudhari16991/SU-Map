@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MapsActivity extends ActionBarActivity implements MyDialogFragment.OnFragmentInteractionListener {
+public class MapsActivity extends ActionBarActivity implements MyDialogFragment.OnFragmentInteractionListener,EventList.OnFragmentInteractionListener {
 
 
 
@@ -59,7 +59,7 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
 
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.container);
         mDrawer = (RelativeLayout)findViewById(R.id.navigation_drawer);
         mDrawerlist = (RecyclerView) findViewById(R.id.drawer_list);
         mDrawerlist.setHasFixedSize(true);
