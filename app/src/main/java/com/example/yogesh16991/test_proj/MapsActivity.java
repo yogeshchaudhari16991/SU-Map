@@ -169,6 +169,9 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getApplicationContext(), arg01.getTitle(), Toast.LENGTH_SHORT).show();
+                        Date date=new Date(System.currentTimeMillis());
+                        MyDialogFragment dialog= MyDialogFragment.newInstance(date,arg01);
+                        dialog.show(getSupportFragmentManager(),"Datepicker Dialog");
                     }
                 });
                 ImageView imageView2 = (ImageView)activity.findViewById(R.id.tool_btn2);
