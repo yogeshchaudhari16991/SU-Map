@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Test_Proj</string>
     <string name="title_activity_maps">Map</string>
     <string name="action_settings">Settings</string>
@@ -9,4 +11,6 @@
     <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">drawer open</string>
     <string name="navigation_drawer_close">drawer close</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -53,7 +53,7 @@ public class MapsActivity extends ActionBarActivity {
             @Override
             public void onItemClick(View view, int position) {
 
-               // selectItem(position);
+                selectItem(position);
             }
 
         });
@@ -72,7 +72,43 @@ public class MapsActivity extends ActionBarActivity {
         mDrawerToggle.syncState();
         setUpMapIfNeeded();
     }
-
+    private void selectItem(int position) {
+        switch (position){
+            case 0:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, getSupportFragmentManager().findFragmentById(R.id.map))
+                        .commit();
+                break;
+            case 1:
+               /* getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container,RecylerViewFragment.newInstance(0))
+                        .commit();*/
+                break;
+            case 2:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container,EventList.newInstance(0))
+                        .commit();
+                break;
+            case 4:
+                /*getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, new about_me())
+                        .commit();*/
+                break;
+            case 5:
+               /* getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, new settingsfrag())
+                        .commit();*/
+                break;
+            case 6:
+               /* getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, new ExitFrag())
+                        .commit();*/
+                break;
+            default:
+                break;
+        }
+        mDrawerLayout.closeDrawer(mDrawer);
+    }
 
 
     @Override

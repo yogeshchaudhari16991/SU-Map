@@ -11,20 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.json.JSONException;
-
 //import android.app.Fragment;
 
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link RecylerViewFragment.OnFragmentInteractionListener} interface
+ * {@link EventList.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link RecylerViewFragment#newInstance} factory method to
+ * Use the {@link EventList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecylerViewFragment extends Fragment {
+public class EventList extends Fragment {
     private static final String ARG_MOVIE = "movie";
 
         RecyclerView recyclerView;
@@ -32,14 +30,14 @@ public class RecylerViewFragment extends Fragment {
 
         private static final String OPTION = "option";
 
-    public static RecylerViewFragment newInstance(int option) {
-      RecylerViewFragment fragment = new RecylerViewFragment();
+    public static EventList newInstance(int option) {
+      EventList fragment = new EventList();
         Bundle args = new Bundle();
         args.putInt(OPTION, option);
         fragment.setArguments(args);
         return fragment;
     }
-    public RecylerViewFragment() {
+    public EventList() {
         // Required empty public constructor
     }
 

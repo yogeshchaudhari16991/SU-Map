@@ -28,9 +28,10 @@ public class DrawerData_New {
     public DrawerData_New() {
         List = new ArrayList<Map<String,?>>();
 
-        List.add(createList("Favourite List",R.drawable.abc_btn_radio_material,1));
-        List.add(createList("Event List",R.drawable.abc_btn_radio_material,1));
-        List.add(createList("Add Event",R.drawable.abc_btn_radio_material,1));
+        List.add(createList("Map View",R.drawable.map_icon,1));
+        List.add(createList("Favourites",R.drawable.favorite_icon,1));
+        List.add(createList("List All Events",R.drawable.eventlist_icon,1));
+        List.add(createList("Add Event",R.drawable.addevent_icon,1));
         List.add(createList(null,R.drawable.abc_btn_radio_material,2));
         List.add(createList("About Us",0,3));
         List.add(createList("Exit",0,3));

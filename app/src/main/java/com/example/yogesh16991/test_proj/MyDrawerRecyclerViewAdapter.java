@@ -24,7 +24,7 @@ public class MyDrawerRecyclerViewAdapter extends RecyclerView.Adapter<MyDrawerRe
     public MyDrawerRecyclerViewAdapter(Context mycontext, List<Map<String, ?>> myDataset) {
         context = mycontext;
         mList = myDataset;
-        mCurrentPosition = 4;
+        mCurrentPosition = 0;
 
     }
 
