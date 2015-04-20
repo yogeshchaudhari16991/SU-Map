@@ -13,6 +13,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.Marker;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -33,6 +35,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
     public static final String ARGS_NAME = "name";
     public static final String ARGS_CHECK = "check";
 
+    private static Marker marker;
     private Date mdate;
     private String mname;
      private String check;
@@ -50,11 +53,11 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
      * @return A new instance of fragment MyDialogFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyDialogFragment newInstance(Date date) {
+    public static MyDialogFragment newInstance(Date date, Marker mark) {
         MyDialogFragment fragment = new MyDialogFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARGS_DATE, date);
-
+        marker = mark;
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,27 +70,17 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mdate = (Date) getArguments().getSerializable(ARGS_DATE);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(mdate);
-        int year =calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day= calendar.get(Calendar.DAY_OF_MONTH);
-
-
 
         View v = getActivity().getLayoutInflater().inflate(R.layout.fragment_my_dialog,null);
 
-        final EditText mEdit = (EditText)v.findViewById(R.id.editText);
-        final CheckBox checkBox= (CheckBox)v.findViewById(R.id.checkBox);
-
         AlertDialog.Builder alertDialogBuilder =new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(v)
-                .setTitle("Dialog Demo")
-                .setMessage("Select your birthdate")
+                .setTitle("Place Info")
+                .setMessage("Place Information")
                 .setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getActivity(), "nothing returned", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), marker.getTitle(), Toast.LENGTH_SHORT).show();
                     }
                 });
         return alertDialogBuilder.create();
