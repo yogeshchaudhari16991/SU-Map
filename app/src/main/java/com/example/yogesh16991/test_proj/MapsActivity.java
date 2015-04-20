@@ -1,6 +1,5 @@
 package com.example.yogesh16991.test_proj;
 
-import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -28,8 +27,16 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Date;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class MapsActivity extends ActionBarActivity implements MyDialogFragment.OnFragmentInteractionListener {
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class MapsActivity extends ActionBarActivity {
 
 
 
@@ -132,6 +139,11 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
+        try {
+            readItems();
+        } catch (JSONException e) {
+            Toast.makeText(this, "Problem reading list of markers.", Toast.LENGTH_LONG).show();
+        }
         mMap.addMarker(new MarkerOptions().position(new LatLng(43.039153, -76.135116)).title("Syracuse University"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.039153, -76.135116), 17));
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
@@ -176,7 +188,7 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
                         Toast.makeText(getApplicationContext(),"'plus' icon selected", Toast.LENGTH_SHORT).show();
                     }
                 });
-
+                
                 return true;
             }
 
@@ -187,4 +199,29 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
     public void onFragmentInteraction(Uri uri) {
         //nothing
     }
+
+    private void readItems()
+            throws JSONException {
+        InputStream inputStream = getResources().openRawResource(R.raw.radar_search);
+        read(inputStream);
+       // List<JsonReader.MyItem> items = new JsonReader().read(inputStream);
+
+    }
+
+
+    private static final String REGEX_INPUT_BOUNDARY_BEGINNING = "\\A";
+
+    public void read(InputStream inputStream) throws JSONException {
+        String json = new Scanner(inputStream).useDelimiter(REGEX_INPUT_BOUNDARY_BEGINNING).next();
+        JSONArray array = new JSONArray(json);
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject object = array.getJSONObject(i);
+            double lat = object.getDouble("lat");
+            double lng = object.getDouble("lng");
+            String Pname = object.getString("title");
+            mMap.addMarker(new MarkerOptions().position(new LatLng(lat,lng)).title(Pname));
+        }
+    }
+
+
 }
