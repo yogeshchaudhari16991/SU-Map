@@ -1,5 +1,6 @@
 package com.example.yogesh16991.test_proj;
 
+import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MapsActivity extends ActionBarActivity {
+public class MapsActivity extends ActionBarActivity implements MyDialogFragment.OnFragmentInteractionListener {
 
 
 
@@ -144,8 +145,6 @@ public class MapsActivity extends ActionBarActivity {
         } catch (JSONException e) {
             Toast.makeText(this, "Problem reading list of markers.", Toast.LENGTH_LONG).show();
         }
-        mMap.addMarker(new MarkerOptions().position(new LatLng(43.039153, -76.135116)).title("Syracuse University"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.039153, -76.135116), 17));
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
         {
 
@@ -161,13 +160,15 @@ public class MapsActivity extends ActionBarActivity {
                 dialog.setTargetFragment(DialogFragment.newInstance(), 0);
                 dialog.show(getSupportFragmentManager(),"Datepicker Dialog");
                 */
+                final Marker arg01 = arg0;
+
                 ImageView imageView = (ImageView)activity.findViewById(R.id.tool_btn1);
                 imageView.setVisibility(View.VISIBLE);
                 imageView.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "'info' icon selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), arg01.getTitle(), Toast.LENGTH_SHORT).show();
                     }
                 });
                 ImageView imageView2 = (ImageView)activity.findViewById(R.id.tool_btn2);
@@ -220,6 +221,7 @@ public class MapsActivity extends ActionBarActivity {
             double lng = object.getDouble("lng");
             String Pname = object.getString("title");
             mMap.addMarker(new MarkerOptions().position(new LatLng(lat,lng)).title(Pname));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng), 17));
         }
     }
 
