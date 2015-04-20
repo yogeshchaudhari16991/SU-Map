@@ -20,10 +20,12 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
 
     private Context context;
     private OnItemClickListener mitemClickListener;
+    List<Map<String, ?>> mDataset;
 
 
-    public myRecyclerViewAdapter(Context mycontext) {
+    public myRecyclerViewAdapter(Context mycontext,List<Map<String, ?>> myDataset) {
         context = mycontext;
+         mDataset= myDataset;
 
     }
 
@@ -42,7 +44,8 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        //nothing
+        Map<String, ?> event = mDataset.get(position);
+        viewHolder.bindEventData(event);
     }
 
     @Override
@@ -54,12 +57,13 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
 
 
     public int getItemCount() {
-        return 0;
+        return mDataset.size();
     }
     //@Override
     public Object getItem(int position) {
-        return null;
+        return mDataset.get(position);
     }
+
     public interface OnItemClickListener {
         public void onItemClick(View view, int position);
         public void onItemLongClick(View view, int position);
@@ -79,14 +83,47 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        public TextView title;
+        public TextView desit;
+
 
         public ViewHolder(View v) {
             super(v);
+                title = (TextView) v.findViewById(R.id.name);
+                desit = (TextView) v.findViewById(R.id.desit);
 
-        }
 
-        public void bindMovieData() {
 
+
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mitemClickListener != null) {
+                            mitemClickListener.onItemClick(v, getPosition());
+                        }
+                    }
+                });
+
+                v.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (mitemClickListener != null) {
+                            mitemClickListener.onItemLongClick(v, getPosition());
+                        }
+                        return true;
+                    }
+                });
+
+                }
+
+
+
+
+        public void bindEventData(Map<String,?>event) {
+            if(title!=null)
+                title.setText((String) event.get("title"));
+            if(desit!=null)
+               desit.setText((String) event.get("desit"));
         }
 
 

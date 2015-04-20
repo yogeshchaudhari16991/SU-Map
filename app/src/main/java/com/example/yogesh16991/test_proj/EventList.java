@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+
 //import android.app.Fragment;
 
 
@@ -24,7 +26,7 @@ import android.view.ViewGroup;
  */
 public class EventList extends Fragment {
     private static final String ARG_MOVIE = "movie";
-
+EventDetailsJSon eventData;
         RecyclerView recyclerView;
     OnFragmentInteractionListener mListener = null;
 
@@ -45,6 +47,13 @@ public class EventList extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setHasOptionsMenu(true);
+        try {
+            eventData = new EventDetailsJSon(getActivity());
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
         setRetainInstance(true);
 
     }
@@ -61,26 +70,26 @@ public class EventList extends Fragment {
 
         switch (option){
             case 0:
-                rootView = inflater.inflate(R.layout.fragment_recycler_view, container, false);
+                rootView = inflater.inflate(R.layout.fragment_event_list, container, false);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.listview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity());
+                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(),eventData.getEventsList());
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
                 break;
             case 1:
-                rootView = inflater.inflate(R.layout.fragment_recycler_view, container, false);
+                rootView = inflater.inflate(R.layout.fragment_event_list, container, false);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.listview);
                 recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),4));
-                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity());
+                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(),eventData.getEventsList());
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
                 break;
             default:
-                rootView = inflater.inflate(R.layout.fragment_recycler_view, container, false);
+                rootView = inflater.inflate(R.layout.fragment_event_list, container, false);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.listview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity());
+                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(),eventData.getEventsList());
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
                 break;
