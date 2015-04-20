@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +81,7 @@ EventDetailsJSon eventData;
             case 1:
                 rootView = inflater.inflate(R.layout.fragment_event_list, container, false);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.listview);
-                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),4));
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL));
                 recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(),eventData.getEventsList());
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);

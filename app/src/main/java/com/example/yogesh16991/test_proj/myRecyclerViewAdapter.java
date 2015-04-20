@@ -89,7 +89,7 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
 
         public ViewHolder(View v) {
             super(v);
-                title = (TextView) v.findViewById(R.id.name);
+                title = (TextView) v.findViewById(R.id.title);
                 desit = (TextView) v.findViewById(R.id.desit);
 
 

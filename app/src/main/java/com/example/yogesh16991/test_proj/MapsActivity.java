@@ -93,17 +93,20 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
         switch (position){
             case 0:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, getSupportFragmentManager().findFragmentById(R.id.map))
+                        .replace(R.id.mainfrag, getSupportFragmentManager().findFragmentById(R.id.mainfrag))
+                        .addToBackStack(null)
                         .commit();
                 break;
             case 1:
-               /* getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container,RecylerViewFragment.newInstance(0))
-                        .commit();*/
+               getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.mainfrag,EventList.newInstance(1))
+                       .addToBackStack(null)
+                        .commit();
                 break;
             case 2:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container,EventList.newInstance(0))
+                        .replace(R.id.mainfrag,EventList.newInstance(0))
+                        .addToBackStack(null)
                         .commit();
                 break;
             case 4:
