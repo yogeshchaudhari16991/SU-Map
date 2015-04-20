@@ -145,6 +145,19 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
         } catch (JSONException e) {
             Toast.makeText(this, "Problem reading list of markers.", Toast.LENGTH_LONG).show();
         }
+
+        final ImageView imageView = (ImageView)activity.findViewById(R.id.tool_btn1);
+        final ImageView imageView2 = (ImageView)activity.findViewById(R.id.tool_btn2);
+        final ImageView imageView3 = (ImageView)activity.findViewById(R.id.tool_btn3);
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                imageView.setVisibility(View.INVISIBLE);
+                imageView2.setVisibility(View.INVISIBLE);
+                imageView3.setVisibility(View.INVISIBLE);
+            }
+        });
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
         {
 
@@ -162,28 +175,27 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
                 */
                 final Marker arg01 = arg0;
 
-                ImageView imageView = (ImageView)activity.findViewById(R.id.tool_btn1);
                 imageView.setVisibility(View.VISIBLE);
                 imageView.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), arg01.getTitle(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), arg01.getTitle(), Toast.LENGTH_SHORT).show();
                         Date date=new Date(System.currentTimeMillis());
-                        MyDialogFragment dialog= MyDialogFragment.newInstance(date,arg01);
-                        dialog.show(getSupportFragmentManager(),"Datepicker Dialog");
+                        MyDialogFragment dialog= MyDialogFragment.newInstance(date,arg01,"info");
+                        dialog.show(getSupportFragmentManager(), "Place Information Dialog");
                     }
                 });
-                ImageView imageView2 = (ImageView)activity.findViewById(R.id.tool_btn2);
                 imageView2.setVisibility(View.VISIBLE);
                 imageView2.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(),"'list' icon selected", Toast.LENGTH_SHORT).show();
+                        MyDialogFragment dialog= MyDialogFragment.newInstance(null,arg01,"list");
+                        dialog.show(getSupportFragmentManager(), "List of Events Dialog");
+                        //Toast.makeText(getApplicationContext(),"'list' icon selected", Toast.LENGTH_SHORT).show();
                     }
                 });
-                ImageView imageView3 = (ImageView)activity.findViewById(R.id.tool_btn3);
                 imageView3.setVisibility(View.VISIBLE);
                 imageView3.setOnClickListener(new View.OnClickListener()
                 {

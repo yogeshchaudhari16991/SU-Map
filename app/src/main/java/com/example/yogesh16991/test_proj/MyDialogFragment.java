@@ -8,9 +8,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.Marker;
@@ -18,6 +21,7 @@ import com.google.android.gms.maps.model.Marker;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 
 /**
@@ -39,7 +43,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
     private Date mdate;
     private String mname;
      private String check;
-
+    private static String value;
     // TODO: Rename and change types of parameters
 
     private OnFragmentInteractionListener mListener;
@@ -53,11 +57,12 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
      * @return A new instance of fragment MyDialogFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyDialogFragment newInstance(Date date, Marker mark) {
+    public static MyDialogFragment newInstance(Date date, Marker mark, String type) {
         MyDialogFragment fragment = new MyDialogFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARGS_DATE, date);
         marker = mark;
+        value = type;
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,19 +75,56 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mdate = (Date) getArguments().getSerializable(ARGS_DATE);
-
-        View v = getActivity().getLayoutInflater().inflate(R.layout.fragment_my_dialog,null);
-
         AlertDialog.Builder alertDialogBuilder =new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setView(v)
-                .setTitle("Place Info")
-                .setMessage("Place Information")
-                .setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getActivity(), marker.getTitle(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        View v;
+        switch(value){
+            case "info" :
+                          v = getActivity().getLayoutInflater().inflate(R.layout.fragment_my_dialog,null);
+                          TextView nameView = (TextView) v.findViewById(R.id.name);
+                          nameView.setText(marker.getTitle());
+
+                          alertDialogBuilder.setView(v)
+                          .setTitle("Place Info")
+                          .setMessage("Place Name: " + marker.getTitle())
+                          .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                              @Override
+                              public void onClick(DialogInterface dialog, int which) {
+                                  Toast.makeText(getActivity(), marker.getTitle(), Toast.LENGTH_SHORT).show();
+                              }
+                          });
+
+
+                          break;
+
+            case "list" :
+                v = getActivity().getLayoutInflater().inflate(R.layout.fragment_list_view, null);
+                ListView listView = (ListView) v.findViewById(R.id.list_view);
+
+                        /*SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), movieData.getMoviesList(),
+                                R.layout.list_row,
+                                new String[] {"image","name","description"},
+                                new int[] {R.id.movie_image, R.id.movie_title, R.id.movie_description});
+                        listView.setAdapter(simpleAdapter);
+                        */
+                MyBaseAdapter_List myBaseAdapterList = new MyBaseAdapter_List(getActivity(), new String[]{"yogesh", "1"});
+                listView.setAdapter(myBaseAdapterList);
+
+                alertDialogBuilder.setView(v)
+                        .setTitle("List of Events")
+                        .setMessage("Place Name: " + marker.getTitle())
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getActivity(), marker.getTitle(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                          break;
+
+            case "plus" :
+
+                          break;
+        }
+
         return alertDialogBuilder.create();
     }
 /*
