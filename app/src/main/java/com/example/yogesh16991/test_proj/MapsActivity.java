@@ -15,12 +15,22 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class MapsActivity extends ActionBarActivity {
 
@@ -123,7 +133,39 @@ public class MapsActivity extends ActionBarActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(43.039, -76.135)).title("Syracuse University"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.039,-76.135), 17));
+
+        try {
+            readItems();
+        } catch (JSONException e) {
+            Toast.makeText(this, "Problem reading list of markers.", Toast.LENGTH_LONG).show();
+        }
+       // mMap.addMarker(new MarkerOptions().position(new LatLng(43.039, -76.135)).title("Syracuse University"));
+       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.039,-76.135), 17));
+
     }
+
+    private void readItems()
+            throws JSONException {
+        InputStream inputStream = getResources().openRawResource(R.raw.radar_search);
+        read(inputStream);
+       // List<JsonReader.MyItem> items = new JsonReader().read(inputStream);
+
+    }
+
+
+    private static final String REGEX_INPUT_BOUNDARY_BEGINNING = "\\A";
+
+    public void read(InputStream inputStream) throws JSONException {
+        String json = new Scanner(inputStream).useDelimiter(REGEX_INPUT_BOUNDARY_BEGINNING).next();
+        JSONArray array = new JSONArray(json);
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject object = array.getJSONObject(i);
+            double lat = object.getDouble("lat");
+            double lng = object.getDouble("lng");
+            String Pname = object.getString("title");
+            mMap.addMarker(new MarkerOptions().position(new LatLng(lat,lng)).title(Pname));
+        }
+    }
+
+
 }
