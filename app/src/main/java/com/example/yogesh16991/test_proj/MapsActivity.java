@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -35,6 +36,7 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class MapsActivity extends ActionBarActivity implements MyDialogFragment.OnFragmentInteractionListener,EventList.OnFragmentInteractionListener {
@@ -43,6 +45,8 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     Toolbar mtoolbar;
+    MarkerDataJson markerData;
+    List<Map<String, ?>> MarkerList;
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
     RecyclerView mDrawerlist;
@@ -58,6 +62,14 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
         activity = (LinearLayout) findViewById(R.id.linear);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
+
+        try {
+            markerData = new MarkerDataJson(this);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.container);
         mDrawer = (RelativeLayout)findViewById(R.id.navigation_drawer);
@@ -254,27 +266,23 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
 
     private void readItems()
             throws JSONException {
-        InputStream inputStream = getResources().openRawResource(R.raw.radar_search);
-        read(inputStream);
-       // List<JsonReader.MyItem> items = new JsonReader().read(inputStream);
+        MarkerList=markerData.getEventsList();
+        for(int i=0;i<MarkerList.size();i++) {
+            Map<String, ?> placeMarker = markerData.getItem(i);
+            String latstring = placeMarker.get("lat").toString();
+            double lat = Double.parseDouble(latstring);
+            String lgnstring = placeMarker.get("lng").toString();
+            double lng = Double.parseDouble(lgnstring);
+            String Pname = placeMarker.get("title").toString();
 
-    }
-
-
-    private static final String REGEX_INPUT_BOUNDARY_BEGINNING = "\\A";
-
-    public void read(InputStream inputStream) throws JSONException {
-        String json = new Scanner(inputStream).useDelimiter(REGEX_INPUT_BOUNDARY_BEGINNING).next();
-        JSONArray array = new JSONArray(json);
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject object = array.getJSONObject(i);
-            double lat = object.getDouble("lat");
-            double lng = object.getDouble("lng");
-            String Pname = object.getString("title");
             mMap.addMarker(new MarkerOptions().position(new LatLng(lat,lng)).title(Pname));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng), 17));
-        }
-    }
+                    }
+        //InputStream inputStream = getResources().openRawResource(R.raw.radar_search);
+        //read(inputStream);
+      // List<MyItem> items = new JsonHandler().read(inputStream);
+//      Toast.makeText(getApplicationContext(), MarkerList.size(), Toast.LENGTH_SHORT).show();
 
+    }
 
 }
