@@ -58,7 +58,7 @@ public class MarkerDataJson {
             if(eventJsonObj != null) {
                 lat = (double) eventJsonObj.get("lat");
                 lng = (double) eventJsonObj.get("lng");
-                Pname =  eventJsonObj.get("title").toString();
+                Pname =  eventJsonObj.get("MarkerTitle").toString();
             }
             eventsList.add(createEvent(lat,lng,Pname));
 
@@ -70,14 +70,14 @@ public class MarkerDataJson {
         HashMap event = new HashMap();
         event.put("lat",lat);
         event.put("lng",lng);
-        event.put("title",Pname);
+        event.put("MarkerTitle",Pname);
         return event;
     }
 
     public String loadEventJSONFromAsset(Context context) {
         String json = null;
         try {
-            InputStream is = context.getResources().openRawResource(R.raw.radar_search);
+            InputStream is = context.getResources().openRawResource(R.raw.marker);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

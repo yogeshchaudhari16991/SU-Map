@@ -121,9 +121,9 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
 
         public void bindEventData(Map<String,?>event) {
             if(title!=null)
-                title.setText((String) event.get("title"));
+                title.setText((String) event.get("EventTitle"));
             if(desit!=null)
-               desit.setText((String) event.get("desit"));
+               desit.setText((String) event.get("EventDesc"));
         }
 
 

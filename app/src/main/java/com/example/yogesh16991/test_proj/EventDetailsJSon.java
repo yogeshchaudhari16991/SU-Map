@@ -2,21 +2,15 @@ package com.example.yogesh16991.test_proj;
 
 import android.content.Context;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * Created by HP on 20-04-2015.
@@ -59,8 +53,8 @@ public class EventDetailsJSon{
         for(int i = 0; i <eventsJsonArray.length();i++){
             eventJsonObj = (JSONObject) eventsJsonArray.get(i);
             if(eventJsonObj != null) {
-                title = (String) eventJsonObj.get("title");
-                desit = (String) eventJsonObj.get("Desit");
+                title = (String) eventJsonObj.get("EventName");
+                desit = (String) eventJsonObj.get("EventDesc");
             }
             eventsList.add(createEvent(title,desit));
 
@@ -70,15 +64,15 @@ public class EventDetailsJSon{
 
     private HashMap createEvent(String title,String desit) {
         HashMap event = new HashMap();
-        event.put("title",title);
-        event.put("desit",desit);
+        event.put("EventName",title);
+        event.put("EventDesc",desit);
         return event;
     }
 
     public String loadEventJSONFromAsset(Context context) {
         String json = null;
         try {
-            InputStream is = context.getResources().openRawResource(R.raw.police);
+            InputStream is = context.getResources().openRawResource(R.raw.events);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

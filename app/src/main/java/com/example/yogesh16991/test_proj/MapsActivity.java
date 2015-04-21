@@ -118,7 +118,7 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
                 break;
             case 2:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.mainfrag,EventList.newInstance(0))
+                        .replace(R.id.mainfrag, EventList.newInstance(0))
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -280,12 +280,12 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
             double lat = Double.parseDouble(latstring);
             String lgnstring = placeMarker.get("lng").toString();
             double lng = Double.parseDouble(lgnstring);
-            String Pname = placeMarker.get("title").toString();
+            String Pname = placeMarker.get("MarkerTitle").toString();
 
             mMap.addMarker(new MarkerOptions().position(new LatLng(lat,lng)).title(Pname));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng), 17));
                     }
-        //InputStream inputStream = getResources().openRawResource(R.raw.radar_search);
+        //InputStream inputStream = getResources().openRawResource(R.raw.marker);
         //read(inputStream);
       // List<MyItem> items = new JsonHandler().read(inputStream);
 //      Toast.makeText(getApplicationContext(), MarkerList.size(), Toast.LENGTH_SHORT).show();
