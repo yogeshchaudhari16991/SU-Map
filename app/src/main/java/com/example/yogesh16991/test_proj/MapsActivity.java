@@ -39,7 +39,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class MapsActivity extends ActionBarActivity implements MyDialogFragment.OnFragmentInteractionListener,EventList.OnFragmentInteractionListener {
+public class MapsActivity extends ActionBarActivity implements MyDialogFragment.OnFragmentInteractionListener,EventList.OnFragmentInteractionListener,
+EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionListener{
 
 
 
@@ -252,6 +253,9 @@ public class MapsActivity extends ActionBarActivity implements MyDialogFragment.
                 {
                     @Override
                     public void onClick(View v) {
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.container,AddNewEvent.newInstance())
+                                .commit();
                         Toast.makeText(getApplicationContext(),"'plus' icon selected", Toast.LENGTH_SHORT).show();
                     }
                 });
