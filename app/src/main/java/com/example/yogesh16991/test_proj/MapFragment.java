@@ -226,7 +226,7 @@ public class MapFragment extends Fragment {
             double lat = Double.parseDouble(latstring);
             String lgnstring = placeMarker.get("lng").toString();
             double lng = Double.parseDouble(lgnstring);
-            String Pname = placeMarker.get("title").toString();
+            String Pname = placeMarker.get("MarkerTitle").toString();
 
             googleMap.addMarker(new MarkerOptions().position(new LatLng(lat,lng)).title(Pname));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng), 17));
