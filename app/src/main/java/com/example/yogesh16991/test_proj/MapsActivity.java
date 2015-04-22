@@ -1,5 +1,6 @@
 package com.example.yogesh16991.test_proj;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -143,9 +144,9 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
                         .commit();
                 break;
             case 4:
-                /*getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, new about_me())
-                        .commit();*/
+                Intent intent;
+                intent = new Intent(this,ViewPagerActivity.class);
+                startActivity(intent);
                 break;
             case 5:
                /* getSupportFragmentManager().beginTransaction()

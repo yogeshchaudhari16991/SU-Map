@@ -1,7 +1,11 @@
 [
-{"EventName" : "iProm", "EventDesc" : "Majja majjja", "stime":"", "etime":"","sdate":"","edate":"","category":"","MarkerTitle":"Carrier Dome" },
-{"EventName" : "cricket", "EventDesc" : "Majja majjja","stime":"", "etime":"","sdate":"","edate":"","category":"","MarkerTitle":"Life Sciences Complex" },
-{"EventName" : "football", "EventDesc" : "Majja majjja majjja","stime":"", "etime":"","sdate":"","edate":"","category":"","MarkerTitle":"Carrier Dome" },
-{"EventName" : "tennis", "EventDesc" : "Majja ", "stime":"", "etime":"","sdate":"","edate":"","category":"","MarkerTitle":"Quad" },
-{"EventName" : "connect dinner", "EventDesc" : "Majja majjja majjja majjja","stime":"", "etime":"","sdate":"","edate":"","category":"","MarkerTitle":"Hendricks Chapel" }
+{"EventName" : "iProm", "EventDesc" : "Set the tone for your special event right on the bat with an invitation that sets the tone for the entire event. Whether you want your event to be formal or casual, classic or trendy, our large selection of invitations will be sure to meet your needs.", "stime":"", "etime":"","sdate":"","edate":"","category":"sports","MarkerTitle":"Carrier Dome" },
+{"EventName" : "Cricket", "EventDesc" : "Come and Catch the World Series with Corn & Kelly Corporation!","stime":"", "etime":"","sdate":"","edate":"","category":"educational","MarkerTitle":"Life Sciences Complex"},
+{"EventName" : "Football", "EventDesc" : "Join us on Superbowl Sunday for food, fun & football.","stime":"", "etime":"","sdate":"","edate":"","category":"sports","MarkerTitle":"Carrier Dome" },
+{"EventName" : "Tennis", "EventDesc" : "Rachel and Arnold cordially invite you for a night on the terrace savoring the delights of the continent.", "stime":"", "etime":"","sdate":"","edate":"","category":"entertainment","MarkerTitle":"Quad"},
+{"EventName" : "Connect dinner", "EventDesc" : "Celebrate the warmth of the season...Please be our guest for Dinner and Dancing..","stime":"", "etime":"","sdate":"","edate":"","category":"food","MarkerTitle":"Quad" },
+{"EventName" : "Dinner", "EventDesc" : "Please be our guest for Dinner","stime":"", "etime":"","sdate":"","edate":"","category":"entertainment","MarkerTitle":"Hendricks Chapel" },
+{"EventName" : "Lunch", "EventDesc" : "Please be our guest for lunch and Dancing..","stime":"", "etime":"","sdate":"","edate":"","category":"food","MarkerTitle":"Life Sciences Complex" },
+{"EventName" : "Dance", "EventDesc" : "Celebrate Dancing..","stime":"", "etime":"","sdate":"","edate":"","category":"food","MarkerTitle":"Hendricks Chapel" },
+{"EventName" : "Information Session", "EventDesc" : "Google Information Session.","stime":"", "etime":"","sdate":"","edate":"","category":"educational","MarkerTitle":"Carrier Dome" }
 ]
