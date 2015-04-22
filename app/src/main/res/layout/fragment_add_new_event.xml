@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Place : "
-            android:id="@+id/textView10"
+            android:id="@+id/place"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="58dp" />
@@ -24,17 +24,17 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner"
-            android:layout_alignTop="@+id/textView10"
-            android:layout_toEndOf="@+id/textView10" />
+            android:id="@+id/placeSpinner"
+            android:layout_alignTop="@+id/place"
+            android:layout_toEndOf="@+id/place" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Event : "
-            android:id="@+id/textView11"
-            android:layout_below="@+id/imageView3"
+            android:id="@+id/event"
+            android:layout_below="@+id/placeImage"
             android:layout_alignParentStart="true" />
 
         <EditText
@@ -42,76 +42,52 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:id="@+id/editText2"
-            android:layout_below="@+id/imageView3"
-            android:layout_toEndOf="@+id/textView11" />
+            android:id="@+id/eventName"
+            android:layout_below="@+id/placeImage"
+            android:layout_toEndOf="@+id/event" />
 
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="200dp"
-            android:id="@+id/imageView3"
-            android:layout_below="@+id/spinner"
+            android:id="@+id/placeImage"
+            android:layout_below="@+id/placeSpinner"
             android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="From Date : "
-            android:id="@+id/textView12"
-            android:layout_below="@+id/editText2"
+            android:text="From Date/Time : "
+            android:id="@+id/fromDate"
+            android:layout_below="@+id/eventName"
             android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="To Time : "
-            android:id="@+id/textView13"
-            android:layout_below="@+id/etxt_fromdate"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/fromDateResult"
+            android:layout_below="@+id/eventName"
+            android:layout_toRightOf="@id/fromDate"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="To Time : "
-            android:id="@+id/textView14"
-            android:layout_alignParentBottom="true"
+            android:text="To Date/Time : "
+            android:id="@+id/toDate"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="44dp" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:ems="10"
-            android:id="@+id/editText5"
-            android:layout_alignTop="@+id/textView14"
-            android:layout_toEndOf="@+id/textView14" />
+            android:layout_below="@+id/fromDate"
+             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="To Date : "
-            android:id="@+id/textView15"
-            android:layout_below="@+id/etxt_todate"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/toDateResult"
+            android:layout_below="@+id/fromDateResult"
+            android:layout_toRightOf="@id/toDate"/>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/etxt_fromdate"
-            android:layout_alignTop="@+id/textView12"
-            android:layout_toEndOf="@+id/textView12" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/etxt_todate"
-            android:layout_below="@+id/etxt_fromdate"
-            android:layout_toEndOf="@+id/textView12" />
 
     </RelativeLayout>
 

@@ -3,6 +3,7 @@ package com.example.yogesh16991.test_proj;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -40,6 +41,8 @@ public class AddNewEvent extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextView fromDateResult;
 
     private OnFragmentInteractionListener mListener;
 
@@ -80,13 +83,15 @@ public class AddNewEvent extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_add_new_event, container, false);
-        TextView btn_dialog =(TextView)rootView.findViewById(R.id.textView12);
+        TextView btn_dialog =(TextView)rootView.findViewById(R.id.fromDate);
+        fromDateResult = (TextView)rootView.findViewById(R.id.fromDateResult);
         btn_dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
             }
         });
+
         return rootView;
 
     }
@@ -96,6 +101,14 @@ public class AddNewEvent extends Fragment {
         FromDateTimeDilog dialog= FromDateTimeDilog.newInstance(date);
         dialog.setTargetFragment(AddNewEvent.this,REQUEST_DATE);
         dialog.show(getFragmentManager(),"Datepicker Dialog");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Date date=(Date)data.getSerializableExtra(FromDateTimeDilog.ARGS_DATE);
+        String time = data.getExtras().get(FromDateTimeDilog.ARGS_Time).toString();
+        fromDateResult.setText(date.toString()+"   "+time);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

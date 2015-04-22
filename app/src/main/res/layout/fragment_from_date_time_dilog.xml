@@ -1,14 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.yogesh16991.test_proj.FromDateTimeDilog">
+
 
     <!-- TODO: Update blank fragment layout -->
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,7 +23,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/fromdatePicker"
             android:layout_below="@+id/textViewFromDate"
-            android:layout_alignParentStart="true" />
+
+            android:calendarViewShown="false" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,13 +33,14 @@
             android:text="From Time : "
             android:id="@+id/textViewFromTime"
             android:layout_below="@+id/fromdatePicker"
-            android:layout_alignParentStart="true" />
+             />
 
         <TimePicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/fomtimePicker"
+
             android:layout_below="@+id/textViewFromTime"
-            android:layout_alignParentStart="true" />
+            />
     </RelativeLayout>
-</FrameLayout>
+
