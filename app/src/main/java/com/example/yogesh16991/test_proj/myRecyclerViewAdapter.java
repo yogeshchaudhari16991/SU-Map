@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Map;
@@ -26,20 +27,16 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
     public myRecyclerViewAdapter(Context mycontext,List<Map<String, ?>> myDataset) {
         context = mycontext;
          mDataset= myDataset;
-
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
-
-            v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.card_view, parent, false);
-
+        v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.card_view, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
-
     }
 
     @Override
@@ -83,17 +80,14 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView title;
-        public TextView desit;
+        public TextView eventName;
+        public TextView eventDesc;
 
 
         public ViewHolder(View v) {
             super(v);
-                title = (TextView) v.findViewById(R.id.title);
-                desit = (TextView) v.findViewById(R.id.desit);
-
-
-
+                eventName = (TextView) v.findViewById(R.id.eventname);
+                eventDesc = (TextView) v.findViewById(R.id.eventdesc);
 
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -103,7 +97,6 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
                         }
                     }
                 });
-
                 v.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
@@ -116,14 +109,12 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
 
                 }
 
-
-
-
         public void bindEventData(Map<String,?>event) {
-            if(title!=null)
-                title.setText((String) event.get("EventTitle"));
-            if(desit!=null)
-               desit.setText((String) event.get("EventDesc"));
+            if(eventName!=null)
+                eventName.setText((String) event.get("EventName"));
+
+            if(eventDesc!=null)
+               eventDesc.setText((String) event.get("EventDesc"));
         }
 
 

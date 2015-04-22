@@ -1,6 +1,7 @@
 package com.example.yogesh16991.test_proj;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.json.JSONException;
+
+import java.util.HashMap;
 
 //import android.app.Fragment;
 
@@ -99,20 +102,15 @@ EventDetailsJSon eventData;
 
 
 
-       /* recyclerviewAdaptor.setOnItemClickListener(new myRecyclerViewAdapter.OnItemClickListener() {
+        recyclerviewAdaptor.setOnItemClickListener(new myRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                HashMap<String, ?> movie = (HashMap<String, ?>) movieData.getItem(position);
-                Intent intent;
-                intent = new Intent(getActivity(),ActivityActionBar.class);
-                intent.putExtra(ARG_MOVIE,movie);
-                startActivity(intent);
-                *//*getActivity().getSupportFragmentManager()
+                HashMap<String, ?> event = (HashMap<String, ?>) eventData.getItem(position);
+                getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.itemlist, new DetailView().newInstance(movie))
+                        .replace(R.id.container, new EventDetail().newInstance(event))
                         .addToBackStack(null)
-                        .commit();*//*
-
+                        .commit();
             }
 
             @Override
@@ -123,11 +121,11 @@ EventDetailsJSon eventData;
             @Override
             public void onOverflowMenuClick(View v, int position) {
 
-//            }
+            }
 
         });
 
-*/
+
         return rootView;        // Inflate the layout for this fragment
        // return inflater.inflate(R.layout.fragment_recyler_view, container, false);
     }

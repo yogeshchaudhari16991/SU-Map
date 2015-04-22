@@ -42,9 +42,9 @@ public class EventDetailsJSon{
 
 
     public EventDetailsJSon(Context context) throws JSONException {
-        String description = null;
-        String title = null;
-        String desit = null;
+        String eventdesc = null;
+        String markertitle = null;
+        String eventname = null;
         JSONArray eventsJsonArray = null;
         JSONObject eventJsonObj = null;
         eventsList = new ArrayList<Map<String,?>>();
@@ -53,19 +53,21 @@ public class EventDetailsJSon{
         for(int i = 0; i <eventsJsonArray.length();i++){
             eventJsonObj = (JSONObject) eventsJsonArray.get(i);
             if(eventJsonObj != null) {
-                title = (String) eventJsonObj.get("EventName");
-                desit = (String) eventJsonObj.get("EventDesc");
+                eventname = (String) eventJsonObj.get("EventName");
+                eventdesc = (String) eventJsonObj.get("EventDesc");
+                markertitle = (String)eventJsonObj.get("MarkerTitle");
             }
-            eventsList.add(createEvent(title,desit));
+            eventsList.add(createEvent(eventname,eventdesc,markertitle));
 
         }
     }
 
 
-    private HashMap createEvent(String title,String desit) {
+    private HashMap createEvent(String eventname,String eventdesc,String markertitle) {
         HashMap event = new HashMap();
-        event.put("EventName",title);
-        event.put("EventDesc",desit);
+        event.put("EventName",eventname);
+        event.put("EventDesc",eventdesc);
+        event.put("MarkerTitle",markertitle);
         return event;
     }
 

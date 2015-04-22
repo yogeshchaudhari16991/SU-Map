@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.HashMap;
 
 
 /**
@@ -23,10 +26,12 @@ public class EventDetail extends Fragment {
     /*private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 */
+    private static final String ARG_EVENT = "event";
     // TODO: Rename and change types of parameters
  /*   private String mParam1;
     private String mParam2;*/
 
+    private HashMap<String, ?> event;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -38,11 +43,13 @@ public class EventDetail extends Fragment {
      * @return A new instance of fragment EventDetail.
      */
     // TODO: Rename and change types and number of parameters
-    public static EventDetail newInstance() {
+    public static EventDetail newInstance(HashMap<String, ?> event) {
         EventDetail fragment = new EventDetail();
         Bundle args = new Bundle();
 /*        args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);*/
+        args.putSerializable(ARG_EVENT, event);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,9 +61,10 @@ public class EventDetail extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+
         if (getArguments() != null) {
-/*            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);*/
+            event=(HashMap<String,?>)getArguments().getSerializable(ARG_EVENT);
         }
     }
 
@@ -64,7 +72,17 @@ public class EventDetail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_detail, container, false);
+        View v = inflater.inflate(R.layout.fragment_event_detail, container, false);;
+        TextView markertitle;
+        TextView eventdesc;
+        TextView eventname;
+       markertitle = (TextView) v.findViewById(R.id.markertitle);
+        eventdesc = (TextView) v.findViewById(R.id.eventdesc);
+        eventname = (TextView) v.findViewById(R.id.eventname);
+        eventname.setText((String) event.get("EventName"));
+        eventdesc.setText((String) event.get("EventDesc"));
+        markertitle.setText((String) event.get("MarkerTitle"));
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
