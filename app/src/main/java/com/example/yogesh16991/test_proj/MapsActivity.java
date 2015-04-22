@@ -40,7 +40,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class MapsActivity extends ActionBarActivity implements MyDialogFragment.OnFragmentInteractionListener,EventList.OnFragmentInteractionListener,
-EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionListener{
+EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionListener, FromDateTimeDilog.OnFragmentInteractionListener{
 
 
 
