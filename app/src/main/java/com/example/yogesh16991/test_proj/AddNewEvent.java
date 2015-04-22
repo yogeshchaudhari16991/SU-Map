@@ -7,13 +7,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -24,39 +31,17 @@ import java.util.Calendar;
  * Use the {@link AddNewEvent#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddNewEvent extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class AddNewEvent extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private static final int REQUEST_DATE = 0;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
-
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-// Use the current date as the default date in the picker
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
-// Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
-    }
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        Calendar c = Calendar.getInstance();
-        c.set(year, month, day);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = sdf.format(c.getTime());
-    }
 
     /**
      * Use this factory method to create a new instance of
@@ -80,6 +65,7 @@ public class AddNewEvent extends DialogFragment implements DatePickerDialog.OnDa
         // Required empty public constructor
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,8 +79,23 @@ public class AddNewEvent extends DialogFragment implements DatePickerDialog.OnDa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_new_event, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_add_new_event, container, false);
+        TextView btn_dialog =(TextView)rootView.findViewById(R.id.textView12);
+        btn_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+        return rootView;
 
+    }
+
+    private void showDatePickerDialog() {
+        Date date= new Date(System.currentTimeMillis());
+        FromDateTimeDilog dialog= FromDateTimeDilog.newInstance(date);
+        dialog.setTargetFragment(AddNewEvent.this,REQUEST_DATE);
+        dialog.show(getFragmentManager(),"Datepicker Dialog");
     }
 
     // TODO: Rename method, update argument and hook method into UI event
