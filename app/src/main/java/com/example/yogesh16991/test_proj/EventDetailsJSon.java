@@ -18,6 +18,8 @@ import java.util.Map;
 public class EventDetailsJSon{
     private Context mcontext;
     List<Map<String,?>> eventsList;
+    private String mcategory = null;
+    private int option = 0;
 
     public List<Map<String, ?>> getMoviesList() {
         return eventsList;
@@ -25,7 +27,9 @@ public class EventDetailsJSon{
 
 
 
-    public List<Map<String, ?>> getEventsList() {
+    public List<Map<String, ?>> getEventsList(int option) {
+        setCategory(option);
+        createEventList();
         return eventsList;
     }
 
@@ -42,32 +46,51 @@ public class EventDetailsJSon{
 
 
     public EventDetailsJSon(Context context) throws JSONException {
+        mcontext = context;
+        setCategory(option);
+        createEventList();
+
+    }
+    public void createEventList(){
         String eventdesc = null;
         String markertitle = null;
         String eventname = null;
+        String category = null;
         JSONArray eventsJsonArray = null;
         JSONObject eventJsonObj = null;
         eventsList = new ArrayList<Map<String,?>>();
-        String eventsArray = loadEventJSONFromAsset(context);
-        eventsJsonArray = new JSONArray(eventsArray);
+        String eventsArray = loadEventJSONFromAsset(mcontext);
+        try {
+            eventsJsonArray = new JSONArray(eventsArray);
+
         for(int i = 0; i <eventsJsonArray.length();i++){
             eventJsonObj = (JSONObject) eventsJsonArray.get(i);
             if(eventJsonObj != null) {
                 eventname = (String) eventJsonObj.get("EventName");
                 eventdesc = (String) eventJsonObj.get("EventDesc");
                 markertitle = (String)eventJsonObj.get("MarkerTitle");
+                category = (String)eventJsonObj.get("category");
+
             }
-            eventsList.add(createEvent(eventname,eventdesc,markertitle));
+            if (option == 0)
+                eventsList.add(createEvent(eventname,eventdesc,markertitle,category));
+            else if(category == mcategory)
+                eventsList.add(createEvent(eventname,eventdesc,markertitle,category));
 
         }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
-    private HashMap createEvent(String eventname,String eventdesc,String markertitle) {
+    private HashMap createEvent(String eventname,String eventdesc,String markertitle,String category) {
         HashMap event = new HashMap();
         event.put("EventName",eventname);
         event.put("EventDesc",eventdesc);
         event.put("MarkerTitle",markertitle);
+        event.put("Category",category);
         return event;
     }
 
@@ -85,5 +108,29 @@ public class EventDetailsJSon{
             return null;
         }
         return json;
+    }
+    public void setCategory(int option){
+        switch (option) {
+            case 2 :
+                mcategory = "educational";
+                break;
+            case 3:
+                mcategory = "food";
+                break;
+            case 4:
+                mcategory = "sports";
+                break;
+            case 5:
+                mcategory = "entertainment";
+                break;
+            case 6:
+                mcategory = "others";
+                break;
+
+            default:
+                mcategory = "educational";
+                break;
+
+        }
     }
 }
