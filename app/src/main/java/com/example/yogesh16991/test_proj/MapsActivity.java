@@ -183,26 +183,8 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_master_detail, menu);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        if(searchView!=null){
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
-            {
-                @Override
-                public boolean onQueryTextSubmit(String s)
-                {
+        //getMenuInflater().inflate(R.menu.menu_master_detail, menu);
 
-                    Toast.makeText(MapsActivity.this, s, Toast.LENGTH_SHORT).show();
-
-                    return true;
-                }
-                @Override
-                public boolean onQueryTextChange(String s)
-                {
-                    return true;
-                }
-            });
-        }
         return true;
     }
 

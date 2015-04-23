@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -98,6 +101,7 @@ public class MapFragment extends Fragment {
                 e.printStackTrace();
             }
             setUpMap();
+        setHasOptionsMenu(true);
             // Perform any camera updates here
             return v;
         }
@@ -267,6 +271,48 @@ public class MapFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu_master_detail, menu);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        if(searchView!=null){
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+            {
+                @Override
+                public boolean onQueryTextSubmit(String s)
+                {
+
+                    //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+
+                    MarkerList=markerData.markersList;
+                    for(int i=0;i<MarkerList.size();i++) {
+                        Map<String, ?> placeMarker = markerData.getItem(i);
+                        if ((placeMarker.get("MarkerTitle").toString().toLowerCase()).contains(s.toLowerCase())) {
+                            String latstring = placeMarker.get("lat").toString();
+                            double lat = Double.parseDouble(latstring);
+                            String lgnstring = placeMarker.get("lng").toString();
+                            double lng = Double.parseDouble(lgnstring);
+                            //String Pname = placeMarker.get("MarkerTitle").toString();
+                            //Toast.makeText(getActivity(), "in if", Toast.LENGTH_SHORT).show();
+                            //googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(Pname));
+                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 17));
+                            break;
+                        }
+                    }
+                    //Toast.makeText(getActivity(), "after for", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                @Override
+                public boolean onQueryTextChange(String s)
+                {
+                    return true;
+                }
+            });
+        }
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     /**
