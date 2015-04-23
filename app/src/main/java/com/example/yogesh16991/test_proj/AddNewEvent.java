@@ -149,16 +149,16 @@ public class AddNewEvent extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_add_new_event, container, false);
-        TextView txt_dialog =(TextView)rootView.findViewById(R.id.fromDate);
-        fromDateResult = (TextView)rootView.findViewById(R.id.fromDateResult);
+        TextView txt_dialog = (TextView) rootView.findViewById(R.id.fromDate);
+        fromDateResult = (TextView) rootView.findViewById(R.id.fromDateResult);
         txt_dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
             }
         });
-        List<String> placesSpinerList= new ArrayList<String>();
-        List<String> catagorySpinerList= new ArrayList<String>();
+        List<String> placesSpinerList = new ArrayList<String>();
+        List<String> catagorySpinerList = new ArrayList<String>();
         Spinner placesSpiner = (Spinner) rootView.findViewById(R.id.placeSpinner);
         Spinner catagorySpiner = (Spinner) rootView.findViewById(R.id.catagoryspinner);
 
@@ -169,12 +169,12 @@ public class AddNewEvent extends Fragment {
             Toast.makeText(getActivity(), "Problem reading list of markers.", Toast.LENGTH_LONG).show();
         }
         ArrayAdapter<String> dataAdapterPlace = new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_spinner_item,placesSpinerList);
+                android.R.layout.simple_spinner_item, placesSpinerList);
         dataAdapterPlace.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         placesSpiner.setAdapter(dataAdapterPlace);
 
         ArrayAdapter<String> dataAdapterCatagory = new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_spinner_item,catagorySpinerList);
+                android.R.layout.simple_spinner_item, catagorySpinerList);
         dataAdapterCatagory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catagorySpiner.setAdapter(dataAdapterCatagory);
 
@@ -183,19 +183,18 @@ public class AddNewEvent extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 int index = 0;
-                ImageView imageView= (ImageView)rootView.findViewById(R.id.placeImage);
+                ImageView imageView = (ImageView) rootView.findViewById(R.id.placeImage);
                 int size = markerData.getSize();
-                Toast.makeText(getActivity(),"size= "+size,Toast.LENGTH_SHORT).show();
-                for(int i=0;i< size;i++){
-                    if((markerData.getItem(i).get("MarkerTitle").toString()).equals(finalPlacesSpinerList.get(position).toString()))
-                    {
+                Toast.makeText(getActivity(), "size= " + size, Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < size; i++) {
+                    if ((markerData.getItem(i).get("MarkerTitle").toString()).equals(finalPlacesSpinerList.get(position).toString())) {
                         index = i;
                         Toast.makeText(getActivity(), "in here : " + i, Toast.LENGTH_SHORT).show();
                         break;
                     }
                 }
                 imageView.setImageResource((Integer) markerData.getItem(index).get("resID"));// Log.e("sdadssadadsadad afagsdg sdg sdgdg","ghasdgfashgdfiuc kgficuyasfhgsgf");
-                Toast.makeText(getActivity(),"in listner "+index,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "in listner " + index, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -204,16 +203,13 @@ public class AddNewEvent extends Fragment {
             }
 
         });
-
-
         return rootView;
-
     }
 
     private void showDatePickerDialog() {
         Date date= new Date(System.currentTimeMillis());
         FromDateTimeDilog dialog= FromDateTimeDilog.newInstance(date);
-        dialog.setTargetFragment(AddNewEvent.this,REQUEST_DATE);
+        dialog.setTargetFragment(AddNewEvent.this, REQUEST_DATE);
         dialog.show(getFragmentManager(), "Datepick  er Dialog");
     }
 
