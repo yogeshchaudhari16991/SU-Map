@@ -142,9 +142,11 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
                 break;
             case 3:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,AddNewEvent.newInstance(eventDetailsJSon)).addToBackStack(null).commit();
+                break;
             case 4:
                 Intent intent;
                 intent = new Intent(this,ViewPagerActivity.class);
+                intent.putExtra("EVENT_LIST", (java.io.Serializable) eventDetailsJSon.getEventsList());
                 startActivity(intent);
                 //send eventDetailsJSon to this activity using intent put method and retrieve it in viewPager activity
                 break;

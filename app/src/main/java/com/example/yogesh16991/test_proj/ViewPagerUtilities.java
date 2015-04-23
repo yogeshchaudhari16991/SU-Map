@@ -19,20 +19,20 @@ import java.util.Map;
  */
 public class ViewPagerUtilities {
     private Context mcontext;
-    List<Map<String,?>> eventsList;
+    //List<Map<String,?>> eventsList;
     private int moption = 0;
 
 
     EventDetailsJSon eventData;
     public ViewPagerUtilities(Context context){
-       try {
+       /*try {
             eventData = new EventDetailsJSon(context);
        } catch (JSONException e) {
            e.printStackTrace();
-       }
+       }*/
     }
 
-    public Fragment createHashmap(int option)
+    public Fragment createHashmap(List<Map<String,?>> eventsList,int option)
     {
         String eventdesc = null;
         String markertitle = null;
@@ -41,11 +41,11 @@ public class ViewPagerUtilities {
         Map<String,?> event;
         List<Map<String,?>> NewEventsList = new ArrayList<Map<String,?>>();
 
-        eventsList = new ArrayList<Map<String,?>>();
-        eventsList = eventData.getEventsList();
+        //eventsList = new ArrayList<Map<String,?>>();
+        //eventsList = eventData.getEventsList();
         String mcategory = setCategory(option);
 
-        for(int i = 0;i<eventData.getSize();i++){
+        for(int i = 0;i<eventsList.size();i++){
             event = eventsList.get(i);
             category = (String)event.get("Category");
             eventname = (String) event.get("EventName");

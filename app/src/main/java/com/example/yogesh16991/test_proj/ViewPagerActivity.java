@@ -20,7 +20,9 @@ import android.os.Build;
 import org.json.JSONException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class ViewPagerActivity extends ActionBarActivity implements EventList.OnFragmentInteractionListener,EventDetail.OnFragmentInteractionListener {
@@ -29,10 +31,11 @@ public class ViewPagerActivity extends ActionBarActivity implements EventList.On
     ViewPager mViewPager;
     EventDetailsJSon eventData;
     Context mcontext;
-
+    List<Map<String,?>> eventsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
+        eventsList = (List<Map<String,?>>)intent.getSerializableExtra("EVENT_LIST");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
         try {
@@ -71,8 +74,13 @@ public class ViewPagerActivity extends ActionBarActivity implements EventList.On
         if (id == R.id.action_settings) {
             return true;
         }
-        if(id == R.id.bckToMapView)
+        if(id == R.id.bckToMapView){
+            Intent intent;
+            intent = new Intent(this,MapsActivity.class);
+            startActivity(intent);
             finish();
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -111,7 +119,7 @@ public class ViewPagerActivity extends ActionBarActivity implements EventList.On
         @Override
         public Fragment getItem(int position) {
             ViewPagerUtilities viewPagerUtilities = new ViewPagerUtilities(mcontext);
-            return viewPagerUtilities.createHashmap(position);
+            return viewPagerUtilities.createHashmap(eventsList,position);
         }
 
         @Override
