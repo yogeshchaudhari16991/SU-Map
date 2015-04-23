@@ -23,8 +23,6 @@ public class MarkerDataJson {
         return eventsList;
     }
 
-
-
     public List<Map<String, ?>> getEventsList() {
         return eventsList;
     }
@@ -39,8 +37,6 @@ public class MarkerDataJson {
         } else return null;
     }
 
-
-
     public MarkerDataJson(Context context) throws JSONException {
        /* String description = null;
         String title = null;
@@ -48,6 +44,10 @@ public class MarkerDataJson {
         double lat = 0;
         double lng = 0;
         String Pname = null;
+        String NoOfEvents= null;
+        String MarkerDescription = null;
+        String img= null;
+        int resID = 0;
         JSONArray eventsJsonArray = null;
         JSONObject eventJsonObj = null;
         eventsList = new ArrayList<Map<String,?>>();
@@ -59,18 +59,25 @@ public class MarkerDataJson {
                 lat = (double) eventJsonObj.get("lat");
                 lng = (double) eventJsonObj.get("lng");
                 Pname =  eventJsonObj.get("MarkerTitle").toString();
+                NoOfEvents = eventJsonObj.get("NoOfEvents").toString();
+                MarkerDescription =  eventJsonObj.get("MarkerDescription").toString();
+                img = ((String) eventJsonObj.get("img"));
+                resID = context.getResources().getIdentifier(img,"drawable",context.getPackageName());
             }
-            eventsList.add(createEvent(lat,lng,Pname));
+            eventsList.add(createEvent(lat,lng,Pname,NoOfEvents,MarkerDescription,img,resID));
 
         }
     }
 
-
-    private HashMap createEvent(double lat,double lng,String Pname) {
+    private HashMap createEvent(double lat,double lng,String Pname,String NoOfEvents,String MarkerDescription, String img, int resID) {
         HashMap event = new HashMap();
         event.put("lat",lat);
         event.put("lng",lng);
         event.put("MarkerTitle",Pname);
+        event.put("NoOfEvents",NoOfEvents);
+        event.put("MarkerDescription",MarkerDescription);
+        event.put("img",img);
+        event.put("resID",resID);
         return event;
     }
 

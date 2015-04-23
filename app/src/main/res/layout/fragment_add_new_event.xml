@@ -1,6 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent" android:background="#FFFFFFFF"
     tools:context="com.example.yogesh16991.test_proj.AddNewEvent">
 
     <!-- TODO: Update blank fragment layout -->
@@ -9,7 +9,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="right|bottom"
-        android:id="@+id/addevent">
+        android:id="@+id/addevent"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,7 +27,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/placeSpinner"
             android:layout_alignTop="@+id/place"
-            android:layout_toEndOf="@+id/place" />
+            android:layout_toEndOf="@+id/place"
+            android:spinnerMode="dialog" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -59,16 +61,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="From Date/Time : "
             android:id="@+id/fromDate"
-            android:layout_below="@+id/eventName"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/fromDateResult"
-            android:layout_below="@+id/eventName"
-            android:layout_toRightOf="@id/fromDate"/>
+            android:layout_below="@+id/catagoryspinner"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,18 +71,69 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="To Date/Time : "
             android:id="@+id/toDate"
-            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/fromDate"
-             />
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Category"
+            android:id="@+id/textViewCategory"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/eventName" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/catagoryspinner"
+            android:layout_toEndOf="@+id/textViewCategory"
+            android:layout_below="@+id/eventName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Add Event"
+            android:id="@+id/textView10"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:autoText="true"
+            android:textStyle="bold|italic" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:id="@+id/btn_EventOk"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/catagoryspinner" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel "
+            android:id="@+id/btn_CnlEvent"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/btn_EventOk" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/toDateResult"
-            android:layout_below="@+id/fromDateResult"
-            android:layout_toRightOf="@id/toDate"/>
+            android:layout_alignTop="@+id/toDate"
+            android:layout_toEndOf="@+id/toDate" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/fromDateResult"
+            android:layout_alignTop="@+id/fromDate"
+            android:layout_toEndOf="@+id/fromDate" />
 
     </RelativeLayout>
 

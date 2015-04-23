@@ -6,12 +6,19 @@
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:text="Place Name: " android:layout_width="wrap_content"
+    <TextView android:text="Description: " android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/placeName"
+        android:id="@+id/placeDesc"
         android:layout_marginLeft="15dp"/>
-    <TextView android:text="Name:" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_toRightOf="@+id/placeName"
-        android:id="@+id/name" />
+    <TextView android:text="Desc" android:layout_width="150dp"
+        android:layout_height="wrap_content" android:layout_below="@+id/placeDesc"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/desc" />
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_toRightOf="@id/desc"
+        android:scaleType="fitXY"
+        android:id="@+id/placeImg"/>
 
 </RelativeLayout>

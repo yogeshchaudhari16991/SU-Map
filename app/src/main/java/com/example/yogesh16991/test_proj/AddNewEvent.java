@@ -1,28 +1,44 @@
-package com.example.yogesh16991.test_proj;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+        package com.example.yogesh16991.test_proj;
 
+        import android.app.Activity;
+        import android.app.DatePickerDialog;
+        import android.app.Dialog;
+        import android.content.Intent;
+        import android.net.Uri;
+        import android.os.Bundle;
+        import android.support.v4.app.DialogFragment;
+        import android.support.v4.app.Fragment;
+        import android.support.v7.internal.widget.AdapterViewCompat;
+        import android.util.Log;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.AdapterView;
+        import android.widget.ArrayAdapter;
+        import android.widget.Button;
+        import android.widget.DatePicker;
+        import android.widget.EditText;
+        import android.widget.ImageView;
+        import android.widget.Spinner;
+        import android.widget.TextView;
+        import android.widget.Toast;
+
+        import com.google.android.gms.maps.CameraUpdateFactory;
+        import com.google.android.gms.maps.model.LatLng;
+        import com.google.android.gms.maps.model.MarkerOptions;
+
+        import org.json.JSONException;
+
+        import java.text.SimpleDateFormat;
+        import java.util.ArrayList;
+        import java.util.Calendar;
+        import java.util.Date;
+        import java.util.HashSet;
+        import java.util.List;
+        import java.util.Map;
+        import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +58,11 @@ public class AddNewEvent extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    static EventDetailsJSon eventData;
+    List<Map<String, ?>> EventCatList;
+
+    static MarkerDataJson markerData;
+    List<Map<String, ?>> MarkerList;
     private TextView fromDateResult;
 
     private OnFragmentInteractionListener mListener;
@@ -54,43 +75,136 @@ public class AddNewEvent extends Fragment {
      * param param2 Parameter 2.
      * @return A new instance of fragment AddNewEvent.
      */
-    // TODO: Rename and change types and number of parameters
+    // TODO: Rename and
+    //
+    //
+    // change types and number of parameters
     public static AddNewEvent newInstance() {
         AddNewEvent fragment = new AddNewEvent();
         Bundle args = new Bundle();
-      /*  args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);*/
+          /*  args.putString(ARG_PARAM1, param1);
+            args.putString(ARG_PARAM2, param2);*/
         fragment.setArguments(args);
+        // markerData = markerdata;
+
         return fragment;
+
     }
 
     public AddNewEvent() {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-       /*     mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);*/
+        try {
+            eventData =  new EventDetailsJSon(getActivity());
+            markerData = new MarkerDataJson(getActivity());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+        if (getArguments() != null) {
+           /*     mParam1 = getArguments().getString(ARG_PARAM1);
+                mParam2 = getArguments().getString(ARG_PARAM2);*/
+        }
+    }
+
+    private List<String> readPlaceItems() throws JSONException {
+        List<String> templist= new ArrayList<String>();
+        MarkerList=markerData.getEventsList();
+        Log.e("sdadada",MarkerList.toString());
+        for(int i=0;i<MarkerList.size();i++) {
+            Map<String, ?> placeMarker = markerData.getItem(i);
+            String Pname = placeMarker.get("MarkerTitle").toString();
+            Log.e("rajas",Pname);
+            templist.add(Pname);
+        }
+        return templist;
+    }
+
+    private List<String> readCatagoryItems() throws JSONException {
+        List<String> templist= new ArrayList<String>();
+        EventCatList=eventData.getEventsList(0);
+        Log.e("sdadada",EventCatList.toString());
+        for(int i=0;i<EventCatList.size();i++) {
+            Map<String, ?> placeMarker = eventData.getItem(i);
+            String Pname = placeMarker.get("Category").toString();
+            Log.e("rajas",Pname);
+            templist.add(Pname);
+        }
+
+        // List<String> al = new ArrayList<>();
+        // add elements to al, including duplicates
+        Set<String> hs = new HashSet<>();
+        hs.addAll(templist);
+        templist.clear();
+        templist.addAll(hs);
+        return templist;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_add_new_event, container, false);
-        TextView btn_dialog =(TextView)rootView.findViewById(R.id.fromDate);
+        final View rootView = inflater.inflate(R.layout.fragment_add_new_event, container, false);
+        TextView txt_dialog =(TextView)rootView.findViewById(R.id.fromDate);
         fromDateResult = (TextView)rootView.findViewById(R.id.fromDateResult);
-        btn_dialog.setOnClickListener(new View.OnClickListener() {
+        txt_dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
             }
         });
+        List<String> placesSpinerList= new ArrayList<String>();
+        List<String> catagorySpinerList= new ArrayList<String>();
+        Spinner placesSpiner = (Spinner) rootView.findViewById(R.id.placeSpinner);
+        Spinner catagorySpiner = (Spinner) rootView.findViewById(R.id.catagoryspinner);
+
+        try {
+            placesSpinerList = readPlaceItems();
+            catagorySpinerList = readCatagoryItems();
+        } catch (JSONException e) {
+            Toast.makeText(getActivity(), "Problem reading list of markers.", Toast.LENGTH_LONG).show();
+        }
+        ArrayAdapter<String> dataAdapterPlace = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_spinner_item,placesSpinerList);
+        dataAdapterPlace.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        placesSpiner.setAdapter(dataAdapterPlace);
+
+        ArrayAdapter<String> dataAdapterCatagory = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_spinner_item,catagorySpinerList);
+        dataAdapterCatagory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        catagorySpiner.setAdapter(dataAdapterCatagory);
+
+        final List<String> finalPlacesSpinerList = placesSpinerList;
+        placesSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                int index = 0;
+                ImageView imageView= (ImageView)rootView.findViewById(R.id.placeImage);
+                int size = markerData.getSize();
+                Toast.makeText(getActivity(),"size= "+size,Toast.LENGTH_SHORT).show();
+                for(int i=0;i< size;i++){
+                    if((markerData.getItem(i).get("MarkerTitle").toString()).equals(finalPlacesSpinerList.get(position).toString()))
+                    {
+                        index = i;
+                        Toast.makeText(getActivity(), "in here : " + i, Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+                imageView.setImageResource((Integer) markerData.getItem(index).get("resID"));// Log.e("sdadssadadsadad afagsdg sdg sdgdg","ghasdgfashgdfiuc kgficuyasfhgsgf");
+                Toast.makeText(getActivity(),"in listner "+index,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
 
         return rootView;
 
@@ -100,14 +214,14 @@ public class AddNewEvent extends Fragment {
         Date date= new Date(System.currentTimeMillis());
         FromDateTimeDilog dialog= FromDateTimeDilog.newInstance(date);
         dialog.setTargetFragment(AddNewEvent.this,REQUEST_DATE);
-        dialog.show(getFragmentManager(),"Datepicker Dialog");
+        dialog.show(getFragmentManager(), "Datepick  er Dialog");
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Date date=(Date)data.getSerializableExtra(FromDateTimeDilog.ARGS_DATE);
         String time = data.getExtras().get(FromDateTimeDilog.ARGS_Time).toString();
-        fromDateResult.setText(date.toString()+"   "+time);
+        fromDateResult.setText(date.toString() + "   " + time);
 
     }
 
@@ -135,7 +249,6 @@ public class AddNewEvent extends Fragment {
         mListener = null;
     }
 
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -152,3 +265,4 @@ public class AddNewEvent extends Fragment {
     }
 
 }
+
