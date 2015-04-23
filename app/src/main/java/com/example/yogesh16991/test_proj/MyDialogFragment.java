@@ -105,7 +105,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
 
                 try {
                     eventDetailsJSon = new EventDetailsJSon(mContext);
-                    eventDetailsJSon.createEventList();
+
 
 
                 } catch (JSONException e) {
@@ -117,7 +117,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
                                 new int[] {R.id.movie_image, R.id.movie_title, R.id.movie_description});
                         listView.setAdapter(simpleAdapter);
                         */
-                List<Map<String, ?>> placeEventList = eventDetailsJSon.getEventsList(0);
+                List<Map<String, ?>> placeEventList = eventDetailsJSon.getEventsList();
 
                 final List<Map<String, ?>> tempList = null;
                 for(int i=0; i< placeEventList.size(); i++)

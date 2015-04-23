@@ -179,7 +179,7 @@ public class MapFragment extends Fragment {
                         }
                         dialog.show(fm, "Add Events Dialog");
                         */
-                        fm.beginTransaction().replace(R.id.container,AddNewEvent.newInstance()).commit();
+                        fm.beginTransaction().replace(R.id.container,AddNewEvent.newInstance()).addToBackStack(null).commit();
                     }
                 });
 
