@@ -66,8 +66,10 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
         activity = (LinearLayout) findViewById(R.id.linear);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
+        if(eventDetailsJSon==null)
             eventDetailsJSon = new EventDetailsJSon();
-            markerData = new MarkerDataJson();
+         if(markerData==null)
+        markerData = new MarkerDataJson();
 
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.container1);

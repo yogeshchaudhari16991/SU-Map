@@ -34,12 +34,13 @@ android:elevation="7dp"
     android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
     android:layout_gravity="start"
 
-    android:background="#ffffff"
+    android:background="#ffffffff"
     android:orientation="vertical"
     >
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
+        android:src="@drawable/travelpin"
         android:id="@+id/header"
         />
     <android.support.v7.widget.RecyclerView

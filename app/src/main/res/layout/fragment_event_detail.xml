@@ -8,14 +8,15 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="left|top"
-        android:id="@+id/details">
+        android:id="@+id/details"
+        android:background="#ffffffff">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Carrier Dome"
-            android:id="@+id/markertitle"
+            android:id="@+id/eventname"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:textStyle="normal|bold"
@@ -28,57 +29,47 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:id="@+id/eventname"
-            android:layout_below="@+id/markertitle"
-            android:layout_centerHorizontal="true"
-            android:textColor="#ffffffff" />
-
+            android:id="@+id/markertitle"
+            android:textColor="#ffffffff"
+            android:layout_below="@+id/eventname"
+            android:layout_centerHorizontal="true" />
+        markertitle
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="265dp"
+            android:layout_height="200dp"
             android:id="@+id/imageView"
             android:src="@drawable/carrier_dome_night"
-            android:layout_below="@+id/eventname"
+            android:layout_below="@+id/markertitle"
             android:layout_alignParentStart="true" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/imageView2"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/webbackground1"
-
-            android:layout_below="@+id/imageView"
-            android:layout_alignParentBottom="true" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="gsadlivglsaiv ljk goslhg ljhsbd ljhg lkjhbsdljf bjhgc lhsbdf ljkhgscl  ljsbdf jgljcg jbvsdkc jghvk jhhvjk sfbljhg kksjdb ukyxg xkj bkjsv "
             android:id="@+id/eventdesc"
             android:gravity="center"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="15dp"
             android:textColor="#ff000000"
-            android:layout_alignTop="@+id/imageView2" />
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentStart="true" />
 
 
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="time "
             android:id="@+id/stime"
-            android:layout_below="@+id/eventdesc"
+            android:textColor="#ff000000"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="15dp"
-            android:textColor="#ff000000" />
+            android:layout_marginBottom="25dp" />
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="time"
             android:id="@+id/etime"
             android:layout_alignTop="@+id/stime"

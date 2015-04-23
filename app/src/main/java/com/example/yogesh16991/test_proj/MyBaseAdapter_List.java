@@ -2,9 +2,12 @@ package com.example.yogesh16991.test_proj;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -28,10 +31,12 @@ class ViewHolder{
 public class MyBaseAdapter_List extends BaseAdapter {
     private final Context mContext;
     private final List<Map<String, ?>>  eventDetailsJson;
+    private DisplayMetrics metrics_; ///////////////////////////////////
 
-    public MyBaseAdapter_List(Context context, List<Map<String, ?>> strings){
+    public MyBaseAdapter_List(Context context, List<Map<String, ?>> strings,DisplayMetrics metrics){
         mContext = context;
         eventDetailsJson = strings;
+        metrics_ = metrics;
     }
 
 
@@ -83,14 +88,15 @@ public class MyBaseAdapter_List extends BaseAdapter {
 
 
         holder.title.setText(eventDetailsJson.get(position).get("EventName").toString());
-
-
-        if(position%2==0){
+        Animation animation = null;
+        animation = new TranslateAnimation(metrics_.widthPixels / 2, 0,
+                0, 0);
+/*        if(position%2==0){
             holder.title.setTextColor(Color.YELLOW);
         } else {
             holder.title.setTextColor(Color.RED);
-        }
-
+        }*/
+        rowView.startAnimation(animation);
         return rowView;
     }
 }

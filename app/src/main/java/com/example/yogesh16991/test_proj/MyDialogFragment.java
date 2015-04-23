@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -45,6 +46,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
     private static String value;
     static Context mContext;
     static EventDetailsJSon eventDetailsJSon;
+    private DisplayMetrics metrics;
     // TODO: Rename and change types of parameters
 
     private OnFragmentInteractionListener mListener;
@@ -79,6 +81,8 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //mdate = (Date) getArguments().getSerializable(ARGS_DATE);
+        metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         AlertDialog.Builder alertDialogBuilder =new AlertDialog.Builder(getActivity());
         View v;
         switch(value) {
@@ -126,7 +130,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
                 }
                 //Toast.makeText(getActivity(),placeEventList.size(),Toast.LENGTH_SHORT).show();
 
-                MyBaseAdapter_List myBaseAdapterList = new MyBaseAdapter_List(getActivity(), tempList);
+                MyBaseAdapter_List myBaseAdapterList = new MyBaseAdapter_List(getActivity(), tempList,metrics);
                 listView.setAdapter(myBaseAdapterList);
 
                 //listView.setAdapter(simpleAdapter);
