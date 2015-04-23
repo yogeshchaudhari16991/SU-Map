@@ -75,10 +75,7 @@ public class ViewPagerActivity extends ActionBarActivity implements EventList.On
             return true;
         }
         if(id == R.id.bckToMapView){
-            Intent intent;
-            intent = new Intent(this,MapsActivity.class);
-            startActivity(intent);
-            finish();
+           finish();
         }
 
 

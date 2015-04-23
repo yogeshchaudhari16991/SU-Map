@@ -32,8 +32,8 @@ public class EventDetailsJSon{
         } else return null;
     }
 
-    public void addEvent(String s){
-        eventsList.add(createEvent(s,null,"Quad",null));
+    public void addEvent(String name,String desc,String marker,String category){
+        eventsList.add(createEvent(name,desc,marker,category));
     }
 
     public EventDetailsJSon(){
@@ -52,6 +52,8 @@ public class EventDetailsJSon{
         category = "educational";
         markerTitle = "Life Sciences Complex";
         eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+
+
     }
 
     public EventDetailsJSon(Context context) throws JSONException {

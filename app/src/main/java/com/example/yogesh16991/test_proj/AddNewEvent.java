@@ -36,6 +36,7 @@
         import java.util.ArrayList;
         import java.util.Calendar;
         import java.util.Date;
+        import java.util.HashMap;
         import java.util.HashSet;
         import java.util.List;
         import java.util.Map;
@@ -178,7 +179,7 @@ public class AddNewEvent extends Fragment {
         List<String> catagorySpinerList = new ArrayList<String>();
         final Spinner placesSpiner = (Spinner) rootView.findViewById(R.id.placeSpinner);
         Spinner catagorySpiner = (Spinner) rootView.findViewById(R.id.catagoryspinner);
-
+        final HashMap event = new HashMap();
         try {
             placesSpinerList = readPlaceItems();
            // catagorySpinerList = readCatagoryItems();
@@ -186,10 +187,9 @@ public class AddNewEvent extends Fragment {
             Toast.makeText(getActivity(), "Problem reading list of markers.", Toast.LENGTH_LONG).show();
         }
         ArrayAdapter<String> dataAdapterPlace = new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_spinner_item, placesSpinerList);
+        android.R.layout.simple_spinner_item, placesSpinerList);
         dataAdapterPlace.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         placesSpiner.setAdapter(dataAdapterPlace);
-
         placesSpiner.setSelection(currentIndex);
 
         /*
@@ -215,6 +215,7 @@ public class AddNewEvent extends Fragment {
                 }
                 imageView.setImageResource((Integer) markerData.getItem(index).get("img"));// Log.e("sdadssadadsadad afagsdg sdg sdgdg","ghasdgfashgdfiuc kgficuyasfhgsgf");
                 Toast.makeText(getActivity(), "in listner " + index, Toast.LENGTH_SHORT).show();
+                event.put("MarkerTitle",finalPlacesSpinerList.get(position).toString());
             }
 
             @Override
@@ -229,8 +230,10 @@ public class AddNewEvent extends Fragment {
         addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                eventData.addEvent(eventTitle.getText().toString());
-
+                event.put("EventName",eventTitle.getText().toString());
+                event.put("EventDesc","test descirption");
+                event.put("Category","educational");
+                eventData.addEvent((String) event.get("EventName"), (String) event.get("EventDesc"), (String) event.get("MarkerTitle"), (String) event.get("Category"));
                 getFragmentManager().beginTransaction().replace(R.id.container,MapFragment.newInstance(markerData,eventData)).commit();
             }
         });
@@ -250,6 +253,7 @@ public class AddNewEvent extends Fragment {
         Date date=(Date)data.getSerializableExtra(FromDateTimeDilog.ARGS_DATE);
         String time = data.getExtras().get(FromDateTimeDilog.ARGS_Time).toString();
         fromDateResult.setText(date.toString() + "   " + time);
+
 
     }
 
