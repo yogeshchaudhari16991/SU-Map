@@ -40,7 +40,7 @@ public class MarkerDataJson {
         double lat = 0;
         double lng = 0;
         String Pname = null;
-        String NoOfMarkers= null;
+        int NoOfEvents = 0;
         String MarkerDescription = null;
         String img= null;
         int resID = 0;
@@ -55,22 +55,22 @@ public class MarkerDataJson {
                 lat = (double) markerJsonObj.get("lat");
                 lng = (double) markerJsonObj.get("lng");
                 Pname =  markerJsonObj.get("MarkerTitle").toString();
-                NoOfMarkers = markerJsonObj.get("NoOfMarkers").toString();
+                NoOfEvents = Integer.parseInt(markerJsonObj.get("NoOfEvents").toString());
                 MarkerDescription =  markerJsonObj.get("MarkerDescription").toString();
                 img = ((String) markerJsonObj.get("img"));
-                resID = context.getResources().getIdentifier(img,"drawable",context.getPackageName());
+                resID = context.getResources().getIdentifier(img, "drawable", context.getPackageName());
             }
-            markersList.add(createMarker(lat,lng,Pname,NoOfMarkers,MarkerDescription,img,resID));
+            markersList.add(createMarker(lat, lng, Pname, NoOfEvents, MarkerDescription, img, resID));
 
         }
     }
 
-    private HashMap createMarker(double lat,double lng,String Pname,String NoOfMarkers,String MarkerDescription, String img, int resID) {
+    private HashMap createMarker(double lat,double lng,String Pname,int NoOfEvents,String MarkerDescription, String img, int resID) {
         HashMap marker = new HashMap();
         marker.put("lat",lat);
         marker.put("lng",lng);
         marker.put("MarkerTitle",Pname);
-        marker.put("NoOfMarkers",NoOfMarkers);
+        marker.put("NoOfEvents",NoOfEvents);
         marker.put("MarkerDescription",MarkerDescription);
         marker.put("img",img);
         marker.put("resID",resID);
