@@ -16,7 +16,7 @@
         android:id="@+id/desc" />
     <ImageView
         android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_toRightOf="@id/desc"
         android:scaleType="fitXY"
         android:id="@+id/placeImg"/>

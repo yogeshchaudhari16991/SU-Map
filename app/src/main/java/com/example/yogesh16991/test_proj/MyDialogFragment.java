@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,12 +58,13 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
      * @return A new instance of fragment MyDialogFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyDialogFragment newInstance(Date date, Marker mark, String type, Context context) throws JSONException {
+    public static MyDialogFragment newInstance(EventDetailsJSon date, Marker mark, String type, Context context) throws JSONException {
         MyDialogFragment fragment = new MyDialogFragment();
         mContext = context;
 
         Bundle args = new Bundle();
-        args.putSerializable(ARGS_DATE, date);
+        //args.putSerializable(ARGS_DATE, date);
+        eventDetailsJSon = date;
         marker = mark;
         value = type;
         fragment.setArguments(args);
@@ -78,16 +78,23 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
 
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mdate = (Date) getArguments().getSerializable(ARGS_DATE);
+        //mdate = (Date) getArguments().getSerializable(ARGS_DATE);
         AlertDialog.Builder alertDialogBuilder =new AlertDialog.Builder(getActivity());
         View v;
         switch(value) {
             case "info":
+                MarkerDataJson mdj = new MarkerDataJson();
                 v = getActivity().getLayoutInflater().inflate(R.layout.fragment_my_dialog, null);
                 TextView descView = (TextView) v.findViewById(R.id.desc);
-                descView.setText("Description");
+
                 ImageView placeImg = (ImageView) v.findViewById(R.id.placeImg);
-                placeImg.setImageResource(R.drawable.lcs);
+                for(int i=0;i<mdj.markersList.size();i++){
+                    if((mdj.getItem(i).get("MarkerTitle").toString()).equals(marker.getTitle().toString())){
+                        placeImg.setImageResource((Integer) mdj.getItem(i).get("img"));
+                        descView.setText(mdj.getItem(i).get("MarkerDescription").toString());
+                    }
+                }
+
                 alertDialogBuilder.setView(v)
                         .setTitle("Place Info")
                         .setMessage("Place Name: " + marker.getTitle())
@@ -105,20 +112,6 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
                 v = getActivity().getLayoutInflater().inflate(R.layout.fragment_list_view, null);
                 ListView listView = (ListView) v.findViewById(R.id.list_view);
 
-                try {
-                    eventDetailsJSon = new EventDetailsJSon(mContext);
-
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                        /*SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), movieData.getMoviesList(),
-                                R.layout.list_row,
-                                new String[] {"image","name","description"},
-                                new int[] {R.id.movie_image, R.id.movie_title, R.id.movie_description});
-                        listView.setAdapter(simpleAdapter);
-                        */
                 List<Map<String, ?>> placeEventList = eventDetailsJSon.getEventsList();
 
                 List<Map<String, ?>> tempList = new ArrayList<Map<String,?>>();
@@ -150,6 +143,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
                 break;
 
             case "plus":
+                /*
                 v = getActivity().getLayoutInflater().inflate(R.layout.fragment_add_new_event, null);
 
                 alertDialogBuilder.setView(v)
@@ -161,6 +155,8 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
                                 Toast.makeText(getActivity(), marker.getTitle(), Toast.LENGTH_SHORT).show();
                             }
                         });
+                */
+                getFragmentManager().beginTransaction().replace(R.id.container,AddNewEvent.newInstance(eventDetailsJSon)).addToBackStack(null).commit();
                 break;
         }
 

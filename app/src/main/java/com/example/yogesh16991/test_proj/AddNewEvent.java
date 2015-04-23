@@ -27,6 +27,7 @@
 
         import com.google.android.gms.maps.CameraUpdateFactory;
         import com.google.android.gms.maps.model.LatLng;
+        import com.google.android.gms.maps.model.Marker;
         import com.google.android.gms.maps.model.MarkerOptions;
 
         import org.json.JSONException;
@@ -64,6 +65,8 @@ public class AddNewEvent extends Fragment {
     static MarkerDataJson markerData;
     List<Map<String, ?>> MarkerList;
     private TextView fromDateResult;
+    static Marker currentPlace;
+    int currentIndex;
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,14 +82,29 @@ public class AddNewEvent extends Fragment {
     //
     //
     // change types and number of parameters
-    public static AddNewEvent newInstance() {
+    public static AddNewEvent newInstance(EventDetailsJSon eventDetailsJSon) {
         AddNewEvent fragment = new AddNewEvent();
         Bundle args = new Bundle();
+        currentPlace = null;
           /*  args.putString(ARG_PARAM1, param1);
             args.putString(ARG_PARAM2, param2);*/
         fragment.setArguments(args);
         // markerData = markerdata;
+        eventData = eventDetailsJSon;
+        return fragment;
 
+    }
+
+    public static AddNewEvent newInstance(EventDetailsJSon eventDetailsJSon, Marker current) {
+        AddNewEvent fragment = new AddNewEvent();
+        Bundle args = new Bundle();
+        currentPlace = null;
+          /*  args.putString(ARG_PARAM1, param1);
+            args.putString(ARG_PARAM2, param2);*/
+        fragment.setArguments(args);
+        // markerData = markerdata;
+        currentPlace = current;
+        eventData = eventDetailsJSon;
         return fragment;
 
     }
@@ -98,13 +116,7 @@ public class AddNewEvent extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            eventData =  new EventDetailsJSon(getActivity());
-            markerData = new MarkerDataJson(getActivity());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        markerData = new MarkerDataJson();
         if (getArguments() != null) {
            /*     mParam1 = getArguments().getString(ARG_PARAM1);
                 mParam2 = getArguments().getString(ARG_PARAM2);*/
@@ -115,15 +127,20 @@ public class AddNewEvent extends Fragment {
         List<String> templist= new ArrayList<String>();
         MarkerList=markerData.getMarkersList();
         Log.e("sdadada",MarkerList.toString());
+        currentIndex = 0;
         for(int i=0;i<MarkerList.size();i++) {
             Map<String, ?> placeMarker = markerData.getItem(i);
             String Pname = placeMarker.get("MarkerTitle").toString();
+            if(currentPlace != null && (currentPlace.getTitle()).equalsIgnoreCase(Pname)){
+                currentIndex = i;
+                Toast.makeText(getActivity(),"in index : "+currentIndex,Toast.LENGTH_SHORT).show();
+            }
             Log.e("rajas",Pname);
             templist.add(Pname);
         }
         return templist;
     }
-
+    /*
     private List<String> readCatagoryItems() throws JSONException {
         List<String> templist= new ArrayList<String>();
         EventCatList=eventData.getEventsList();
@@ -143,7 +160,7 @@ public class AddNewEvent extends Fragment {
         templist.addAll(hs);
         return templist;
     }
-
+    */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -159,12 +176,12 @@ public class AddNewEvent extends Fragment {
         });
         List<String> placesSpinerList = new ArrayList<String>();
         List<String> catagorySpinerList = new ArrayList<String>();
-        Spinner placesSpiner = (Spinner) rootView.findViewById(R.id.placeSpinner);
+        final Spinner placesSpiner = (Spinner) rootView.findViewById(R.id.placeSpinner);
         Spinner catagorySpiner = (Spinner) rootView.findViewById(R.id.catagoryspinner);
 
         try {
             placesSpinerList = readPlaceItems();
-            catagorySpinerList = readCatagoryItems();
+           // catagorySpinerList = readCatagoryItems();
         } catch (JSONException e) {
             Toast.makeText(getActivity(), "Problem reading list of markers.", Toast.LENGTH_LONG).show();
         }
@@ -173,11 +190,14 @@ public class AddNewEvent extends Fragment {
         dataAdapterPlace.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         placesSpiner.setAdapter(dataAdapterPlace);
 
+        placesSpiner.setSelection(currentIndex);
+
+        /*
         ArrayAdapter<String> dataAdapterCatagory = new ArrayAdapter<String>(this.getActivity(),
                 android.R.layout.simple_spinner_item, catagorySpinerList);
         dataAdapterCatagory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catagorySpiner.setAdapter(dataAdapterCatagory);
-
+        */
         final List<String> finalPlacesSpinerList = placesSpinerList;
         placesSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -193,7 +213,7 @@ public class AddNewEvent extends Fragment {
                         break;
                     }
                 }
-                imageView.setImageResource((Integer) markerData.getItem(index).get("resID"));// Log.e("sdadssadadsadad afagsdg sdg sdgdg","ghasdgfashgdfiuc kgficuyasfhgsgf");
+                imageView.setImageResource((Integer) markerData.getItem(index).get("img"));// Log.e("sdadssadadsadad afagsdg sdg sdgdg","ghasdgfashgdfiuc kgficuyasfhgsgf");
                 Toast.makeText(getActivity(), "in listner " + index, Toast.LENGTH_SHORT).show();
             }
 
@@ -203,6 +223,18 @@ public class AddNewEvent extends Fragment {
             }
 
         });
+
+        Button addEvent = (Button) rootView.findViewById(R.id.btn_EventOk);
+        final TextView eventTitle = (TextView) rootView.findViewById(R.id.eventName);
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eventData.addEvent(eventTitle.getText().toString());
+
+                getFragmentManager().beginTransaction().replace(R.id.container,MapFragment.newInstance(markerData,eventData)).commit();
+            }
+        });
+
         return rootView;
     }
 

@@ -66,19 +66,9 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
         activity = (LinearLayout) findViewById(R.id.linear);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
-        try {
-            eventDetailsJSon = new EventDetailsJSon(this);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            eventDetailsJSon = new EventDetailsJSon();
+            markerData = new MarkerDataJson();
 
-        try {
-            markerData = new MarkerDataJson(this);
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.container1);
         mDrawer = (RelativeLayout)findViewById(R.id.navigation_drawer);
@@ -124,7 +114,7 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container, MapFragment.newInstance(markerData))
+                .add(R.id.container, MapFragment.newInstance(markerData,eventDetailsJSon))
                 .commit();
 
     }
@@ -134,7 +124,7 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
         switch (position){
             case 0:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, MapFragment.newInstance(markerData))
+                        .replace(R.id.container, MapFragment.newInstance(markerData,eventDetailsJSon))
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -150,10 +140,13 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
                         .addToBackStack(null)
                         .commit();
                 break;
+            case 3:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,AddNewEvent.newInstance(eventDetailsJSon)).addToBackStack(null).commit();
             case 4:
                 Intent intent;
                 intent = new Intent(this,ViewPagerActivity.class);
                 startActivity(intent);
+                //send eventDetailsJSon to this activity using intent put method and retrieve it in viewPager activity
                 break;
             case 5:
                /* getSupportFragmentManager().beginTransaction()

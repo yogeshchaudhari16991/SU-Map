@@ -32,6 +32,28 @@ public class EventDetailsJSon{
         } else return null;
     }
 
+    public void addEvent(String s){
+        eventsList.add(createEvent(s,null,"Quad",null));
+    }
+
+    public EventDetailsJSon(){
+        String eventDesc = null;
+        String markerTitle = null;
+        String eventName = null;
+        String category = null;
+        eventsList = new ArrayList<Map<String,?>>();
+        eventDesc = "Set the tone for your special event right on the bat with an invitation that sets the tone for the entire event. Whether you want your event to be formal or casual, classic or trendy, our large selection of invitations will be sure to meet your needs.";
+        eventName = "iProm";
+        category = "sports";
+        markerTitle = "Carrier Dome";
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
+        eventName = "Cricket";
+        category = "educational";
+        markerTitle = "Life Sciences Complex";
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+    }
+
     public EventDetailsJSon(Context context) throws JSONException {
         String eventdesc = null;
         String markertitle = null;
@@ -67,8 +89,8 @@ public class EventDetailsJSon{
         HashMap event = new HashMap();
         event.put("EventName",eventname);
         event.put("EventDesc",eventdesc);
-        event.put("MarkerTitle",markertitle);
-        event.put("Category",category);
+        event.put("MarkerTitle", markertitle);
+        event.put("Category", category);
         return event;
     }
 

@@ -66,13 +66,15 @@ public class MapFragment extends Fragment {
     RelativeLayout activity;
     FragmentManager fm;
     static MarkerDataJson markerData;
+    static EventDetailsJSon eventData;
     List<Map<String, ?>> MarkerList;
 
-    public static MapFragment newInstance(MarkerDataJson markerdata) {
+    public static MapFragment newInstance(MarkerDataJson markerdata, EventDetailsJSon eventDetailsJSon) {
         MapFragment fragment = new MapFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         markerData = markerdata;
+        eventData = eventDetailsJSon;
         return fragment;
     }
 
@@ -130,7 +132,7 @@ public class MapFragment extends Fragment {
         {
 
             @Override
-            public boolean onMarkerClick(Marker arg0) {
+            public boolean onMarkerClick(final Marker arg0) {
 
 
                 final Marker arg01 = arg0;
@@ -142,10 +144,10 @@ public class MapFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         //Toast.makeText(getApplicationContext(), arg01.getTitle(), Toast.LENGTH_SHORT).show();
-                        Date date=new Date(System.currentTimeMillis());
+                        //Date date=new Date(System.currentTimeMillis());
                         MyDialogFragment dialog= null;
                         try {
-                            dialog = MyDialogFragment.newInstance(date, arg01, "info", getActivity());
+                            dialog = MyDialogFragment.newInstance(eventData, arg01, "info", getActivity());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -159,7 +161,7 @@ public class MapFragment extends Fragment {
                     public void onClick(View v) {
                         MyDialogFragment dialog= null;
                         try {
-                            dialog = MyDialogFragment.newInstance(null, arg01, "list", getActivity());
+                            dialog = MyDialogFragment.newInstance(eventData, arg01, "list", getActivity());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -175,13 +177,13 @@ public class MapFragment extends Fragment {
                         /*
                         MyDialogFragment dialog= null;
                         try {
-                            dialog = MyDialogFragment.newInstance(null, arg01, "plus", getActivity());
+                            dialog = MyDialogFragment.newInstance(markerData, arg01, "plus", getActivity());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         dialog.show(fm, "Add Events Dialog");
                         */
-                        fm.beginTransaction().replace(R.id.container,AddNewEvent.newInstance()).addToBackStack(null).commit();
+                        fm.beginTransaction().replace(R.id.container,AddNewEvent.newInstance(eventData,arg01)).addToBackStack(null).commit();
                     }
                 });
 

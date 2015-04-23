@@ -33,7 +33,7 @@ import java.util.Map;
  */
 public class EventList extends Fragment {
     private static final String ARG_MOVIE = "movie";
-EventDetailsJSon eventData;
+//EventDetailsJSon eventData;
         RecyclerView recyclerView;
     OnFragmentInteractionListener mListener = null;
     public static List<Map<String, ?>> meventList;
@@ -54,6 +54,8 @@ EventDetailsJSon eventData;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //redundant code, already new Instance me eventDatilsJSon object is there
+        /*
         try {
             eventData = new EventDetailsJSon(getActivity());
         }
@@ -61,6 +63,7 @@ EventDetailsJSon eventData;
         {
             e.printStackTrace();
         }
+        */
         setRetainInstance(true);
 
     }
@@ -109,7 +112,7 @@ EventDetailsJSon eventData;
         recyclerviewAdaptor.setOnItemClickListener(new myRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                HashMap<String, ?> event = (HashMap<String, ?>) eventData.getItem(position);
+                HashMap<String, ?> event = (HashMap<String, ?>) meventList.get(position);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container, new EventDetail().newInstance(event))
