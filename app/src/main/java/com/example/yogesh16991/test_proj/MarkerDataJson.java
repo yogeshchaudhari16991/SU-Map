@@ -17,23 +17,19 @@ import java.util.Map;
  */
 public class MarkerDataJson {
     private Context mcontext;
-    List<Map<String,?>> eventsList;
+    List<Map<String,?>> markersList;
 
-    public List<Map<String, ?>> getMoviesList() {
-        return eventsList;
-    }
-
-    public List<Map<String, ?>> getEventsList() {
-        return eventsList;
+   public List<Map<String, ?>> getMarkersList() {
+        return markersList;
     }
 
     public int getSize(){
-        return eventsList.size();
+        return markersList.size();
     }
 
     public HashMap getItem(int i){
-        if (i >=0 && i < eventsList.size()){
-            return (HashMap) eventsList.get(i);
+        if (i >=0 && i < markersList.size()){
+            return (HashMap) markersList.get(i);
         } else return null;
     }
 
@@ -44,44 +40,44 @@ public class MarkerDataJson {
         double lat = 0;
         double lng = 0;
         String Pname = null;
-        String NoOfEvents= null;
+        String NoOfMarkers= null;
         String MarkerDescription = null;
         String img= null;
         int resID = 0;
-        JSONArray eventsJsonArray = null;
-        JSONObject eventJsonObj = null;
-        eventsList = new ArrayList<Map<String,?>>();
-        String eventsArray = loadEventJSONFromAsset(context);
-        eventsJsonArray = new JSONArray(eventsArray);
-        for(int i = 0; i <eventsJsonArray.length();i++){
-            eventJsonObj = (JSONObject) eventsJsonArray.get(i);
-            if(eventJsonObj != null) {
-                lat = (double) eventJsonObj.get("lat");
-                lng = (double) eventJsonObj.get("lng");
-                Pname =  eventJsonObj.get("MarkerTitle").toString();
-                NoOfEvents = eventJsonObj.get("NoOfEvents").toString();
-                MarkerDescription =  eventJsonObj.get("MarkerDescription").toString();
-                img = ((String) eventJsonObj.get("img"));
+        JSONArray markersJsonArray = null;
+        JSONObject markerJsonObj = null;
+        markersList = new ArrayList<Map<String,?>>();
+        String markersArray = loadMarkerJSONFromAsset(context);
+        markersJsonArray = new JSONArray(markersArray);
+        for(int i = 0; i <markersJsonArray.length();i++){
+            markerJsonObj = (JSONObject) markersJsonArray.get(i);
+            if(markerJsonObj != null) {
+                lat = (double) markerJsonObj.get("lat");
+                lng = (double) markerJsonObj.get("lng");
+                Pname =  markerJsonObj.get("MarkerTitle").toString();
+                NoOfMarkers = markerJsonObj.get("NoOfMarkers").toString();
+                MarkerDescription =  markerJsonObj.get("MarkerDescription").toString();
+                img = ((String) markerJsonObj.get("img"));
                 resID = context.getResources().getIdentifier(img,"drawable",context.getPackageName());
             }
-            eventsList.add(createEvent(lat,lng,Pname,NoOfEvents,MarkerDescription,img,resID));
+            markersList.add(createMarker(lat,lng,Pname,NoOfMarkers,MarkerDescription,img,resID));
 
         }
     }
 
-    private HashMap createEvent(double lat,double lng,String Pname,String NoOfEvents,String MarkerDescription, String img, int resID) {
-        HashMap event = new HashMap();
-        event.put("lat",lat);
-        event.put("lng",lng);
-        event.put("MarkerTitle",Pname);
-        event.put("NoOfEvents",NoOfEvents);
-        event.put("MarkerDescription",MarkerDescription);
-        event.put("img",img);
-        event.put("resID",resID);
-        return event;
+    private HashMap createMarker(double lat,double lng,String Pname,String NoOfMarkers,String MarkerDescription, String img, int resID) {
+        HashMap marker = new HashMap();
+        marker.put("lat",lat);
+        marker.put("lng",lng);
+        marker.put("MarkerTitle",Pname);
+        marker.put("NoOfMarkers",NoOfMarkers);
+        marker.put("MarkerDescription",MarkerDescription);
+        marker.put("img",img);
+        marker.put("resID",resID);
+        return marker;
     }
 
-    public String loadEventJSONFromAsset(Context context) {
+    public String loadMarkerJSONFromAsset(Context context) {
         String json = null;
         try {
             InputStream is = context.getResources().openRawResource(R.raw.marker);

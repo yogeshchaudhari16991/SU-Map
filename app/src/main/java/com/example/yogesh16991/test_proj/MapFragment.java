@@ -202,7 +202,7 @@ public class MapFragment extends Fragment {
 
     private void readItems()
             throws JSONException {
-        MarkerList=markerData.getEventsList();
+        MarkerList=markerData.getMarkersList();
         for(int i=0;i<MarkerList.size();i++) {
             Map<String, ?> placeMarker = markerData.getItem(i);
             String latstring = placeMarker.get("lat").toString();

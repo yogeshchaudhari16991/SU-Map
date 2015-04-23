@@ -113,7 +113,7 @@ public class AddNewEvent extends Fragment {
 
     private List<String> readPlaceItems() throws JSONException {
         List<String> templist= new ArrayList<String>();
-        MarkerList=markerData.getEventsList();
+        MarkerList=markerData.getMarkersList();
         Log.e("sdadada",MarkerList.toString());
         for(int i=0;i<MarkerList.size();i++) {
             Map<String, ?> placeMarker = markerData.getItem(i);
