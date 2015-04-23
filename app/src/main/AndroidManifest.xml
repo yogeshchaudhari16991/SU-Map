@@ -40,7 +40,8 @@
         </activity>
         <activity
             android:name=".ViewPagerActivity"
-            android:label="@string/title_activity_view_pager" >
+            android:label="@string/title_activity_view_pager"
+            android:theme="@style/Theme.AppCompat">
         </activity>
     </application>
 

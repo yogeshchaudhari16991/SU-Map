@@ -55,6 +55,7 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
     MyDrawerRecyclerViewAdapter myDrawerRecyclerViewAdapter;
     RelativeLayout mDrawer;
     LinearLayout activity;
+    EventDetailsJSon eventDetailsJSon;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private ActionBarDrawerToggle actionBarDrawerToggle;
     @Override
@@ -64,6 +65,11 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
         activity = (LinearLayout) findViewById(R.id.linear);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
+        try {
+            eventDetailsJSon = new EventDetailsJSon(this);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         try {
             markerData = new MarkerDataJson(this);
@@ -133,13 +139,13 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
                 break;
             case 1:
                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container,EventList.newInstance(1))
+                        .replace(R.id.container, EventList.newInstance(eventDetailsJSon.getEventsList(),1))
                        .addToBackStack(null)
                         .commit();
                 break;
             case 2:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container,EventList.newInstance(0))
+                        .replace(R.id.container,EventList.newInstance(eventDetailsJSon.getEventsList(),0))
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -166,13 +172,13 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
 
 
 
-    /*
+
     @Override
     protected void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
+        //MapsetUpMapIfNeeded();
     }
-    */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

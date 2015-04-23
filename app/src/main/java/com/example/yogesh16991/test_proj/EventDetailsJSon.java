@@ -16,21 +16,10 @@ import java.util.Map;
  * Created by HP on 20-04-2015.
  */
 public class EventDetailsJSon{
-    private Context mcontext;
     List<Map<String,?>> eventsList;
-    private String mcategory = null;
-    private int option = 0;
 
-    public List<Map<String, ?>> getMoviesList() {
-        return eventsList;
-    }
-
-
-
-    public List<Map<String, ?>> getEventsList(int option) {
-        setCategory(option);
-        createEventList();
-        return eventsList;
+    public List<Map<String, ?>> getEventsList() {
+       return eventsList;
     }
 
     public int getSize(){
@@ -43,15 +32,7 @@ public class EventDetailsJSon{
         } else return null;
     }
 
-
-
     public EventDetailsJSon(Context context) throws JSONException {
-        mcontext = context;
-        setCategory(option);
-        createEventList();
-
-    }
-    public void createEventList(){
         String eventdesc = null;
         String markertitle = null;
         String eventname = null;
@@ -59,7 +40,7 @@ public class EventDetailsJSon{
         JSONArray eventsJsonArray = null;
         JSONObject eventJsonObj = null;
         eventsList = new ArrayList<Map<String,?>>();
-        String eventsArray = loadEventJSONFromAsset(mcontext);
+        String eventsArray = loadEventJSONFromAsset(context);
         try {
             eventsJsonArray = new JSONArray(eventsArray);
 
@@ -72,10 +53,7 @@ public class EventDetailsJSon{
                 category = (String)eventJsonObj.get("category");
 
             }
-            if (option == 0)
-                eventsList.add(createEvent(eventname,eventdesc,markertitle,category));
-            else if(category == mcategory)
-                eventsList.add(createEvent(eventname,eventdesc,markertitle,category));
+            eventsList.add(createEvent(eventname,eventdesc,markertitle,category));
 
         }
         } catch (JSONException e) {
@@ -109,28 +87,5 @@ public class EventDetailsJSon{
         }
         return json;
     }
-    public void setCategory(int option){
-        switch (option) {
-            case 2 :
-                mcategory = "educational";
-                break;
-            case 3:
-                mcategory = "food";
-                break;
-            case 4:
-                mcategory = "sports";
-                break;
-            case 5:
-                mcategory = "entertainment";
-                break;
-            case 6:
-                mcategory = "others";
-                break;
 
-            default:
-                mcategory = "educational";
-                break;
-
-        }
-    }
 }
