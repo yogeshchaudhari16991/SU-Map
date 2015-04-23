@@ -65,11 +65,9 @@ public class MapFragment extends Fragment {
     static MarkerDataJson markerData;
     List<Map<String, ?>> MarkerList;
 
-    public static MapFragment newInstance(String param1, String param2, MarkerDataJson markerdata) {
+    public static MapFragment newInstance(MarkerDataJson markerdata) {
         MapFragment fragment = new MapFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         markerData = markerdata;
         return fragment;

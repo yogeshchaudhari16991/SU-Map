@@ -71,6 +71,8 @@ public class ViewPagerActivity extends ActionBarActivity implements EventList.On
         if (id == R.id.action_settings) {
             return true;
         }
+        if(id == R.id.bckToMapView)
+            finish();
 
         return super.onOptionsItemSelected(item);
     }

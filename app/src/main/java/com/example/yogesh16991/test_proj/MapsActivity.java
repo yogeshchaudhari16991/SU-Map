@@ -123,7 +123,7 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container, MapFragment.newInstance("1","2",markerData))
+                .add(R.id.container, MapFragment.newInstance(markerData))
                 .commit();
 
     }
@@ -133,7 +133,7 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
         switch (position){
             case 0:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, MapFragment.newInstance("1", "2", markerData))
+                        .replace(R.id.container, MapFragment.newInstance(markerData))
                         .addToBackStack(null)
                         .commit();
                 break;
