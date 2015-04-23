@@ -26,12 +26,12 @@ class ViewHolder{
 }
 
 public class MyBaseAdapter_List extends BaseAdapter {
-    private final Context context;
-    private final String[] titleList;
+    private final Context mContext;
+    private final List<Map<String, ?>>  eventDetailsJson;
 
-    public MyBaseAdapter_List(Context context, String[] strings){
-        this.context = context;
-        this.titleList = strings;
+    public MyBaseAdapter_List(Context context, List<Map<String, ?>> strings){
+        mContext = context;
+        eventDetailsJson = strings;
     }
 
 
@@ -47,12 +47,12 @@ public class MyBaseAdapter_List extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return titleList.length;
+        return eventDetailsJson.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return titleList[position];
+        return eventDetailsJson.get(position);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class MyBaseAdapter_List extends BaseAdapter {
         View rowView;
         ViewHolder holder = null;
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(R.layout.list_row, parent, false);
             holder = new ViewHolder();
             holder.title = (TextView) rowView.findViewById(R.id.place_title);
@@ -82,7 +82,7 @@ public class MyBaseAdapter_List extends BaseAdapter {
         //Toast.makeText(context, position, Toast.LENGTH_SHORT).show();
 
 
-        holder.title.setText(titleList[position]);
+        holder.title.setText(eventDetailsJson.get(position).get("EventName").toString());
 
 
         if(position%2==0){

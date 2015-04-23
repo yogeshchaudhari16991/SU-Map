@@ -99,35 +99,13 @@ public class MapFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
-            /*
-            googleMap = mMapView.getMap();
-            // latitude and longitude
-            double latitude = 17.385044;
-            double longitude = 78.486671;
-
-            // create marker
-            MarkerOptions marker = new MarkerOptions().position(
-                    new LatLng(latitude, longitude)).title("Hello Maps");
-
-            // Changing marker icon
-            marker.icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-
-            // adding marker
-            googleMap.addMarker(marker);
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(17.385044, 78.486671)).zoom(12).build();
-            googleMap.animateCamera(CameraUpdateFactory
-                    .newCameraPosition(cameraPosition));
-            */
-            setUpMapIfNeeded();
+            setUpMap();
             // Perform any camera updates here
             return v;
         }
 
     private void setUpMap() {
+        googleMap = mMapView.getMap();
         try {
             readItems();
         } catch (JSONException e) {
@@ -151,18 +129,11 @@ public class MapFragment extends Fragment {
 
             @Override
             public boolean onMarkerClick(Marker arg0) {
-                /*
-                if(arg0.getTitle().equals("Syracuse University")) // if marker source is clicked
-                    Toast.makeText(MapsActivity.this, arg0.getTitle(), Toast.LENGTH_SHORT).show();// display toast
-                */
-                /*
-                Date date=new Date(System.currentTimeMillis());
-                MyDialogFragment dialog= MyDialogFragment.newInstance(date);
-                dialog.setTargetFragment(DialogFragment.newInstance(), 0);
-                dialog.show(getSupportFragmentManager(),"Datepicker Dialog");
-                */
-                final Marker arg01 = arg0;
 
+
+                final Marker arg01 = arg0;
+                arg01.showInfoWindow();
+                //set Snippet to display number of events
                 imageView.setVisibility(View.VISIBLE);
                 imageView.setOnClickListener(new View.OnClickListener()
                 {
@@ -170,7 +141,12 @@ public class MapFragment extends Fragment {
                     public void onClick(View v) {
                         //Toast.makeText(getApplicationContext(), arg01.getTitle(), Toast.LENGTH_SHORT).show();
                         Date date=new Date(System.currentTimeMillis());
-                        MyDialogFragment dialog= MyDialogFragment.newInstance(date,arg01,"info");
+                        MyDialogFragment dialog= null;
+                        try {
+                            dialog = MyDialogFragment.newInstance(date, arg01, "info", getActivity());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         dialog.show(fm, "Place Information Dialog");
                     }
                 });
@@ -179,7 +155,12 @@ public class MapFragment extends Fragment {
                 {
                     @Override
                     public void onClick(View v) {
-                        MyDialogFragment dialog= MyDialogFragment.newInstance(null,arg01,"list");
+                        MyDialogFragment dialog= null;
+                        try {
+                            dialog = MyDialogFragment.newInstance(null, arg01, "list", getActivity());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         dialog.show(fm, "List of Events Dialog");
                         //Toast.makeText(getApplicationContext(),"'list' icon selected", Toast.LENGTH_SHORT).show();
                     }
@@ -189,10 +170,16 @@ public class MapFragment extends Fragment {
                 {
                     @Override
                     public void onClick(View v) {
-                        fm.beginTransaction()
-                                .replace(R.id.container,AddNewEvent.newInstance())
-                                .commit();
-                        Toast.makeText(getActivity(),"'plus' icon selected", Toast.LENGTH_SHORT).show();
+                        /*
+                        MyDialogFragment dialog= null;
+                        try {
+                            dialog = MyDialogFragment.newInstance(null, arg01, "plus", getActivity());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        dialog.show(fm, "Add Events Dialog");
+                        */
+                        fm.beginTransaction().replace(R.id.container,AddNewEvent.newInstance()).commit();
                     }
                 });
 
@@ -209,12 +196,8 @@ public class MapFragment extends Fragment {
         if (googleMap == null) {
             // Try to obtain the map from the SupportMapFragment.
             googleMap = mMapView.getMap();
-
-            // Check if we were successful in obtaining the map.
-            if (googleMap != null) {
-                setUpMap();
-            }
         }
+        setUpMap();
     }
 
     private void readItems()
@@ -230,6 +213,7 @@ public class MapFragment extends Fragment {
 
             googleMap.addMarker(new MarkerOptions().position(new LatLng(lat,lng)).title(Pname));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng), 17));
+
         }
         //InputStream inputStream = getResources().openRawResource(R.raw.radar_search);
         //read(inputStream);
@@ -301,5 +285,8 @@ public class MapFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+
+
 
 }
