@@ -5,14 +5,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,11 +17,7 @@ import com.google.android.gms.maps.model.Marker;
 
 import org.json.JSONException;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -94,7 +85,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
                 TextView descView = (TextView) v.findViewById(R.id.desc);
                 descView.setText("Description");
                 ImageView placeImg = (ImageView) v.findViewById(R.id.placeImg);
-                placeImg.setImageResource(R.drawable.lsc);
+                placeImg.setImageResource(R.drawable.lcs);
                 alertDialogBuilder.setView(v)
                         .setTitle("Place Info")
                         .setMessage("Place Name: " + marker.getTitle())
