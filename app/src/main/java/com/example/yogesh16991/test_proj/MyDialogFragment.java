@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.model.Marker;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -119,19 +121,22 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
                         */
                 List<Map<String, ?>> placeEventList = eventDetailsJSon.getEventsList();
 
-                final List<Map<String, ?>> tempList = null;
+                List<Map<String, ?>> tempList = new ArrayList<Map<String,?>>();
                 for(int i=0; i< placeEventList.size(); i++)
                 {
                     Map<String, ?> placeEvent = eventDetailsJSon.getItem(i);
-                    if(placeEvent.get("MarkerTitle").toString().equals("Carrier Dome") ) {
-                        tempList.add((Map<String, ?>) placeEvent);
+                    //Toast.makeText(getActivity(),"in list "+placeEvent.get("MarkerTitle").toString(),Toast.LENGTH_SHORT).show();
+                    if((placeEvent.get("MarkerTitle").toString()).equals(marker.getTitle().toString()) ) {
+                        tempList.add(placeEvent);
+                        Toast.makeText(getActivity(),"in list",Toast.LENGTH_SHORT).show();
                     }
                 }
                 //Toast.makeText(getActivity(),placeEventList.size(),Toast.LENGTH_SHORT).show();
 
-                //MyBaseAdapter_List myBaseAdapterList = new MyBaseAdapter_List(getActivity(), placeEventList);
-                //listView.setAdapter(myBaseAdapterList);
+                MyBaseAdapter_List myBaseAdapterList = new MyBaseAdapter_List(getActivity(), tempList);
+                listView.setAdapter(myBaseAdapterList);
 
+                //listView.setAdapter(simpleAdapter);
                 alertDialogBuilder.setView(v)
                         .setTitle("List of Events")
                         .setMessage("Place Name: " + marker.getTitle())
@@ -139,7 +144,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //Toast.makeText(getActivity(), marker.getTitle(), Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getActivity(), "in here" + tempList.size(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "in here", Toast.LENGTH_SHORT).show();
                             }
                         });
                 break;
