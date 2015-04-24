@@ -79,9 +79,13 @@ public class EventDetail extends Fragment {
        markertitle = (TextView) v.findViewById(R.id.markertitle);
         eventdesc = (TextView) v.findViewById(R.id.eventdesc);
         eventname = (TextView) v.findViewById(R.id.eventname);
+        TextView sdate =(TextView)v.findViewById(R.id.textViewFromDateEvent);
+        TextView edate = (TextView)v.findViewById(R.id.textViewToDateEvent);
         eventname.setText((String) event.get("EventName"));
         eventdesc.setText((String) event.get("EventDesc"));
         markertitle.setText((String) event.get("MarkerTitle"));
+        sdate.setText((String) event.get("Sdate"));
+        edate.setText((String) event.get("Edate"));
         return v;
     }
 

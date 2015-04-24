@@ -32,8 +32,8 @@ public class EventDetailsJSon{
         } else return null;
     }
 
-    public void addEvent(String name,String desc,String marker,String category){
-        eventsList.add(createEvent(name,desc,marker,category));
+    public void addEvent(String name,String desc,String marker,String category,String sdate,String edate){
+        eventsList.add(createEvent(name,desc,marker,category,sdate,edate));
     }
 
     public EventDetailsJSon(){
@@ -46,57 +46,57 @@ public class EventDetailsJSon{
         eventName = "iProm";
         category = "sports";
         markerTitle = "Carrier Dome";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
         eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
         eventName = "Cricket";
         category = "educational";
         markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
         eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
         eventName = "Cricket";
         category = "educational";
         markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
         eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
         eventName = "Cricket";
         category = "educational";
         markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
         eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
         eventName = "Cricket";
         category = "educational";
         markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
         eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
         eventName = "Cricket";
         category = "educational";
         markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
         eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
         eventName = "Cricket";
         category = "educational";
         markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
         eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
         eventName = "Cricket";
         category = "educational";
         markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
         eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
         eventName = "Cricket";
         category = "educational";
         markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
         eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
         eventName = "Cricket";
         category = "educational";
         markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
         eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
         eventName = "Cricket";
         category = "educational";
         markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category));
+        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
 
 
     }
@@ -121,8 +121,9 @@ public class EventDetailsJSon{
                 markertitle = (String)eventJsonObj.get("MarkerTitle");
                 category = (String)eventJsonObj.get("category");
 
+
             }
-            eventsList.add(createEvent(eventname,eventdesc,markertitle,category));
+            eventsList.add(createEvent(eventname,eventdesc,markertitle,category,null,null));
 
         }
         } catch (JSONException e) {
@@ -132,12 +133,14 @@ public class EventDetailsJSon{
     }
 
 
-    private HashMap createEvent(String eventname,String eventdesc,String markertitle,String category) {
+    private HashMap createEvent(String eventname,String eventdesc,String markertitle,String category,String sdate, String edate) {
         HashMap event = new HashMap();
         event.put("EventName",eventname);
         event.put("EventDesc",eventdesc);
         event.put("MarkerTitle", markertitle);
         event.put("Category", category);
+        event.put("Sdate",sdate);
+        event.put("Edate",edate);
         return event;
     }
 

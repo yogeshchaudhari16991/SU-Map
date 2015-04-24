@@ -31,6 +31,7 @@
         import com.google.android.gms.maps.model.MarkerOptions;
 
         import org.json.JSONException;
+        import org.w3c.dom.Text;
 
         import java.text.SimpleDateFormat;
         import java.util.ArrayList;
@@ -55,7 +56,8 @@ public class AddNewEvent extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final int REQUEST_DATE = 0;
+    private static final int FROM_DATE = 0;
+    private static final int TO_DATE = 1;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -66,8 +68,10 @@ public class AddNewEvent extends Fragment {
     static MarkerDataJson markerData;
     List<Map<String, ?>> MarkerList;
     private TextView fromDateResult;
+    private TextView toDateResult;
     static Marker currentPlace;
     int currentIndex;
+    String dateTimeString = null;
 
     private OnFragmentInteractionListener mListener;
 
@@ -141,7 +145,7 @@ public class AddNewEvent extends Fragment {
         }
         return templist;
     }
-    /*
+
     private List<String> readCatagoryItems() throws JSONException {
         List<String> templist= new ArrayList<String>();
         EventCatList=eventData.getEventsList();
@@ -161,28 +165,42 @@ public class AddNewEvent extends Fragment {
         templist.addAll(hs);
         return templist;
     }
-    */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_add_new_event, container, false);
-        TextView txt_dialog = (TextView) rootView.findViewById(R.id.fromDate);
+
+        TextView fromdate = (TextView) rootView.findViewById(R.id.fromDate);
         fromDateResult = (TextView) rootView.findViewById(R.id.fromDateResult);
-        txt_dialog.setOnClickListener(new View.OnClickListener() {
+        toDateResult = (TextView)rootView.findViewById(R.id.toDateResult);
+        fromdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog();
+               // dateTimeString = null;
+                showDatePickerDialog(0);
+
             }
         });
+        TextView todate = (TextView)rootView.findViewById(R.id.toDate);
+
+        todate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //dateTimeString = null;
+                showDatePickerDialog(1);
+
+            }
+        });
+
         List<String> placesSpinerList = new ArrayList<String>();
         List<String> catagorySpinerList = new ArrayList<String>();
         final Spinner placesSpiner = (Spinner) rootView.findViewById(R.id.placeSpinner);
-        Spinner catagorySpiner = (Spinner) rootView.findViewById(R.id.catagoryspinner);
+        final Spinner catagorySpiner = (Spinner) rootView.findViewById(R.id.catagoryspinner);
         final HashMap event = new HashMap();
         try {
             placesSpinerList = readPlaceItems();
-           // catagorySpinerList = readCatagoryItems();
+            catagorySpinerList = readCatagoryItems();
         } catch (JSONException e) {
             Toast.makeText(getActivity(), "Problem reading list of markers.", Toast.LENGTH_LONG).show();
         }
@@ -192,12 +210,11 @@ public class AddNewEvent extends Fragment {
         placesSpiner.setAdapter(dataAdapterPlace);
         placesSpiner.setSelection(currentIndex);
 
-        /*
         ArrayAdapter<String> dataAdapterCatagory = new ArrayAdapter<String>(this.getActivity(),
                 android.R.layout.simple_spinner_item, catagorySpinerList);
         dataAdapterCatagory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catagorySpiner.setAdapter(dataAdapterCatagory);
-        */
+
         final List<String> finalPlacesSpinerList = placesSpinerList;
         placesSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -224,16 +241,32 @@ public class AddNewEvent extends Fragment {
             }
 
         });
+        final List<String> finalCategorySpinerList = catagorySpinerList;
+        catagorySpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                event.put("Category",finalCategorySpinerList.get(i).toString());
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         Button addEvent = (Button) rootView.findViewById(R.id.btn_EventOk);
         final TextView eventTitle = (TextView) rootView.findViewById(R.id.eventName);
+        final TextView eventDesc = (TextView) rootView.findViewById(R.id.editText2);
+        final TextView sdate = (TextView)rootView.findViewById(R.id.fromDateResult);
+        final TextView edate = (TextView)rootView.findViewById(R.id.toDateResult);
+
         addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 event.put("EventName",eventTitle.getText().toString());
-                event.put("EventDesc","test descirption");
-                event.put("Category","educational");
-                eventData.addEvent((String) event.get("EventName"), (String) event.get("EventDesc"), (String) event.get("MarkerTitle"), (String) event.get("Category"));
+                event.put("EventDesc",eventDesc.getText().toString());
+                event.put("Sdate",sdate.getText().toString());
+                event.put("Edate",edate.getText().toString());
+                eventData.addEvent((String) event.get("EventName"), (String) event.get("EventDesc"), (String) event.get("MarkerTitle"), (String) event.get("Category"),(String)event.get("Sdate"),(String)event.get("Edate"));
                 getFragmentManager().beginTransaction().replace(R.id.container,MapFragment.newInstance(markerData,eventData)).commit();
             }
         });
@@ -241,19 +274,35 @@ public class AddNewEvent extends Fragment {
         return rootView;
     }
 
-    private void showDatePickerDialog() {
+    private void showDatePickerDialog(int option) {
         Date date= new Date(System.currentTimeMillis());
         FromDateTimeDilog dialog= FromDateTimeDilog.newInstance(date);
-        dialog.setTargetFragment(AddNewEvent.this, REQUEST_DATE);
-        dialog.show(getFragmentManager(), "Datepick  er Dialog");
+        if(option==0)
+        dialog.setTargetFragment(AddNewEvent.this, FROM_DATE);
+        else if (option == 1)
+            dialog.setTargetFragment(AddNewEvent.this, TO_DATE);
+        dialog.show(getFragmentManager(), "Datepicker Dialog");
     }
+   /* private void showDatePickerDialog1() {
+        Date date= new Date(System.currentTimeMillis());
+        FromDateTimeDilog dialog1= FromDateTimeDilog.newInstance(date);
+        dialog1.setTargetFragment(AddNewEvent.this, TO_DATE);
+        dialog1.show(getFragmentManager(), "Datepicker Dialog");
+    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Date date=(Date)data.getSerializableExtra(FromDateTimeDilog.ARGS_DATE);
         String time = data.getExtras().get(FromDateTimeDilog.ARGS_Time).toString();
-        fromDateResult.setText(date.toString() + "   " + time);
-
+        Toast.makeText(getActivity(),"requestcode = "+requestCode+date.toString() + "   " + time,Toast.LENGTH_SHORT).show();
+       switch(requestCode){
+           case 0:
+               fromDateResult.setText(date.toString() + "   " + time);
+               break;
+           case 1:
+               toDateResult.setText(date.toString() + "   " + time);
+               break;
+       }
 
     }
 

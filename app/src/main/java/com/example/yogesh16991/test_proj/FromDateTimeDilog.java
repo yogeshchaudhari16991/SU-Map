@@ -102,6 +102,7 @@ public class FromDateTimeDilog extends android.support.v4.app.DialogFragment {
 
                             i.putExtra(ARGS_DATE, fromdate);
                             i.putExtra(ARGS_Time, timePicker.getCurrentHour().toString());
+
                             //i.putExtra("min ", timePicker.getCurrentMinute().toString());
                           //  i.putExtra(ARGS_TIME, fromtime);
                             // Toast.makeText(getActivity(),"nothing returned"+"  " + mname +"   "+check,Toast.LENGTH_SHORT).show();
