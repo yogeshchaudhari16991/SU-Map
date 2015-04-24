@@ -97,6 +97,29 @@ public class EventList extends Fragment {
                 recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(),meventList);
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
+                recyclerviewAdaptor.setOnItemClickListener(new myRecyclerViewAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        HashMap<String, ?> event = (HashMap<String, ?>) meventList.get(position);
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.container, new EventDetail().newInstance(event))
+                                .addToBackStack(null)
+                                .commit();
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+                        //getActivity().startActionMode(new ActionBarCallBack(position));
+                    }
+
+                    @Override
+                    public void onOverflowMenuClick(View v, int position) {
+
+                    }
+
+                });
+
                 break;
             case 1:
                 rootView = inflater.inflate(R.layout.fragment_event_list, container, false);
@@ -105,6 +128,29 @@ public class EventList extends Fragment {
                 recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(),meventList1);
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
+                recyclerviewAdaptor.setOnItemClickListener(new myRecyclerViewAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        HashMap<String, ?> event = (HashMap<String, ?>) meventList1.get(position);
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.container, new EventDetail().newInstance(event))
+                                .addToBackStack(null)
+                                .commit();
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+                        //getActivity().startActionMode(new ActionBarCallBack(position));
+                    }
+
+                    @Override
+                    public void onOverflowMenuClick(View v, int position) {
+
+                    }
+
+                });
+
                 break;
             default:
                 rootView = inflater.inflate(R.layout.fragment_event_list, container, false);
@@ -113,34 +159,35 @@ public class EventList extends Fragment {
                 recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(),meventList);
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
+                recyclerviewAdaptor.setOnItemClickListener(new myRecyclerViewAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        HashMap<String, ?> event = (HashMap<String, ?>) meventList.get(position);
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.container, new EventDetail().newInstance(event))
+                                .addToBackStack(null)
+                                .commit();
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+                        //getActivity().startActionMode(new ActionBarCallBack(position));
+                    }
+
+                    @Override
+                    public void onOverflowMenuClick(View v, int position) {
+
+                    }
+
+                });
+
                 break;
 
         }
 
 
 
-        recyclerviewAdaptor.setOnItemClickListener(new myRecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                HashMap<String, ?> event = (HashMap<String, ?>) meventList.get(position);
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container, new EventDetail().newInstance(event))
-                        .addToBackStack(null)
-                        .commit();
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                //getActivity().startActionMode(new ActionBarCallBack(position));
-            }
-
-            @Override
-            public void onOverflowMenuClick(View v, int position) {
-
-            }
-
-        });
 
 
         return rootView;        // Inflate the layout for this fragment
