@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
@@ -89,8 +90,7 @@ public class MyBaseAdapter_List extends BaseAdapter {
 
         holder.title.setText(eventDetailsJson.get(position).get("EventName").toString());
         Animation animation = null;
-        animation = new TranslateAnimation(metrics_.widthPixels / 2, 0,
-                0, 0);
+        animation = AnimationUtils.loadAnimation(mContext, R.anim.hyperspace_out);
 /*        if(position%2==0){
             holder.title.setTextColor(Color.YELLOW);
         } else {
