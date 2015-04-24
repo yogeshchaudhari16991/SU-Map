@@ -68,11 +68,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="From Date/Time"
+            android:text="From Date/Time: "
             android:id="@+id/stime"
             android:textColor="#ffffffff"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="55dp"
+            android:width="115dp"
             android:layout_below="@+id/eventdesc"
             android:layout_alignParentStart="true" />
 
@@ -80,12 +81,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="To Date/Time"
+            android:text="To Date/Time: "
+            android:width="115dp"
             android:id="@+id/etime"
             android:textColor="#ffffffff"
-            android:layout_marginRight="25dp"
-            android:layout_alignTop="@+id/stime"
-            android:layout_alignParentEnd="true" />
+            android:layout_marginLeft="25dp"
+            android:layout_below="@+id/stime"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -94,8 +96,8 @@
             android:text="Small Text"
             android:id="@+id/textViewFromDateEvent"
             android:textColor="#ffffffff"
-            android:layout_below="@+id/stime"
-            android:layout_alignStart="@+id/stime" />
+            android:layout_toRightOf="@+id/stime"
+            android:layout_alignTop="@+id/stime" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -104,9 +106,9 @@
             android:text="Small Text"
             android:id="@+id/textViewToDateEvent"
             android:textColor="#ffffffff"
-            android:layout_marginLeft="10dp"
-            android:layout_alignStart="@+id/etime"
-            android:layout_alignTop="@+id/textViewFromDateEvent" />
+            
+            android:layout_toRightOf="@+id/etime"
+            android:layout_alignTop="@+id/etime" />
 
         <!--
                 <ImageView
