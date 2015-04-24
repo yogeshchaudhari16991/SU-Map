@@ -3,23 +3,18 @@ package com.example.yogesh16991.test_proj;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 
-import org.json.JSONException;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -40,7 +35,7 @@ public class ViewPagerActivity extends ActionBarActivity implements EventList.On
         setContentView(R.layout.activity_view_pager);
         try {
             eventData = new EventDetailsJSon(this);
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         myPagerAdapter = new MyFragmentStatePagerAdapter(getSupportFragmentManager(), eventData.getSize());

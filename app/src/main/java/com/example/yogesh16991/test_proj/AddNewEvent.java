@@ -3,45 +3,33 @@
         package com.example.yogesh16991.test_proj;
 
         import android.app.Activity;
-        import android.app.DatePickerDialog;
-        import android.app.Dialog;
-        import android.content.Intent;
-        import android.net.Uri;
-        import android.os.Bundle;
-        import android.support.v4.app.DialogFragment;
-        import android.support.v4.app.Fragment;
-        import android.support.v7.internal.widget.AdapterViewCompat;
-        import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.Button;
-        import android.widget.DatePicker;
-        import android.widget.EditText;
-        import android.widget.ImageView;
-        import android.widget.Spinner;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.google.android.gms.maps.CameraUpdateFactory;
-        import com.google.android.gms.maps.model.LatLng;
-        import com.google.android.gms.maps.model.Marker;
-        import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Marker;
 
-        import org.json.JSONException;
-        import org.w3c.dom.Text;
+import org.json.JSONException;
 
-        import java.text.SimpleDateFormat;
-        import java.util.ArrayList;
-        import java.util.Calendar;
-        import java.util.Date;
-        import java.util.HashMap;
-        import java.util.HashSet;
-        import java.util.List;
-        import java.util.Map;
-        import java.util.Set;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -148,14 +136,12 @@ public class AddNewEvent extends Fragment {
 
     private List<String> readCatagoryItems() throws JSONException {
         List<String> templist= new ArrayList<String>();
-        EventCatList=eventData.getEventsList();
-        Log.e("sdadada",EventCatList.toString());
-        for(int i=0;i<EventCatList.size();i++) {
-            Map<String, ?> placeMarker = eventData.getItem(i);
-            String Pname = placeMarker.get("Category").toString();
-            Log.e("rajas",Pname);
-            templist.add(Pname);
-        }
+        templist.add("educational");
+        templist.add("food");
+        templist.add("sports");
+        templist.add("entertainment");
+        templist.add("others");
+
 
         // List<String> al = new ArrayList<>();
         // add elements to al, including duplicates
@@ -223,11 +209,11 @@ public class AddNewEvent extends Fragment {
                 int index = 0;
                 ImageView imageView = (ImageView) rootView.findViewById(R.id.placeImage);
                 int size = markerData.getSize();
-                Toast.makeText(getActivity(), "size= " + size, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "size= " + size, Toast.LENGTH_SHORT).show();
                 for (int i = 0; i < size; i++) {
                     if ((markerData.getItem(i).get("MarkerTitle").toString()).equals(finalPlacesSpinerList.get(position).toString())) {
                         index = i;
-                        Toast.makeText(getActivity(), "in here : " + i, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "in here : " + i, Toast.LENGTH_SHORT).show();
                         break;
                     }
                 }

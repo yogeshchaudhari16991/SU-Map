@@ -4,7 +4,7 @@
     tools:context="com.example.yogesh16991.test_proj.ViewPagerActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/bckToMapView" android:title="Back to MapView"
+    <item android:id="@+id/bckToMapView" android:title="Back to Previous Page"
         android:orderInCategory="101" app:showAsAction="always" />
 </menu>
 

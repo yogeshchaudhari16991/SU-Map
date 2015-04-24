@@ -1,9 +1,9 @@
 package com.example.yogesh16991.test_proj;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -21,7 +21,8 @@ public class EventDetailsJSon{
     public List<Map<String, ?>> getEventsList() {
        return eventsList;
     }
-
+    public static final String MyPREFERENCES = "MyPrefs";
+    SharedPreferences sharedpreferences;
     public int getSize(){
         return eventsList.size();
     }
@@ -36,113 +37,49 @@ public class EventDetailsJSon{
         eventsList.add(createEvent(name,desc,marker,category,sdate,edate));
     }
 
-    public EventDetailsJSon(){
+    public EventDetailsJSon(Context context){
         String eventDesc = null;
         String markerTitle = null;
         String eventName = null;
         String category = null;
         eventsList = new ArrayList<Map<String,?>>();
-        eventDesc = "Set the tone for your special event right on the bat with an invitation that sets the tone for the entire event. Whether you want your event to be formal or casual, classic or trendy, our large selection of invitations will be sure to meet your needs.";
-        eventName = "iProm";
-        category = "sports";
-        markerTitle = "Carrier Dome";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
-        eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
-        eventName = "Cricket";
-        category = "educational";
-        markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
-        eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
-        eventName = "Cricket";
-        category = "educational";
-        markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
-        eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
-        eventName = "Cricket";
-        category = "educational";
-        markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
-        eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
-        eventName = "Cricket";
-        category = "educational";
-        markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
-        eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
-        eventName = "Cricket";
-        category = "educational";
-        markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
-        eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
-        eventName = "Cricket";
-        category = "educational";
-        markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
-        eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
-        eventName = "Cricket";
-        category = "educational";
-        markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
-        eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
-        eventName = "Cricket";
-        category = "educational";
-        markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
-        eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
-        eventName = "Cricket";
-        category = "educational";
-        markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
-        eventDesc = "Come and Catch the World Series with Corn & Kelly Corporation!";
-        eventName = "Cricket";
-        category = "educational";
-        markerTitle = "Life Sciences Complex";
-        eventsList.add(createEvent(eventName,eventDesc,markerTitle,category,null,null));
-
-
-    }
-
-    public EventDetailsJSon(Context context) throws JSONException {
-        String eventdesc = null;
-        String markertitle = null;
-        String eventname = null;
-        String category = null;
-        JSONArray eventsJsonArray = null;
-        JSONObject eventJsonObj = null;
-        eventsList = new ArrayList<Map<String,?>>();
-        String eventsArray = loadEventJSONFromAsset(context);
-        try {
-            eventsJsonArray = new JSONArray(eventsArray);
-
-        for(int i = 0; i <eventsJsonArray.length();i++){
-            eventJsonObj = (JSONObject) eventsJsonArray.get(i);
-            if(eventJsonObj != null) {
-                eventname = (String) eventJsonObj.get("EventName");
-                eventdesc = (String) eventJsonObj.get("EventDesc");
-                markertitle = (String)eventJsonObj.get("MarkerTitle");
-                category = (String)eventJsonObj.get("category");
-
-
-            }
-            eventsList.add(createEvent(eventname,eventdesc,markertitle,category,null,null));
-
-        }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
     }
 
 
-    private HashMap createEvent(String eventname,String eventdesc,String markertitle,String category,String sdate, String edate) {
-        HashMap event = new HashMap();
+
+    private HashMap<String, String> createEvent(String eventname,String eventdesc,String markertitle,String category,String sdate, String edate) {
+        int size;
+        Log.e("createEvent", "inCreate event");
+        HashMap<String, String> event = new HashMap<>();
         event.put("EventName",eventname);
         event.put("EventDesc",eventdesc);
         event.put("MarkerTitle", markertitle);
         event.put("Category", category);
         event.put("Sdate",sdate);
         event.put("Edate",edate);
+        SharedPreferences.Editor editor= sharedpreferences.edit();
+        size = sharedpreferences.getInt("size",0);
+        saveMap(event, "event"+size);
+        size++;
+        editor.putInt("size",size).apply();
+        editor.putBoolean("ultimateJugad",true);
+
         return event;
     }
+
+    private void saveMap(HashMap<String,String> inputMap, String mapStr){
+
+        if (sharedpreferences!= null){
+            JSONObject jsonObject = new JSONObject(inputMap);
+            String jsonString = jsonObject.toString();
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(mapStr, jsonString);
+            editor.apply();
+        }
+    }
+
 
     public String loadEventJSONFromAsset(Context context) {
         String json = null;
