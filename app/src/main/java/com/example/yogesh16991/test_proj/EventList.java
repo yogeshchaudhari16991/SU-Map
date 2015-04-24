@@ -97,6 +97,7 @@ public class EventList extends Fragment {
                 recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(),meventList);
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
+                Toast.makeText(getActivity(),"Swipe Right to Left to see Event Detail",Toast.LENGTH_LONG).show();
                 recyclerviewAdaptor.setOnItemClickListener(new myRecyclerViewAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -119,6 +120,33 @@ public class EventList extends Fragment {
                     }
 
                 });
+                SwipeableRecyclerViewTouchListener swipeTouchListener =
+                        new SwipeableRecyclerViewTouchListener(recyclerView,
+                                new SwipeableRecyclerViewTouchListener.SwipeListener() {
+                                    int mPosition=0;
+                                    @Override
+                                    public boolean canSwipe(int position) {
+                                        mPosition = position;
+                                        return true;
+                                    }
+
+                                    @Override
+                                    public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                                        HashMap<String, ?> event = (HashMap<String, ?>) meventList.get(mPosition);
+                                        getActivity().getSupportFragmentManager()
+                                                .beginTransaction()
+                                                .replace(R.id.container, new EventDetail().newInstance(event))
+                                                .addToBackStack(null)
+                                                .commit();
+                                    }
+
+                                    @Override
+                                    public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                                        //nothing
+                                    }
+                                });
+
+                recyclerView.addOnItemTouchListener(swipeTouchListener);
 
                 break;
             case 1:
