@@ -68,7 +68,7 @@
             android:textStyle="bold"/>
 
         <ImageView
-            android:layout_width="fill_parent"
+            android:layout_width="150dp"
             android:layout_height="150dp"
             android:id="@+id/placeImage"
             android:layout_below="@+id/placeSpinner"
