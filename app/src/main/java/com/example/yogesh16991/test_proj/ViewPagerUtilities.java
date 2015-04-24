@@ -38,6 +38,8 @@ public class ViewPagerUtilities {
         String markertitle = null;
         String eventname = null;
         String category = null;
+        String sdate =null;
+        String edate= null;
         Map<String,?> event;
         List<Map<String,?>> NewEventsList = new ArrayList<Map<String,?>>();
 
@@ -51,21 +53,25 @@ public class ViewPagerUtilities {
             eventname = (String) event.get("EventName");
             eventdesc = (String) event.get("EventDesc");
             markertitle = (String)event.get("MarkerTitle");
+            sdate =(String) event.get("Sdate");
+            edate = (String) event.get("Edate");
             Log.e("view pager category ","mcategory "+mcategory);
             if(mcategory.equals(category)){
-                NewEventsList.add(createEvent(eventname,eventdesc,markertitle,category));
+                NewEventsList.add(createEvent(eventname,eventdesc,markertitle,category,sdate,edate));
             }
         }
         return EventList.newInstance(NewEventsList,1);
 
     }
 
-    private HashMap createEvent(String eventname,String eventdesc,String markertitle,String category) {
+    private HashMap createEvent(String eventname,String eventdesc,String markertitle,String category,String sdate,String edate) {
         HashMap event = new HashMap();
         event.put("EventName",eventname);
         event.put("EventDesc",eventdesc);
         event.put("MarkerTitle",markertitle);
         event.put("Category",category);
+        event.put("Sdate",sdate);
+        event.put("Edate0",edate);
         return event;
     }
 

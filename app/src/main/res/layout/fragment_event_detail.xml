@@ -37,15 +37,13 @@
             android:layout_marginTop="5dp" />
         markertitle
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="200dp"
             android:id="@+id/imageView"
             android:src="@drawable/carrier_dome_night"
             android:layout_below="@+id/markertitle"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
+            android:layout_alignParentStart="false"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,10 +68,10 @@
             android:text="From Date/Time"
             android:id="@+id/stime"
             android:textColor="#ffffffff"
-            android:layout_marginBottom="80dp"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentBottom="false"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="25dp" />
+            android:layout_marginLeft="25dp"
+            android:layout_below="@+id/eventdesc" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,10 +79,11 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="To Date/Time"
             android:id="@+id/etime"
-            android:layout_alignTop="@+id/stime"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentEnd="false"
             android:textColor="#ffffffff"
-            android:layout_marginRight="25dp" />
+            android:layout_marginRight="25dp"
+            android:layout_below="@+id/stime"
+            android:layout_alignLeft="@+id/stime" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -92,10 +91,10 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
             android:id="@+id/textViewFromDateEvent"
-            android:layout_below="@+id/etime"
-            android:layout_alignStart="@+id/stime"
-            android:layout_marginTop="15dp"
-            android:textColor="#ffffffff" />
+            android:textColor="#ffffffff"
+            android:layout_alignBottom="@+id/stime"
+            android:layout_toEndOf="@+id/stime"
+            android:layout_alignLeft="@+id/textViewToDateEvent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,10 +102,10 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
             android:id="@+id/textViewToDateEvent"
-            android:layout_below="@+id/etime"
-            android:layout_alignStart="@+id/etime"
-            android:layout_marginTop="15dp"
-            android:textColor="#ffffffff" />
+            android:textColor="#ffffffff"
+            android:layout_alignBottom="@+id/etime"
+            android:layout_toEndOf="@+id/etime"
+            android:layout_marginLeft="10dp" />
 
         <!--
                 <ImageView
