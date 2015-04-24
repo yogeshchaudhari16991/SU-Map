@@ -32,7 +32,7 @@ public class DrawerData_New {
         //List.add(createList("Favourites",R.drawable.favorite_icon,1));
         List.add(createList("List All Events",R.drawable.eventlist_icon,1));
         List.add(createList("Add Event",R.drawable.addevent_icon,1));
-        List.add(createList("List categories",R.drawable.addevent_icon,1));
+        List.add(createList("List categories",R.drawable.ic_action_select_all,1));
         List.add(createList(null,R.drawable.abc_btn_radio_material,2));
         List.add(createList("About Us",0,3));
         //List.add(createList("Exit",0,3));

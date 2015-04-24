@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MapsActivity extends ActionBarActivity implements MyDialogFragment.OnFragmentInteractionListener,EventList.OnFragmentInteractionListener,
-EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionListener, MapFragment.OnFragmentInteractionListener, FromDateTimeDilog.OnFragmentInteractionListener{
+EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionListener, MapFragment.OnFragmentInteractionListener,AboutUs.OnFragmentInteractionListener, FromDateTimeDilog.OnFragmentInteractionListener{
 
     SharedPreferences sharedpreferences;
     public static final String MyPREFERENCES = "MyPrefs";
@@ -133,7 +133,7 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
                 intent = new Intent(this,ViewPagerActivity.class);
                 intent.putExtra("EVENT_LIST", (java.io.Serializable) eventDetailsJSon.getEventsList());
                 startActivity(intent);                break;
-            case 4:
+            case 5:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, AboutUs.newInstance("1","2"))
                         .addToBackStack(null)

@@ -105,7 +105,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getActivity(), marker.getTitle(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getActivity(), marker.getTitle(), Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -141,7 +141,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //Toast.makeText(getActivity(), marker.getTitle(), Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getActivity(), "in here", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getActivity(), "in here", Toast.LENGTH_SHORT).show();
                             }
                         });
                 break;

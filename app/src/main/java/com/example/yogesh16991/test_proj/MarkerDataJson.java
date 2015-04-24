@@ -66,6 +66,23 @@ public class MarkerDataJson {
         noOfEvents = 2;
         img = R.drawable.quad;
         markersList.add(createMarker(lat,lng,pName,noOfEvents,desc,img));
+        pName = "Hendricks Chapel";
+        lat = 43.03763;
+        lng =-76.135121;
+        noOfEvents = 2;
+        desc = "Hendricks Chapel is the diverse religious, spiritual, ethical and cultural heart of Syracuse University that connects people of all faiths and no faith through active engagement, mutual dialogue, reflective spirituality, responsible leadership and a rigorous commitment to social justice.";
+        img = R.drawable.hendricks_chapel;
+        markersList.add(createMarker(lat,lng,pName,noOfEvents,desc,img));
+        pName = "Bird Library";
+                lat=43.03989;
+                lng = -76.132602;
+                noOfEvents=2;
+                desc= "Bird Library is the main library on campus and houses materials in the humanities and social sciences. ";
+                img = R.drawable.bird_lib;
+        markersList.add(createMarker(lat,lng,pName,noOfEvents,desc,img));
+
+
+
     }
 
         public MarkerDataJson(Context context) throws JSONException {
