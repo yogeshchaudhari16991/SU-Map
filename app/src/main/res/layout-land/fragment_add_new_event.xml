@@ -16,7 +16,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/imageViewpin"
-            android:layout_below="@+id/placeImage"
             android:layout_alignParentStart="true"
             android:src="@drawable/pin_large"
             android:scaleType="fitXY"
@@ -31,7 +30,7 @@
             android:layout_below="@+id/textView10"
             android:layout_alignParentStart="true"
             android:textColor="#ff000000"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:textStyle="bold"
             android:layout_marginLeft="5dp" />
 
@@ -39,9 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/placeSpinner"
+            android:spinnerMode="dialog"
             android:layout_alignTop="@+id/place"
-            android:layout_toEndOf="@+id/place"
-            android:spinnerMode="dialog" />
+            android:layout_toStartOf="@+id/textViewCategory"
+            android:layout_toRightOf="@+id/place" />
 
         <TextView
             android:layout_width="100dp"
@@ -50,29 +50,30 @@
             android:text="Event : "
             android:id="@+id/event"
             android:textColor="#ff000000"
-            android:layout_centerVertical="true"
-            android:layout_alignEnd="@+id/toDate"
             android:textStyle="bold"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/placeSpinner"
+            android:layout_alignParentStart="true" />
 
         <EditText
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/eventName"
             android:textColor="#ff000000"
-            android:layout_below="@+id/placeImage"
-            android:layout_toEndOf="@+id/textViewEventdesc"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_below="@+id/placeSpinner"
+            android:layout_toEndOf="@+id/textViewEventdesc" />
 
         <ImageView
-            android:layout_width="fill_parent"
+            android:layout_width="150dp"
             android:layout_height="150dp"
             android:id="@+id/placeImage"
-            android:layout_below="@+id/placeSpinner"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/eventName"
+            android:layout_below="@+id/catagoryspinner"
+            android:layout_alignParentBottom="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,12 +81,11 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="From Date/Time : "
             android:id="@+id/fromDate"
-            android:layout_below="@+id/catagoryspinner"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="5dp"
             android:textColor="#ff000000"
             android:textStyle="bold"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/editText2"
+            android:layout_alignEnd="@+id/toDate" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -104,21 +104,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Category"
+            android:text="Category : "
             android:id="@+id/textViewCategory"
             android:textStyle="bold"
-            android:layout_alignTop="@+id/catagoryspinner"
-            android:layout_alignParentStart="true"
             android:textColor="#ff000000"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="5dp"
+            android:layout_alignTop="@+id/placeSpinner"
+            android:layout_alignEnd="@+id/textView10" />
 
         <Spinner
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/catagoryspinner"
             android:spinnerMode="dialog"
-            android:layout_marginTop="65dp"
-            android:layout_below="@+id/eventName"
+            android:layout_alignTop="@+id/textViewCategory"
             android:layout_toEndOf="@+id/textViewCategory" />
 
         <TextView
@@ -134,14 +133,15 @@
             android:textStyle="bold|italic" />
 
         <Button
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add"
             android:id="@+id/btn_EventOk"
             android:layout_alignParentBottom="true"
-            android:layout_alignEnd="@+id/catagoryspinner"
             android:background ="#c1666666"
-            android:textColor="#ffffffff"/>
+            android:textColor="#ffffffff"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
 
  <!--       <Button
             android:layout_width="190dp"
@@ -155,7 +155,7 @@
             android:layout_marginTop="5dp" />-->
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/toDateResult"
@@ -165,7 +165,7 @@
             android:layout_toEndOf="@+id/fromDate" />
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/fromDateResult"
@@ -178,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Description"
+            android:text="Description : "
             android:id="@+id/textViewEventdesc"
             android:layout_below="@+id/eventName"
             android:layout_alignParentStart="true"
@@ -188,7 +188,7 @@
             android:layout_marginLeft="5dp" />
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
@@ -198,7 +198,7 @@
             android:layout_alignTop="@+id/textViewEventdesc"
             android:layout_toEndOf="@+id/textViewEventdesc" />
 
-        <ImageButton
+<!--        <ImageButton
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:id="@+id/imageBtnfromRes"
@@ -213,7 +213,7 @@
             android:id="@+id/imageBtntores"
             android:layout_alignTop="@+id/toDateResult"
             android:scaleType="fitXY"
-            android:layout_alignStart="@+id/imageBtnfromRes" />
+            android:layout_alignStart="@+id/imageBtnfromRes" />-->
 
 
 
