@@ -1,6 +1,7 @@
 package com.example.yogesh16991.test_proj;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class EventList extends Fragment {
         RecyclerView recyclerView;
     OnFragmentInteractionListener mListener = null;
     public static List<Map<String, ?>> meventList;
+    List<Map<String, ?>> meventList1;
         private static final String OPTION = "option";
 
     public static EventList newInstance(List<Map<String, ?>> eventList,int option) {
@@ -45,8 +47,15 @@ public class EventList extends Fragment {
         args.putInt(OPTION, option);
         fragment.setArguments(args);
         meventList = eventList;
+        fragment.setList();
         return fragment;
+
     }
+
+    private void setList() {
+        meventList1 = meventList;
+    }
+
     public EventList() {
         // Required empty public constructor
     }
@@ -64,6 +73,7 @@ public class EventList extends Fragment {
             e.printStackTrace();
         }
         */
+
         setRetainInstance(true);
 
     }
@@ -92,7 +102,7 @@ public class EventList extends Fragment {
                 rootView = inflater.inflate(R.layout.fragment_event_list, container, false);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.listview);
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(),meventList);
+                recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(),meventList1);
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
                 break;
@@ -161,6 +171,7 @@ public class EventList extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

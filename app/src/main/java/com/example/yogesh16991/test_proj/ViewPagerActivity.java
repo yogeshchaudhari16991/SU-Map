@@ -115,8 +115,8 @@ public class ViewPagerActivity extends ActionBarActivity implements EventList.On
 
         @Override
         public Fragment getItem(int position) {
-            ViewPagerUtilities viewPagerUtilities = new ViewPagerUtilities(mcontext);
-            return viewPagerUtilities.createHashmap(eventsList,position);
+            ViewPagerUtilities vpu = new ViewPagerUtilities(mcontext);
+            return vpu.createHashmap(eventsList,position);
         }
 
         @Override
