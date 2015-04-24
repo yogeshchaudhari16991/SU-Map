@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -36,6 +38,9 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
         v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_view, parent, false);
         ViewHolder vh = new ViewHolder(v);
+        Animation animation = null;
+        animation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        v.startAnimation(animation);
         return vh;
     }
 
