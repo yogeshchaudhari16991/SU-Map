@@ -176,6 +176,10 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
     @Override
     protected void onResume() {
         super.onResume();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.container, MapFragment.newInstance(markerData, eventDetailsJSon))
+                .commit();
         //MapsetUpMapIfNeeded();
     }
 
