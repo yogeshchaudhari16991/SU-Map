@@ -125,7 +125,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
                     //Toast.makeText(getActivity(),"in list "+placeEvent.get("MarkerTitle").toString(),Toast.LENGTH_SHORT).show();
                     if((placeEvent.get("MarkerTitle").toString()).equals(marker.getTitle().toString()) ) {
                         tempList.add(placeEvent);
-                        Toast.makeText(getActivity(),"in list",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),"in list",Toast.LENGTH_SHORT).show();
                     }
                 }
                 //Toast.makeText(getActivity(),placeEventList.size(),Toast.LENGTH_SHORT).show();

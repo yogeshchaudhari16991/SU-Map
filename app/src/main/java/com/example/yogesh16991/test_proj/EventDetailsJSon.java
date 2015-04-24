@@ -51,7 +51,7 @@ public class EventDetailsJSon{
 
     private HashMap<String, String> createEvent(String eventname,String eventdesc,String markertitle,String category,String sdate, String edate) {
         int size;
-        Log.e("createEvent", "inCreate event");
+        //Log.e("createEvent", "inCreate event");
         HashMap<String, String> event = new HashMap<>();
         event.put("EventName",eventname);
         event.put("EventDesc",eventdesc);

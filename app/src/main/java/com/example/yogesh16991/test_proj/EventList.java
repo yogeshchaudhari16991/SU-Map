@@ -85,7 +85,7 @@ public class EventList extends Fragment {
         setRetainInstance(true);
         if(getArguments()!= null){ option = getArguments().getInt(OPTION);}
         else option = 0;
-        Toast.makeText(getActivity(),"The option is "+option,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(),"The option is "+option,Toast.LENGTH_SHORT).show();
         View rootView = null;
         final myRecyclerViewAdapter recyclerviewAdaptor;
 
@@ -98,7 +98,7 @@ public class EventList extends Fragment {
                 recyclerviewAdaptor = new myRecyclerViewAdapter(getActivity(),meventList);
                 recyclerView.setAdapter(recyclerviewAdaptor);
                 recyclerView.setHasFixedSize(true);
-                Toast.makeText(getActivity(),"Swipe Right to Left to see Event Detail",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(),"Swipe Right to Left to see Event Detail",Toast.LENGTH_LONG).show();
                 recyclerviewAdaptor.setOnItemClickListener(new myRecyclerViewAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {

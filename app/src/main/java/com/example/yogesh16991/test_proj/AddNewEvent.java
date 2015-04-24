@@ -218,7 +218,7 @@ public class AddNewEvent extends Fragment {
                     }
                 }
                 imageView.setImageResource((Integer) markerData.getItem(index).get("img"));// Log.e("sdadssadadsadad afagsdg sdg sdgdg","ghasdgfashgdfiuc kgficuyasfhgsgf");
-                Toast.makeText(getActivity(), "in listner " + index, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "in listner " + index, Toast.LENGTH_SHORT).show();
                 event.put("MarkerTitle",finalPlacesSpinerList.get(position).toString());
             }
 
@@ -281,7 +281,7 @@ public class AddNewEvent extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Date date=(Date)data.getSerializableExtra(FromDateTimeDilog.ARGS_DATE);
         String time = data.getExtras().get(FromDateTimeDilog.ARGS_Time).toString();
-        Toast.makeText(getActivity(),"requestcode = "+requestCode+date.toString() + "   " + time,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(),"requestcode = "+requestCode+date.toString() + "   " + time,Toast.LENGTH_SHORT).show();
        switch(requestCode){
            case 0:
                fromDateResult.setText(date.toString() + "   " + time);
