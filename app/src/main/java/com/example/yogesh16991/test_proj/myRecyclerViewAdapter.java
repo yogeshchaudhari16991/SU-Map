@@ -39,7 +39,7 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
                 .inflate(R.layout.card_view, parent, false);
         ViewHolder vh = new ViewHolder(v);
         Animation animation = null;
-        animation = AnimationUtils.loadAnimation(context, R.anim.shake);
+        animation = AnimationUtils.loadAnimation(context, R.anim.hyperspace_out);
         v.startAnimation(animation);
         return vh;
     }
