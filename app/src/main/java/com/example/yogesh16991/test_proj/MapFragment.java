@@ -90,6 +90,9 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             // inflate and return the layout
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+
             View v = inflater.inflate(R.layout.fragment_map, container,
                     false);
             mMapView = (MapView) v.findViewById(R.id.mapView);
@@ -193,17 +196,6 @@ public class MapFragment extends Fragment {
         });
     }
 
-
-
-    private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (googleMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            googleMap = mMapView.getMap();
-        }
-        setUpMap();
-    }
-
     private void readItems()
             throws JSONException {
         MarkerList=markerData.markersList;
@@ -278,7 +270,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-        inflater.inflate(R.menu.menu_master_detail, menu);
+        inflater.inflate(R.menu.menu_maps, menu);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         if(searchView!=null){
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()

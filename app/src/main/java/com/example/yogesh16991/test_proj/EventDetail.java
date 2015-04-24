@@ -73,6 +73,7 @@ public class EventDetail extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_event_detail, container, false);;
+        setRetainInstance(true);
         TextView markertitle;
         TextView eventdesc;
         TextView eventname;

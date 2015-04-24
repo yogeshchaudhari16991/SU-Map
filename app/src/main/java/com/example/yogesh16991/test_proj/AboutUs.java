@@ -64,6 +64,7 @@ public class AboutUs extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        setRetainInstance(true);
         return inflater.inflate(R.layout.fragment_about_us, container, false);
     }
 

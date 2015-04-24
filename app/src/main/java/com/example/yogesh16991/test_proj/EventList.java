@@ -82,6 +82,7 @@ public class EventList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         int option;
+        setRetainInstance(true);
         if(getArguments()!= null){ option = getArguments().getInt(OPTION);}
         else option = 0;
         Toast.makeText(getActivity(),"The option is "+option,Toast.LENGTH_SHORT).show();

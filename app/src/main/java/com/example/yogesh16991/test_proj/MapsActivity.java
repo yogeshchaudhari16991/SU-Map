@@ -62,7 +62,9 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_maps);
+
         activity = (LinearLayout) findViewById(R.id.linear);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
@@ -113,12 +115,12 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
         //setUpMapIfNeeded();
         */
 
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.container, MapFragment.newInstance(markerData,eventDetailsJSon))
-                .commit();
-
+        if(savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.container, MapFragment.newInstance(markerData, eventDetailsJSon))
+                    .commit();
+        }
     }
 
 
@@ -180,7 +182,7 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_master_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_master_detail, menu);
 
         return true;
     }

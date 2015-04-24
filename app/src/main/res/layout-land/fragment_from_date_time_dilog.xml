@@ -1,0 +1,46 @@
+
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="From Date"
+            android:id="@+id/textViewFromDate"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fromdatePicker"
+            android:layout_below="@+id/textViewFromDate"
+
+            android:calendarViewShown="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="From Time : "
+            android:id="@+id/textViewFromTime"
+            android:layout_below="@+id/fromdatePicker"
+             />
+
+        <TimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fomtimePicker"
+
+            android:layout_below="@+id/textViewFromTime"
+            />
+    </RelativeLayout>
+

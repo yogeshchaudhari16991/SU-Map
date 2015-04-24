@@ -98,6 +98,7 @@ public class ViewPagerActivity extends ActionBarActivity implements EventList.On
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            setRetainInstance(true);
             View rootView = inflater.inflate(R.layout.fragment_view_pager, container, false);
 
             return rootView;
