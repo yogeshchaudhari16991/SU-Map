@@ -21,8 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import android.app.Fragment;
-
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
@@ -33,23 +31,21 @@ import java.util.Map;
  * create an instance of this fragment.
  */
 public class EventList extends Fragment {
-    private static final String ARG_MOVIE = "movie";
-//EventDetailsJSon eventData;
-        RecyclerView recyclerView;
+
+    RecyclerView recyclerView;
     OnFragmentInteractionListener mListener = null;
     public static List<Map<String, ?>> meventList;
     List<Map<String, ?>> meventList1;
-        private static final String OPTION = "option";
+    private static final String OPTION = "option";
 
     public static EventList newInstance(List<Map<String, ?>> eventList,int option) {
       EventList fragment = new EventList();
-        Bundle args = new Bundle();
-        args.putInt(OPTION, option);
-        fragment.setArguments(args);
-        meventList = eventList;
-        fragment.setList();
-        return fragment;
-
+      Bundle args = new Bundle();
+      args.putInt(OPTION, option);
+      fragment.setArguments(args);
+      meventList = eventList;
+      fragment.setList();
+      return fragment;
     }
 
     private void setList() {
@@ -63,19 +59,7 @@ public class EventList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //redundant code, already new Instance me eventDatilsJSon object is there
-        /*
-        try {
-            eventData = new EventDetailsJSon(getActivity());
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        */
-
         setRetainInstance(true);
-
     }
 
     @Override
@@ -83,12 +67,12 @@ public class EventList extends Fragment {
                              Bundle savedInstanceState) {
         int option;
         setRetainInstance(true);
-        if(getArguments()!= null){ option = getArguments().getInt(OPTION);}
-        else option = 0;
-        //Toast.makeText(getActivity(),"The option is "+option,Toast.LENGTH_SHORT).show();
+        if(getArguments()!= null){
+            option = getArguments().getInt(OPTION);}
+        else
+            option = 0;
         View rootView = null;
         final myRecyclerViewAdapter recyclerviewAdaptor;
-
 
         switch (option){
             case 0:
@@ -109,17 +93,12 @@ public class EventList extends Fragment {
                                 .addToBackStack(null)
                                 .commit();
                     }
-
                     @Override
                     public void onItemLongClick(View view, int position) {
-                        //getActivity().startActionMode(new ActionBarCallBack(position));
                     }
-
                     @Override
                     public void onOverflowMenuClick(View v, int position) {
-
                     }
-
                 });
                 SwipeableRecyclerViewTouchListener swipeTouchListener =
                         new SwipeableRecyclerViewTouchListener(recyclerView,
@@ -130,7 +109,6 @@ public class EventList extends Fragment {
                                         mPosition = position;
                                         return true;
                                     }
-
                                     @Override
                                     public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
                                         HashMap<String, ?> event = (HashMap<String, ?>) meventList.get(mPosition);
@@ -140,15 +118,12 @@ public class EventList extends Fragment {
                                                 .addToBackStack(null)
                                                 .commit();
                                     }
-
                                     @Override
                                     public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
                                         //nothing
                                     }
                                 });
-
                 recyclerView.addOnItemTouchListener(swipeTouchListener);
-
                 break;
             case 1:
                 rootView = inflater.inflate(R.layout.fragment_event_list, container, false);
@@ -170,16 +145,11 @@ public class EventList extends Fragment {
 
                     @Override
                     public void onItemLongClick(View view, int position) {
-                        //getActivity().startActionMode(new ActionBarCallBack(position));
                     }
-
                     @Override
                     public void onOverflowMenuClick(View v, int position) {
-
                     }
-
                 });
-
                 break;
             default:
                 rootView = inflater.inflate(R.layout.fragment_event_list, container, false);
@@ -201,26 +171,14 @@ public class EventList extends Fragment {
 
                     @Override
                     public void onItemLongClick(View view, int position) {
-                        //getActivity().startActionMode(new ActionBarCallBack(position));
                     }
-
                     @Override
                     public void onOverflowMenuClick(View v, int position) {
-
                     }
-
                 });
-
                 break;
-
         }
-
-
-
-
-
         return rootView;        // Inflate the layout for this fragment
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event

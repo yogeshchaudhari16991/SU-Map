@@ -14,15 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by rajasave on 4/20/2015.
- */
 public class MarkerDataJson {
-    private Context mcontext;
-    List<Map<String,?>> markersList;
-    List<Map<String,?>> markersList1;
 
-   public List<Map<String, ?>> getMarkersList() {
+    List<Map<String,?>> markersList;
+    public List<Map<String, ?>> getMarkersList() {
         return markersList;
     }
 
@@ -74,47 +69,12 @@ public class MarkerDataJson {
         img = R.drawable.hendricks_chapel;
         markersList.add(createMarker(lat,lng,pName,noOfEvents,desc,img));
         pName = "Bird Library";
-                lat=43.03989;
-                lng = -76.132602;
-                noOfEvents=2;
-                desc= "Bird Library is the main library on campus and houses materials in the humanities and social sciences. ";
-                img = R.drawable.bird_lib;
+        lat=43.03989;
+        lng = -76.132602;
+        noOfEvents=2;
+        desc= "Bird Library is the main library on campus and houses materials in the humanities and social sciences. ";
+        img = R.drawable.bird_lib;
         markersList.add(createMarker(lat,lng,pName,noOfEvents,desc,img));
-
-
-
-    }
-
-        public MarkerDataJson(Context context) throws JSONException {
-       /* String description = null;
-        String title = null;
-        String desit = null;*/
-        double lat = 0;
-        double lng = 0;
-        String Pname = null;
-        int NoOfEvents = 0;
-        String MarkerDescription = null;
-        String img= null;
-        int resID = 0;
-        JSONArray markersJsonArray = null;
-        JSONObject markerJsonObj = null;
-        markersList = new ArrayList<Map<String,?>>();
-        String markersArray = loadMarkerJSONFromAsset(context);
-        markersJsonArray = new JSONArray(markersArray);
-        for(int i = 0; i <markersJsonArray.length();i++){
-            markerJsonObj = (JSONObject) markersJsonArray.get(i);
-            if(markerJsonObj != null) {
-                lat = (double) markerJsonObj.get("lat");
-                lng = (double) markerJsonObj.get("lng");
-                Pname =  markerJsonObj.get("MarkerTitle").toString();
-                NoOfEvents = Integer.parseInt(markerJsonObj.get("NoOfEvents").toString());
-                MarkerDescription =  markerJsonObj.get("MarkerDescription").toString();
-                img = ((String) markerJsonObj.get("img"));
-                resID = context.getResources().getIdentifier(img, "drawable", context.getPackageName());
-            }
-            markersList.add(createMarker(lat, lng, Pname, NoOfEvents, MarkerDescription, img, resID));
-
-        }
     }
 
     private HashMap createMarker(double lat,double lng,String Pname,int NoOfEvents,String MarkerDescription, int img) {
@@ -126,35 +86,5 @@ public class MarkerDataJson {
         marker.put("MarkerDescription",MarkerDescription);
         marker.put("img",img);
         return marker;
-    }
-
-
-
-    private HashMap createMarker(double lat,double lng,String Pname,int NoOfEvents,String MarkerDescription, String img, int resID) {
-        HashMap marker = new HashMap();
-        marker.put("lat",lat);
-        marker.put("lng",lng);
-        marker.put("MarkerTitle",Pname);
-        marker.put("NoOfEvents",NoOfEvents);
-        marker.put("MarkerDescription",MarkerDescription);
-        marker.put("img",img);
-        marker.put("resID",resID);
-        return marker;
-    }
-
-    public String loadMarkerJSONFromAsset(Context context) {
-        String json = null;
-        try {
-            InputStream is = context.getResources().openRawResource(R.raw.marker);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
     }
 }

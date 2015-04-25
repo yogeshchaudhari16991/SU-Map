@@ -14,22 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by HP on 22-04-2015.
- */
 public class ViewPagerUtilities {
-    private Context mcontext;
-    //List<Map<String,?>> eventsList;
-    private int moption = 0;
-
-
-    EventDetailsJSon eventData;
     public ViewPagerUtilities(Context context){
-       /*try {
-            eventData = new EventDetailsJSon(context);
-       } catch (JSONException e) {
-           e.printStackTrace();
-       }*/
     }
 
     public Fragment createHashmap(List<Map<String,?>> eventsList,int option)
@@ -42,11 +28,7 @@ public class ViewPagerUtilities {
         String edate= null;
         Map<String,?> event;
         List<Map<String,?>> NewEventsList = new ArrayList<Map<String,?>>();
-
-        //eventsList = new ArrayList<Map<String,?>>();
-        //eventsList = eventData.getEventsList();
         String mcategory = setCategory(option);
-
         for(int i = 0;i<eventsList.size();i++){
             event = eventsList.get(i);
             category = (String)event.get("Category");
@@ -71,7 +53,7 @@ public class ViewPagerUtilities {
         event.put("MarkerTitle",markertitle);
         event.put("Category",category);
         event.put("Sdate",sdate);
-        event.put("Edate0",edate);
+        event.put("Edate",edate);
         return event;
     }
 

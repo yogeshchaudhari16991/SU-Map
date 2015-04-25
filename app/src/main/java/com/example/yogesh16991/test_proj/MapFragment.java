@@ -40,23 +40,11 @@ import java.util.Map;
  * create an instance of this fragment.
  */
 public class MapFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment MapFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -78,13 +66,9 @@ public class MapFragment extends Fragment {
         return fragment;
     }
 
-
-
     public MapFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,37 +76,34 @@ public class MapFragment extends Fragment {
             // inflate and return the layout
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-
-            View v = inflater.inflate(R.layout.fragment_map, container,
-                    false);
-            mMapView = (MapView) v.findViewById(R.id.mapView);
-            mMapView.onCreate(savedInstanceState);
-            activity = (RelativeLayout) v.findViewById(R.id.mainfrag);
-            mMapView.onResume();// needed to get the map to display immediately
-            fm = getFragmentManager();
-            try {
-                MapsInitializer.initialize(getActivity().getApplicationContext());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            setUpMap();
+        View v = inflater.inflate(R.layout.fragment_map, container,false);
+        mMapView = (MapView) v.findViewById(R.id.mapView);
+        mMapView.onCreate(savedInstanceState);
+        activity = (RelativeLayout) v.findViewById(R.id.mainfrag);
+        mMapView.onResume();// needed to get the map to display immediately
+        fm = getFragmentManager();
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        setUpMap();
         setHasOptionsMenu(true);
             // Perform any camera updates here
-            return v;
-        }
+        return v;
+    }
 
     private void setUpMap() {
+        final ImageView imageView = (ImageView)activity.findViewById(R.id.tool_btn1);
+        final ImageView imageView2 = (ImageView)activity.findViewById(R.id.tool_btn2);
+        final ImageView imageView3 = (ImageView)activity.findViewById(R.id.tool_btn3);
+
         googleMap = mMapView.getMap();
         try {
             readItems();
         } catch (JSONException e) {
             Toast.makeText(getActivity(), "Problem reading list of markers.", Toast.LENGTH_LONG).show();
         }
-
-        final ImageView imageView = (ImageView)activity.findViewById(R.id.tool_btn1);
-        final ImageView imageView2 = (ImageView)activity.findViewById(R.id.tool_btn2);
-        final ImageView imageView3 = (ImageView)activity.findViewById(R.id.tool_btn3);
-
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -136,8 +117,6 @@ public class MapFragment extends Fragment {
 
             @Override
             public boolean onMarkerClick(final Marker arg0) {
-
-
                 final Marker arg01 = arg0;
                 arg01.showInfoWindow();
                 //set Snippet to display number of events
@@ -146,8 +125,6 @@ public class MapFragment extends Fragment {
                 {
                     @Override
                     public void onClick(View v) {
-                        //Toast.makeText(getApplicationContext(), arg01.getTitle(), Toast.LENGTH_SHORT).show();
-                        //Date date=new Date(System.currentTimeMillis());
                         MyDialogFragment dialog= null;
                         try {
                             dialog = MyDialogFragment.newInstance(eventData, arg01, "info", getActivity());
@@ -169,7 +146,6 @@ public class MapFragment extends Fragment {
                             e.printStackTrace();
                         }
                         dialog.show(fm, "List of Events Dialog");
-                        //Toast.makeText(getApplicationContext(),"'list' icon selected", Toast.LENGTH_SHORT).show();
                     }
                 });
                 imageView3.setVisibility(View.VISIBLE);
@@ -177,19 +153,9 @@ public class MapFragment extends Fragment {
                 {
                     @Override
                     public void onClick(View v) {
-                        /*
-                        MyDialogFragment dialog= null;
-                        try {
-                            dialog = MyDialogFragment.newInstance(markerData, arg01, "plus", getActivity());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        dialog.show(fm, "Add Events Dialog");
-                        */
                         fm.beginTransaction().replace(R.id.container,AddNewEvent.newInstance(eventData,arg01)).addToBackStack(null).commit();
                     }
                 });
-
                 return true;
             }
 
@@ -206,50 +172,39 @@ public class MapFragment extends Fragment {
             String lgnstring = placeMarker.get("lng").toString();
             double lng = Double.parseDouble(lgnstring);
             String Pname = placeMarker.get("MarkerTitle").toString();
-
             googleMap.addMarker(new MarkerOptions().position(new LatLng(lat,lng)).title(Pname));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng), 17));
 
         }
-        //InputStream inputStream = getResources().openRawResource(R.raw.radar_search);
-        //read(inputStream);
-        // List<MyItem> items = new JsonHandler().read(inputStream);
-//      Toast.makeText(getApplicationContext(), MarkerList.size(), Toast.LENGTH_SHORT).show();
-
     }
 
-        @Override
-        public void onResume() {
-            super.onResume();
-            mMapView.onResume();
-        }
+    @Override
+    public void onResume() {
+         super.onResume();
+         mMapView.onResume();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
 
-        @Override
-        public void onPause() {
-            super.onPause();
-            mMapView.onPause();
-        }
-
-        @Override
-        public void onDestroy() {
-            super.onDestroy();
-            mMapView.onDestroy();
-        }
-
-        @Override
-        public void onLowMemory() {
-            super.onLowMemory();
-            mMapView.onLowMemory();
-        }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+    }
+    @Override
+    public void onLowMemory() {
+         super.onLowMemory();
+         mMapView.onLowMemory();
+    }
+   // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -278,9 +233,6 @@ public class MapFragment extends Fragment {
                 @Override
                 public boolean onQueryTextSubmit(String s)
                 {
-
-                    //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-
                     MarkerList=markerData.markersList;
                     for(int i=0;i<MarkerList.size();i++) {
                         Map<String, ?> placeMarker = markerData.getItem(i);
@@ -289,14 +241,10 @@ public class MapFragment extends Fragment {
                             double lat = Double.parseDouble(latstring);
                             String lgnstring = placeMarker.get("lng").toString();
                             double lng = Double.parseDouble(lgnstring);
-                            //String Pname = placeMarker.get("MarkerTitle").toString();
-                            //Toast.makeText(getActivity(), "in if", Toast.LENGTH_SHORT).show();
-                            //googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(Pname));
                             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 17));
                             break;
                         }
                     }
-                    //Toast.makeText(getActivity(), "after for", Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 @Override
@@ -323,8 +271,4 @@ public class MapFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-
-
-
-
 }

@@ -7,9 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -21,35 +24,20 @@ import java.util.HashMap;
  * create an instance of this fragment.
  */
 public class EventDetail extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    /*private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-*/
     private static final String ARG_EVENT = "event";
-    // TODO: Rename and change types of parameters
- /*   private String mParam1;
-    private String mParam2;*/
-
     private HashMap<String, ?> event;
     private OnFragmentInteractionListener mListener;
+    private MarkerDataJson markerData;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * param param1 Parameter 1.
-     * param param2 Parameter 2.
      * @return A new instance of fragment EventDetail.
      */
-    // TODO: Rename and change types and number of parameters
     public static EventDetail newInstance(HashMap<String, ?> event) {
         EventDetail fragment = new EventDetail();
         Bundle args = new Bundle();
-/*        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);*/
         args.putSerializable(ARG_EVENT, event);
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,31 +50,51 @@ public class EventDetail extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-
         if (getArguments() != null) {
             event=(HashMap<String,?>)getArguments().getSerializable(ARG_EVENT);
         }
+        markerData = new MarkerDataJson();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_event_detail, container, false);;
+        View v = inflater.inflate(R.layout.fragment_event_detail, container, false);
+        ;
         setRetainInstance(true);
+        List<Map<String, ?>> markerList;
+        HashMap<String,?> marker = null;
         TextView markertitle;
         TextView eventdesc;
         TextView eventname;
-       markertitle = (TextView) v.findViewById(R.id.markertitle);
+        TextView sdate;
+        TextView edate;
+        ImageView imageView;
+
+        markerList = markerData.markersList;
+        for (int i = 0; i < markerData.getSize(); i++) {
+            if (((String) markerList.get(i).get("MarkerTitle")).equals((String) event.get("MarkerTitle"))) {
+                marker = (HashMap<String,?>)markerList.get(i);
+                break;
+            }
+        }
+
+        markertitle = (TextView) v.findViewById(R.id.markertitle);
         eventdesc = (TextView) v.findViewById(R.id.eventdesc);
         eventname = (TextView) v.findViewById(R.id.eventname);
-        TextView sdate =(TextView)v.findViewById(R.id.textViewFromDateEvent);
-        TextView edate = (TextView)v.findViewById(R.id.textViewToDateEvent);
+        sdate =(TextView)v.findViewById(R.id.textViewFromDateEvent);
+        edate = (TextView)v.findViewById(R.id.textViewToDateEvent);
+        imageView = (ImageView)v.findViewById(R.id.imageView);
+
         eventname.setText((String) event.get("EventName"));
         eventdesc.setText((String) event.get("EventDesc"));
         markertitle.setText((String) event.get("MarkerTitle"));
         sdate.setText((String) event.get("Sdate"));
         edate.setText((String) event.get("Edate"));
+
+        imageView.setImageResource((Integer)marker.get("img"));
+
         return v;
     }
 

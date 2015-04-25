@@ -29,12 +29,12 @@ import java.util.Map;
 public class MapsActivity extends ActionBarActivity implements MyDialogFragment.OnFragmentInteractionListener,EventList.OnFragmentInteractionListener,
 EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionListener, MapFragment.OnFragmentInteractionListener,AboutUs.OnFragmentInteractionListener, FromDateTimeDilog.OnFragmentInteractionListener{
 
+    //Variable Declarations
     SharedPreferences sharedpreferences;
     public static final String MyPREFERENCES = "MyPrefs";
     private NavigationDrawerFragment mNavigationDrawerFragment;
     Toolbar mtoolbar;
     MarkerDataJson markerData;
-    List<Map<String, ?>> MarkerList;
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
     RecyclerView mDrawerlist;
@@ -42,24 +42,25 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
     RelativeLayout mDrawer;
     LinearLayout activity;
     EventDetailsJSon eventDetailsJSon;
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_maps);
+        //get shared preferences
         sharedpreferences = getApplicationContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor= sharedpreferences.edit();
-        editor.putBoolean("ultimateJugad",true).apply();
+        editor.putBoolean("Check",true).apply();
         activity = (LinearLayout) findViewById(R.id.linear);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
+
         if(eventDetailsJSon==null)
             eventDetailsJSon = new EventDetailsJSon(getApplicationContext());
          if(markerData==null)
-        markerData = new MarkerDataJson();
-
+            markerData = new MarkerDataJson();
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.container1);
         mDrawer = (RelativeLayout)findViewById(R.id.navigation_drawer);
@@ -81,26 +82,12 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
             public void onDrawerclosed(View view) {
                 super.onDrawerClosed(view);
             }
-
             public void onDrawerOpened(View Drawerview) {
                 super.onDrawerOpened(Drawerview);
-
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-
-        /*
-        GoogleMapOptions mapOptions = new GoogleMapOptions();
-        mMapFragment = SupportMapFragment.newInstance(mapOptions);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.map, mMapFragment)
-                .commit();
-        mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-        setUpMap();
-        //setUpMapIfNeeded();
-        */
 
         if(savedInstanceState == null) {
             getSupportFragmentManager()
@@ -122,23 +109,26 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
             case 1:
                getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, EventList.newInstance(eventDetailsJSon.getEventsList(),0))
-                       .addToBackStack(null)
+                        .addToBackStack(null)
                         .commit();
                 break;
             case 2:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,AddNewEvent.newInstance(eventDetailsJSon)).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container,AddNewEvent.newInstance(eventDetailsJSon))
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case 3:
                 Intent intent;
                 intent = new Intent(this,ViewPagerActivity.class);
                 intent.putExtra("EVENT_LIST", (java.io.Serializable) eventDetailsJSon.getEventsList());
-                startActivity(intent);                break;
+                startActivity(intent);
+                break;
             case 5:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, AboutUs.newInstance("1","2"))
+                        .replace(R.id.container, AboutUs.newInstance())
                         .addToBackStack(null)
                         .commit();
-                //send eventDetailsJSon to this activity using intent put method and retrieve it in viewPager activity
                 break;
             default:
                 getSupportFragmentManager().beginTransaction()
@@ -150,27 +140,18 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
         mDrawerLayout.closeDrawer(mDrawer);
     }
 
-
-
-
     @Override
     protected void onResume() {
         super.onResume();
-        /*
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.container, MapFragment.newInstance(markerData, eventDetailsJSon))
-                .commit();
-                */
         int size = sharedpreferences.getInt("size",-1);
-        if(sharedpreferences.getBoolean("ultimateJugad",true)) {
+        if(sharedpreferences.getBoolean("Check",true)) {
             try {
                 for (int i = 0; i < size; i++) {
                     HashMap<String, String> event = loadMap("event" + i);
                     eventDetailsJSon.eventsList.add(event);
                 }
                 SharedPreferences.Editor editor= sharedpreferences.edit();
-                editor.putBoolean("ultimateJugad",false).apply();
+                editor.putBoolean("Check",false).apply();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -200,7 +181,6 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_master_detail, menu);
-
         return true;
     }
 
@@ -224,9 +204,6 @@ EventDetail.OnFragmentInteractionListener, AddNewEvent.OnFragmentInteractionList
      * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
      * method in {@link #onResume()} to guarantee that it will be called.
      */
-
-
-
     /**
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
      * just add a marker near Africa.

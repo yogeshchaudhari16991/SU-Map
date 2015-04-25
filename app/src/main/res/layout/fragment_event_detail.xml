@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="gsadlivglsaiv ljk goslhg ljhsbd ljhg lkjhbsdljf bjhgc lhsbdf ljkhgscl  ljsbdf jgljcg jbvsdkc jghvk jhhvjk sfbljhg kksjdb ukyxg xkj bkjsv "
+            android:text=" "
             android:id="@+id/eventdesc"
             android:gravity="center"
             android:textColor="#ffffffff"
@@ -106,19 +106,9 @@
             android:text="Small Text"
             android:id="@+id/textViewToDateEvent"
             android:textColor="#ffffffff"
-            
+
             android:layout_toRightOf="@+id/etime"
             android:layout_alignTop="@+id/etime" />
-
-        <!--
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:id="@+id/imageView2"
-                    android:layout_below="@+id/imageView"
-                    android:layout_alignParentStart="true"
-                    android:alpha=".5"
-                    android:src="@drawable/ottotheorange" />-->
 
     </RelativeLayout>
 

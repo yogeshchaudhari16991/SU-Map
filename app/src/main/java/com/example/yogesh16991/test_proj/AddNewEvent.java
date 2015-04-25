@@ -1,8 +1,6 @@
+package com.example.yogesh16991.test_proj;
 
-
-        package com.example.yogesh16991.test_proj;
-
-        import android.app.Activity;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,62 +38,38 @@ import java.util.Set;
  * create an instance of this fragment.
  */
 public class AddNewEvent extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
     private static final int FROM_DATE = 0;
     private static final int TO_DATE = 1;
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     static EventDetailsJSon eventData;
     List<Map<String, ?>> EventCatList;
-
     static MarkerDataJson markerData;
     List<Map<String, ?>> MarkerList;
     private TextView fromDateResult;
     private TextView toDateResult;
     static Marker currentPlace;
     int currentIndex;
-    String dateTimeString = null;
-
     private OnFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * param param1 Parameter 1.
-     * param param2 Parameter 2.
      * @return A new instance of fragment AddNewEvent.
      */
-    // TODO: Rename and
-    //
-    //
-    // change types and number of parameters
     public static AddNewEvent newInstance(EventDetailsJSon eventDetailsJSon) {
         AddNewEvent fragment = new AddNewEvent();
         Bundle args = new Bundle();
         currentPlace = null;
-          /*  args.putString(ARG_PARAM1, param1);
-            args.putString(ARG_PARAM2, param2);*/
         fragment.setArguments(args);
-        // markerData = markerdata;
         eventData = eventDetailsJSon;
         return fragment;
-
     }
 
     public static AddNewEvent newInstance(EventDetailsJSon eventDetailsJSon, Marker current) {
         AddNewEvent fragment = new AddNewEvent();
         Bundle args = new Bundle();
         currentPlace = null;
-          /*  args.putString(ARG_PARAM1, param1);
-            args.putString(ARG_PARAM2, param2);*/
         fragment.setArguments(args);
-        // markerData = markerdata;
         currentPlace = current;
         eventData = eventDetailsJSon;
         return fragment;
@@ -110,81 +84,42 @@ public class AddNewEvent extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         markerData = new MarkerDataJson();
-        if (getArguments() != null) {
-           /*     mParam1 = getArguments().getString(ARG_PARAM1);
-                mParam2 = getArguments().getString(ARG_PARAM2);*/
-        }
     }
 
-    private List<String> readPlaceItems() throws JSONException {
-        List<String> templist= new ArrayList<String>();
-        MarkerList=markerData.getMarkersList();
-        Log.e("sdadada",MarkerList.toString());
-        currentIndex = 0;
-        for(int i=0;i<MarkerList.size();i++) {
-            Map<String, ?> placeMarker = markerData.getItem(i);
-            String Pname = placeMarker.get("MarkerTitle").toString();
-            if(currentPlace != null && (currentPlace.getTitle()).equalsIgnoreCase(Pname)){
-                currentIndex = i;
-                Toast.makeText(getActivity(),"in index : "+currentIndex,Toast.LENGTH_SHORT).show();
-            }
-            Log.e("rajas",Pname);
-            templist.add(Pname);
-        }
-        return templist;
-    }
-
-    private List<String> readCatagoryItems() throws JSONException {
-        List<String> templist= new ArrayList<String>();
-        templist.add("educational");
-        templist.add("food");
-        templist.add("sports");
-        templist.add("entertainment");
-        templist.add("others");
-
-
-        // List<String> al = new ArrayList<>();
-        // add elements to al, including duplicates
-        Set<String> hs = new HashSet<>();
-        hs.addAll(templist);
-        templist.clear();
-        templist.addAll(hs);
-        return templist;
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         setRetainInstance(true);
         final View rootView = inflater.inflate(R.layout.fragment_add_new_event, container, false);
-
-        TextView fromdate = (TextView) rootView.findViewById(R.id.fromDate);
-        fromDateResult = (TextView) rootView.findViewById(R.id.fromDateResult);
-        toDateResult = (TextView)rootView.findViewById(R.id.toDateResult);
-        fromdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // dateTimeString = null;
-                showDatePickerDialog(0);
-
-            }
-        });
-        TextView todate = (TextView)rootView.findViewById(R.id.toDate);
-
-        todate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //dateTimeString = null;
-                showDatePickerDialog(1);
-
-            }
-        });
-
         List<String> placesSpinerList = new ArrayList<String>();
         List<String> catagorySpinerList = new ArrayList<String>();
         final Spinner placesSpiner = (Spinner) rootView.findViewById(R.id.placeSpinner);
         final Spinner catagorySpiner = (Spinner) rootView.findViewById(R.id.catagoryspinner);
         final HashMap event = new HashMap();
+        Button addEvent = (Button) rootView.findViewById(R.id.btn_EventOk);
+        final TextView eventTitle = (TextView) rootView.findViewById(R.id.eventName);
+        final TextView eventDesc = (TextView) rootView.findViewById(R.id.editText2);
+        final TextView sdate = (TextView)rootView.findViewById(R.id.fromDateResult);
+        final TextView edate = (TextView)rootView.findViewById(R.id.toDateResult);
+        TextView fromdate = (TextView) rootView.findViewById(R.id.fromDate);
+        TextView todate = (TextView)rootView.findViewById(R.id.toDate);
+        fromDateResult = (TextView) rootView.findViewById(R.id.fromDateResult);
+        toDateResult = (TextView)rootView.findViewById(R.id.toDateResult);
+
+        fromdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               showDatePickerDialog(0);
+            }
+        });
+        todate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog(1);
+            }
+        });
+
         try {
             placesSpinerList = readPlaceItems();
             catagorySpinerList = readCatagoryItems();
@@ -198,7 +133,7 @@ public class AddNewEvent extends Fragment {
         placesSpiner.setSelection(currentIndex);
 
         ArrayAdapter<String> dataAdapterCatagory = new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_spinner_item, catagorySpinerList);
+        android.R.layout.simple_spinner_item, catagorySpinerList);
         dataAdapterCatagory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catagorySpiner.setAdapter(dataAdapterCatagory);
 
@@ -209,42 +144,31 @@ public class AddNewEvent extends Fragment {
                 int index = 0;
                 ImageView imageView = (ImageView) rootView.findViewById(R.id.placeImage);
                 int size = markerData.getSize();
-                //Toast.makeText(getActivity(), "size= " + size, Toast.LENGTH_SHORT).show();
                 for (int i = 0; i < size; i++) {
                     if ((markerData.getItem(i).get("MarkerTitle").toString()).equals(finalPlacesSpinerList.get(position).toString())) {
                         index = i;
-                        //Toast.makeText(getActivity(), "in here : " + i, Toast.LENGTH_SHORT).show();
                         break;
                     }
                 }
-                imageView.setImageResource((Integer) markerData.getItem(index).get("img"));// Log.e("sdadssadadsadad afagsdg sdg sdgdg","ghasdgfashgdfiuc kgficuyasfhgsgf");
-                //Toast.makeText(getActivity(), "in listner " + index, Toast.LENGTH_SHORT).show();
+                imageView.setImageResource((Integer) markerData.getItem(index).get("img"));
                 event.put("MarkerTitle",finalPlacesSpinerList.get(position).toString());
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
-
         });
+
         final List<String> finalCategorySpinerList = catagorySpinerList;
         catagorySpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 event.put("Category",finalCategorySpinerList.get(i).toString());
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
-        Button addEvent = (Button) rootView.findViewById(R.id.btn_EventOk);
-        final TextView eventTitle = (TextView) rootView.findViewById(R.id.eventName);
-        final TextView eventDesc = (TextView) rootView.findViewById(R.id.editText2);
-        final TextView sdate = (TextView)rootView.findViewById(R.id.fromDateResult);
-        final TextView edate = (TextView)rootView.findViewById(R.id.toDateResult);
 
         addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,44 +177,30 @@ public class AddNewEvent extends Fragment {
                 event.put("EventDesc",eventDesc.getText().toString());
                 event.put("Sdate",sdate.getText().toString());
                 event.put("Edate",edate.getText().toString());
-                eventData.addEvent((String) event.get("EventName"), (String) event.get("EventDesc"), (String) event.get("MarkerTitle"), (String) event.get("Category"),(String)event.get("Sdate"),(String)event.get("Edate"));
+                eventData.addEvent((String) event.get("EventName"),
+                        (String) event.get("EventDesc"),
+                        (String) event.get("MarkerTitle"),
+                        (String) event.get("Category"),
+                        (String)event.get("Sdate"),
+                        (String)event.get("Edate"));
                 getFragmentManager().beginTransaction().replace(R.id.container,MapFragment.newInstance(markerData,eventData)).commit();
             }
         });
-
         return rootView;
     }
-
-    private void showDatePickerDialog(int option) {
-        Date date= new Date(System.currentTimeMillis());
-        FromDateTimeDilog dialog= FromDateTimeDilog.newInstance(date);
-        if(option==0)
-        dialog.setTargetFragment(AddNewEvent.this, FROM_DATE);
-        else if (option == 1)
-            dialog.setTargetFragment(AddNewEvent.this, TO_DATE);
-        dialog.show(getFragmentManager(), "Datepicker Dialog");
-    }
-   /* private void showDatePickerDialog1() {
-        Date date= new Date(System.currentTimeMillis());
-        FromDateTimeDilog dialog1= FromDateTimeDilog.newInstance(date);
-        dialog1.setTargetFragment(AddNewEvent.this, TO_DATE);
-        dialog1.show(getFragmentManager(), "Datepicker Dialog");
-    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Date date=(Date)data.getSerializableExtra(FromDateTimeDilog.ARGS_DATE);
         String time = data.getExtras().get(FromDateTimeDilog.ARGS_Time).toString();
-        //Toast.makeText(getActivity(),"requestcode = "+requestCode+date.toString() + "   " + time,Toast.LENGTH_SHORT).show();
-       switch(requestCode){
+        switch(requestCode){
            case 0:
                fromDateResult.setText(date.toString() + "   " + time);
                break;
            case 1:
                toDateResult.setText(date.toString() + "   " + time);
                break;
-       }
-
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -330,6 +240,44 @@ public class AddNewEvent extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+    private List<String> readPlaceItems() throws JSONException {
+        List<String> tempMarkerList= new ArrayList<String>();
+        MarkerList=markerData.getMarkersList();
+        currentIndex = 0;
+        for(int i=0;i<MarkerList.size();i++) {
+            Map<String, ?> placeMarker = markerData.getItem(i);
+            String Pname = placeMarker.get("MarkerTitle").toString();
+            if(currentPlace != null && (currentPlace.getTitle()).equalsIgnoreCase(Pname)){
+                currentIndex = i;
+            }
+            tempMarkerList.add(Pname);
+        }
+        return tempMarkerList;
+    }
+
+    private List<String> readCatagoryItems() throws JSONException {
+        List<String> tempCategoryList= new ArrayList<String>();
+        tempCategoryList.add("educational");
+        tempCategoryList.add("food");
+        tempCategoryList.add("sports");
+        tempCategoryList.add("entertainment");
+        tempCategoryList.add("others");
+        Set<String> hs = new HashSet<>();
+        hs.addAll(tempCategoryList);
+        tempCategoryList.clear();
+        tempCategoryList.addAll(hs);
+        return tempCategoryList;
+    }
+
+    private void showDatePickerDialog(int option) {
+        Date date= new Date(System.currentTimeMillis());
+        FromDateTimeDilog dialog= FromDateTimeDilog.newInstance(date);
+        if(option==0)
+            dialog.setTargetFragment(AddNewEvent.this, FROM_DATE);
+        else if (option == 1)
+            dialog.setTargetFragment(AddNewEvent.this, TO_DATE);
+        dialog.show(getFragmentManager(), "Datepicker Dialog");
     }
 
 }

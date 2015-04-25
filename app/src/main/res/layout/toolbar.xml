@@ -6,8 +6,6 @@
         android:id="@+id/toolbar"
         android:layout_alignParentStart="true"
         android:layout_gravity="center_horizontal"
-        android:background="#eb161616"
-        android:theme="@style/Theme.AppCompat"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         >
-
     </android.support.v7.widget.Toolbar>

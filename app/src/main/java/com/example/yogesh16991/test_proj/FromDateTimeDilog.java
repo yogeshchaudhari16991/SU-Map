@@ -36,13 +36,9 @@ public class FromDateTimeDilog extends android.support.v4.app.DialogFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String ARGS_DATE = "FromDate";
     public static final String ARGS_Time = "FromTime";
-    //public static final String ARGS_TIME = "FromTime";
     private Date fromdate;
-   // private Time fromtime;
     private String format = "";
     private StringBuilder timestring ;
-
-
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -56,20 +52,16 @@ public class FromDateTimeDilog extends android.support.v4.app.DialogFragment {
         FromDateTimeDilog fragment = new FromDateTimeDilog();
         Bundle args = new Bundle();
         args.putSerializable(ARGS_DATE, fromdate);
-       // args.putSerializable(ARGS_TIME, fromtime);
         fragment.setArguments(args);
         return fragment;
     }
 
     public FromDateTimeDilog() {
-
         // Required empty public constructor
     }
 
-
      public Dialog onCreateDialog(Bundle savedInstanceState) {
         fromdate = (Date) getArguments().getSerializable(ARGS_DATE);
-      //  fromtime = (Time) getArguments().getSerializable(ARGS_TIME);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fromdate);
         int year =calendar.get(Calendar.YEAR);
@@ -78,8 +70,7 @@ public class FromDateTimeDilog extends android.support.v4.app.DialogFragment {
         final int hour = calendar.get(Calendar.HOUR_OF_DAY);
         final int min = calendar.get(Calendar.MINUTE);
         View v = getActivity().getLayoutInflater().inflate(R.layout.fragment_from_date_time_dilog,null);
-         final TimePicker timePicker = (TimePicker) v.findViewById(R.id.fomtimePicker);
-        // time = (TextView) findViewById(R.id.textView1);
+        final TimePicker timePicker = (TimePicker) v.findViewById(R.id.fomtimePicker);
         final DatePicker datePicker = (DatePicker)v.findViewById(R.id.fromdatePicker);
         datePicker.init(year,month,day, new DatePicker.OnDateChangedListener() {
             @Override
@@ -96,17 +87,9 @@ public class FromDateTimeDilog extends android.support.v4.app.DialogFragment {
                         if(getTargetFragment()!=null){
                             Intent i = new Intent();
                             fromdate= new GregorianCalendar(datePicker.getYear(),datePicker.getMonth(),datePicker.getDayOfMonth()).getTime();
-
                             getArguments().putSerializable(ARGS_DATE,fromdate);
-
-
                             i.putExtra(ARGS_DATE, fromdate);
                             i.putExtra(ARGS_Time, timePicker.getCurrentHour().toString()+":"+timePicker.getCurrentMinute().toString());
-
-
-                            //i.putExtra("min ", timePicker.getCurrentMinute().toString());
-                          //  i.putExtra(ARGS_TIME, fromtime);
-                            // Toast.makeText(getActivity(),"nothing returned"+"  " + mname +"   "+check,Toast.LENGTH_SHORT).show();
                             getTargetFragment().onActivityResult(getTargetRequestCode(),Activity.RESULT_OK,i);
                         }
                         else
@@ -133,16 +116,6 @@ public class FromDateTimeDilog extends android.support.v4.app.DialogFragment {
                 .append(" ").append(format));
         return timestring;
     }
-
-    /*
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_from_date_time_dilog, container, false);
-    }
-    */
-
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

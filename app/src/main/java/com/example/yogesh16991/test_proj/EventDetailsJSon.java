@@ -11,18 +11,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-/**
- * Created by HP on 20-04-2015.
- */
 public class EventDetailsJSon{
+
+    public static final String MyPREFERENCES = "MyPrefs";
+    SharedPreferences sharedpreferences;
     List<Map<String,?>> eventsList;
+
+    public EventDetailsJSon(Context context){
+       eventsList = new ArrayList<Map<String,?>>();
+       sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+    }
 
     public List<Map<String, ?>> getEventsList() {
        return eventsList;
     }
-    public static final String MyPREFERENCES = "MyPrefs";
-    SharedPreferences sharedpreferences;
+
     public int getSize(){
         return eventsList.size();
     }
@@ -37,21 +40,8 @@ public class EventDetailsJSon{
         eventsList.add(createEvent(name,desc,marker,category,sdate,edate));
     }
 
-    public EventDetailsJSon(Context context){
-        String eventDesc = null;
-        String markerTitle = null;
-        String eventName = null;
-        String category = null;
-        eventsList = new ArrayList<Map<String,?>>();
-        sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
-    }
-
-
-
     private HashMap<String, String> createEvent(String eventname,String eventdesc,String markertitle,String category,String sdate, String edate) {
         int size;
-        //Log.e("createEvent", "inCreate event");
         HashMap<String, String> event = new HashMap<>();
         event.put("EventName",eventname);
         event.put("EventDesc",eventdesc);
@@ -64,13 +54,12 @@ public class EventDetailsJSon{
         saveMap(event, "event"+size);
         size++;
         editor.putInt("size",size).apply();
-        editor.putBoolean("ultimateJugad",true);
+        editor.putBoolean("Check",true);
 
         return event;
     }
 
     private void saveMap(HashMap<String,String> inputMap, String mapStr){
-
         if (sharedpreferences!= null){
             JSONObject jsonObject = new JSONObject(inputMap);
             String jsonString = jsonObject.toString();
@@ -79,22 +68,4 @@ public class EventDetailsJSon{
             editor.apply();
         }
     }
-
-
-    public String loadEventJSONFromAsset(Context context) {
-        String json = null;
-        try {
-            InputStream is = context.getResources().openRawResource(R.raw.events);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-
 }

@@ -32,7 +32,7 @@ class ViewHolder{
 public class MyBaseAdapter_List extends BaseAdapter {
     private final Context mContext;
     private final List<Map<String, ?>>  eventDetailsJson;
-    private DisplayMetrics metrics_; ///////////////////////////////////
+    private DisplayMetrics metrics_;
 
     public MyBaseAdapter_List(Context context, List<Map<String, ?>> strings,DisplayMetrics metrics){
         mContext = context;
@@ -40,12 +40,9 @@ public class MyBaseAdapter_List extends BaseAdapter {
         metrics_ = metrics;
     }
 
-
-
     @Override
     public boolean isEnabled(int position){
         if(position==0 || position==1 || position==2){
-
             return false;
         }
         return true;
@@ -66,8 +63,6 @@ public class MyBaseAdapter_List extends BaseAdapter {
         return 0;
     }
 
-
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View rowView;
@@ -77,25 +72,14 @@ public class MyBaseAdapter_List extends BaseAdapter {
             rowView = inflater.inflate(R.layout.list_row, parent, false);
             holder = new ViewHolder();
             holder.title = (TextView) rowView.findViewById(R.id.place_title);
-
-
             rowView.setTag(holder);
         } else {
             rowView = convertView;
             holder = (ViewHolder) rowView.getTag();
-
         }
-        //Toast.makeText(context, position, Toast.LENGTH_SHORT).show();
-
-
         holder.title.setText(eventDetailsJson.get(position).get("EventName").toString());
         Animation animation = null;
         animation = AnimationUtils.loadAnimation(mContext, R.anim.hyperspace_out);
-/*        if(position%2==0){
-            holder.title.setTextColor(Color.YELLOW);
-        } else {
-            holder.title.setTextColor(Color.RED);
-        }*/
         rowView.startAnimation(animation);
         return rowView;
     }

@@ -7,14 +7,13 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/image"
-
         android:scaleType="fitXY"
-        />
+    />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Movie name"
+        android:text="name"
         android:id="@+id/name"
         android:layout_alignParentTop="true"
         android:layout_marginTop="15dp"

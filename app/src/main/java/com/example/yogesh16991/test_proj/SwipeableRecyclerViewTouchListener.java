@@ -1,8 +1,5 @@
 package com.example.yogesh16991.test_proj;
 
-/**
- * Created by Yogesh16991 on 4/24/2015.
- */
 
 import java.util.List;
 
